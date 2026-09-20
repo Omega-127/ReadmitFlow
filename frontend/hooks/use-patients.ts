@@ -110,9 +110,9 @@ export function usePatients() {
         if (searchQuery.trim()) {
           const q = searchQuery.toLowerCase().trim();
           const matchId = p.id.toLowerCase().includes(q);
-          const matchName = p.display_name.toLowerCase().includes(q);
-          const matchCond = p.medical_condition.toLowerCase().includes(q);
-          const matchHosp = p.hospital.toLowerCase().includes(q);
+          const matchName = (p.display_name || '').toLowerCase().includes(q);
+          const matchCond = (p.medical_condition || '').toLowerCase().includes(q);
+          const matchHosp = p.hospital?.toLowerCase().includes(q) || false;
           const matchMed = p.medication?.toLowerCase().includes(q) || false;
           if (!matchId && !matchName && !matchCond && !matchHosp && !matchMed) {
             return false;

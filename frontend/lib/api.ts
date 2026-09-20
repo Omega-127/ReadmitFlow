@@ -485,7 +485,10 @@ const MOCK_PATIENTS: Patient[] = [
 async function fetchWithFallback<T>(url: string, fallbackData: T): Promise<{ data: T; isMock: boolean }> {
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 2000); // 2-second timeout
+    // Increased to 8s: Render free tier has cold-start latency up to ~5s.
+    // The previous 2s timeout caused the backend to silently time out → mock
+    // data shown → real data arrived later → looked like patients "going to zero".
+    const timeoutId = setTimeout(() => controller.abort(), 8000);
 
     const res = await fetch(url, {
       signal: controller.signal,
@@ -549,7 +552,17 @@ export const api = {
     };
 
     const result = await fetchWithFallback<PatientsResponse>(url, fallback);
-    return { response: result.data, isMock: result.isMock };
+
+    // Handle both envelope { patients: [...] } and legacy raw-list [] response shapes
+    const rawData = result.data as unknown;
+    let response: PatientsResponse;
+    if (Array.isArray(rawData)) {
+      response = { demo_only: true, data_notice: fallback.data_notice, patients: rawData as Patient[], total: (rawData as Patient[]).length };
+    } else {
+      const envelope = rawData as PatientsResponse;
+      response = { ...envelope, patients: envelope.patients || [] };
+    }
+    return { response, isMock: result.isMock };
   },
 
   async getPatientById(patientId: string): Promise<{ response: PatientDetailResponse; isMock: boolean }> {
@@ -563,7 +576,17 @@ export const api = {
     };
 
     const result = await fetchWithFallback<PatientDetailResponse>(url, fallback);
-    return { response: result.data, isMock: result.isMock };
+
+    // Handle both envelope { patient: {...} } and raw object response shapes
+    const rawData = result.data as unknown;
+    let response: PatientDetailResponse;
+    if (rawData && typeof rawData === 'object' && !('patient' in (rawData as object))) {
+      // Raw patient object (no envelope)
+      response = { demo_only: true, data_notice: fallback.data_notice, patient: rawData as Patient };
+    } else {
+      response = rawData as PatientDetailResponse;
+    }
+    return { response, isMock: result.isMock };
   },
 
   async getMetrics(): Promise<{ response: ModelEvaluationData; isMock: boolean }> {

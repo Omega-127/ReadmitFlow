@@ -97,12 +97,25 @@ FALLBACK_DEMO_PATIENTS = {
 def _format_patient_record(p: dict) -> dict:
     """Format raw patient dictionary to ensure all required fields are normalized."""
     pid = str(p.get("id", ""))
-    tier = str(p.get("risk_tier", "LOW")).upper()
-    if tier not in {"HIGH", "MEDIUM", "LOW"}:
-        tier = "LOW"
+
+    # Normalize risk_tier to lowercase to match frontend RiskTier type ('low'|'medium'|'high')
+    tier_raw = str(p.get("risk_tier", "low")).lower()
+    if tier_raw not in {"high", "medium", "low"}:
+        tier_raw = "low"
 
     diag = p.get("primary_diagnosis") or p.get("medical_condition") or "Other"
     ins = p.get("insurance") or p.get("insurance_provider") or "Unknown"
+
+    # Hospital: use dedicated field or fall back to a placeholder
+    hospital = (
+        p.get("hospital")
+        or p.get("facility")
+        or p.get("admitting_hospital")
+        or "Demo Hospital"
+    )
+
+    # Admission date: prefer ISO string; fall back to constructing from days_since
+    admission_date = p.get("admission_date") or p.get("admission_date_iso") or ""
 
     drivers = []
     for d in p.get("risk_drivers", []):
@@ -124,7 +137,25 @@ def _format_patient_record(p: dict) -> dict:
             if flag_str not in flags:
                 flags.append(flag_str)
 
-    actions = list(p.get("action_templates", p.get("recommendation_templates", [])))
+    confidence_level = p.get("confidence_level", "high" if not flags else "review")
+
+    # Build confidence object expected by the frontend
+    raw_confidence = p.get("confidence")
+    if isinstance(raw_confidence, dict):
+        confidence = raw_confidence
+    else:
+        confidence = {
+            "level": confidence_level,
+            "summary": "Demo synthetic record. Clinical validation not available.",
+            "flags": flags,
+        }
+
+    # Prefer recommendation_templates; fall back to action_templates
+    actions = list(
+        p.get("recommendation_templates")
+        or p.get("action_templates")
+        or []
+    )
     if not actions:
         actions = ["Schedule follow-up visit"]
 
@@ -134,6 +165,15 @@ def _format_patient_record(p: dict) -> dict:
         "display_name": p.get("display_name", f"Patient {pid}"),
         "age": int(p.get("age", 50)),
         "gender": str(p.get("gender", "M")),
+        # Fields the frontend Patient type requires
+        "hospital": str(hospital),
+        "admission_date": str(admission_date),
+        "discharge_date": str(p.get("discharge_date", "")),
+        "blood_type": p.get("blood_type"),
+        "billing_amount": p.get("billing_amount"),
+        "medication": p.get("medication"),
+        "test_results": p.get("test_results"),
+        # Existing fields
         "admission_count": int(p.get("admission_count", 0)),
         "days_since_last_admission": int(p.get("days_since_last_admission", 90)),
         "primary_diagnosis": str(diag),
@@ -144,10 +184,12 @@ def _format_patient_record(p: dict) -> dict:
         "has_pcp": bool(p.get("has_pcp", True)),
         "missing_fields": missing,
         "risk_score": float(p.get("risk_score", 0.2)),
-        "risk_tier": tier,
+        "risk_tier": tier_raw,  # now lowercase: 'low' | 'medium' | 'high'
         "risk_drivers": drivers,
         "confidence_flags": flags,
-        "confidence_level": p.get("confidence_level", "high" if not flags else "review"),
+        "confidence_level": confidence_level,
+        "confidence": confidence,
+        "recommendation_templates": actions,
         "action_templates": actions,
         "assigned_action_status": p.get("assigned_action_status", "pending"),
         "demo_only": True,
