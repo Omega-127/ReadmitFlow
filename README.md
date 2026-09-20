@@ -7,9 +7,10 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=FFD43B)](https://www.python.org/)
 [![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat-square&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)](https://www.docker.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-334E68?style=flat-square)](./LICENSE)
 
-**ReadmitFlow** is an explainable discharge decision-support prototype. It helps care teams identify patients at potential readmission risk, understand the reasons behind a score, and assign human-approved follow-up actions.
+**ReadmitFlow** is an explainable discharge decision-support prototype. It helps care teams identify patients at potential readmission risk, understand the reasons behind a score, and assign human-approved follow-up actions — with shift handoff export and guided judge demo scenarios.
 
 > Built with synthetic data for a hackathon prototype. ReadmitFlow is not a diagnostic tool and must not be used to make autonomous clinical decisions.
 
@@ -19,18 +20,22 @@ A prediction score alone does not improve follow-up care. ReadmitFlow closes the
 
 ```text
 Prioritize high-risk patients -> understand risk drivers -> approve a follow-up action
--> assign limited care capacity -> retain an auditable action record
+-> assign limited care capacity -> export shift handoff -> retain an auditable action record
 ```
 
 ## Key features
 
-- **Command Center** - searchable, prioritized patient queue with risk tiers and capacity summary.
-- **Patient Review** - patient-level score, plain-language risk drivers, confidence, and data-quality flags.
-- **Human-approved actions** - assign a follow-up action, owner, due date, and status.
-- **Override and audit trail** - staff can adjust a recommendation with a recorded reason.
-- **Care Capacity Planner** - allocate limited follow-up calls or specialist-review slots responsibly.
-- **Model and Safety page** - show evaluation metrics, assumptions, limitations, and decision-support boundaries.
-- **Demo-mode persistence** - actions, overrides, capacity settings, and audit events survive refresh in browser local storage.
+- **Command Center** — searchable, prioritized patient queue with risk tiers and capacity summary.
+- **Patient Review** — patient-level score, plain-language risk drivers, confidence, and data-quality flags.
+- **Human-approved actions** — assign a follow-up action, owner, due date, and status.
+- **Override and audit trail** — staff can adjust a recommendation with a recorded reason.
+- **Care Capacity Planner** — allocate limited follow-up calls or specialist-review slots responsibly.
+- **Shift Handoff Export** — generate and download a shift handoff summary as TXT, CSV, or PDF for care coordinator transitions.
+- **Score Patient** — enter synthetic patient characteristics and score them live via `POST /predict`; new patients are added to the local queue.
+- **Judge Demo Scenarios** — five pre-built guided scenarios (high-risk triage, override & audit, capacity crunch, live scoring, model honesty) with a step-by-step scenario coach overlay.
+- **Model and Safety page** — show evaluation metrics, confusion matrix, assumptions, limitations, and decision-support boundaries.
+- **Demo-mode persistence** — actions, overrides, capacity settings, and audit events survive refresh in browser local storage.
+- **Graceful fallback** — the frontend includes rich mock patients and works fully offline if the backend is unreachable.
 
 ## Architecture
 
@@ -38,18 +43,20 @@ Prioritize high-risk patients -> understand risk drivers -> approve a follow-up 
 flowchart LR
   U[Care coordinator / judge] --> F[Next.js frontend]
   F -->|Read patient data and metrics| A[FastAPI API]
-  F -->|Actions, overrides, capacity| L[Browser local storage]
+  F -->|Actions, overrides, capacity,\nhandoffs, scenarios| L[Browser local storage]
   A --> D[Synthetic scored patients]
   A --> M[scikit-learn model artifact]
   P[Python training pipeline] --> D
   P --> M
+  E[Synthea ETL] --> P
 ```
 
 | Layer | Technology | Responsibility |
 | --- | --- | --- |
-| Frontend | Next.js, TypeScript, Tailwind CSS, shadcn/ui, Recharts | Product experience and local workflow state |
-| API | FastAPI, Pydantic | Patient, metric, and manual-prediction endpoints |
-| ML | pandas, scikit-learn, joblib | Data preparation, baseline model, evaluation, explanations |
+| Frontend | Next.js 14, TypeScript, Tailwind CSS, shadcn/ui, jsPDF, Lucide | Product experience, local workflow state, shift handoff export |
+| API | FastAPI, Pydantic v2, Uvicorn | Patient, metric, and manual-prediction endpoints |
+| ML | pandas, scikit-learn, joblib, NumPy | Data preparation, Synthea ETL, baseline model, evaluation, explanations |
+| Containerization | Docker, Docker Compose | Local multi-service orchestration |
 | Deployment | Vercel + Render | Hosted frontend and API; local fallback retained for demos |
 
 ## Product flow
@@ -58,9 +65,10 @@ flowchart LR
 2. Review a patient score, its risk drivers, and input-data confidence.
 3. Select or adjust a follow-up template; a staff member retains final authority.
 4. Assign an owner, due date, and available capacity slot.
-5. Review the recorded action and override history.
+5. Export a **shift handoff** (TXT, CSV, or PDF) for the next care coordinator.
+6. Review the recorded action and override history.
 
-## Planned routes
+## Routes
 
 | Route | Purpose |
 | --- | --- |
@@ -69,14 +77,15 @@ flowchart LR
 | `/capacity` | Care Capacity Planner |
 | `/model-safety` | Model metrics, limitations, and safety information |
 
-## Planned API
+## API
 
 | Endpoint | Purpose |
 | --- | --- |
-| `GET /patients` | Return scored, preprocessed demo patients. |
+| `GET /patients` | Return scored, preprocessed demo patients. Supports `query`/`search`, `risk_tier`/`tier`, and `limit` params. |
 | `GET /patients/{id}` | Return one patient, drivers, flags, and recommendation templates. |
-| `POST /predict` | Validate manual inputs and return a demo-only result until a model is approved. |
+| `POST /predict` | Validate manual inputs and return a demo-only risk result. |
 | `GET /metrics` | Return validation metrics, preprocessing notes, and limitations. |
+| `GET /health` | Service health check. |
 
 ## Local development
 
@@ -103,25 +112,44 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 
-The frontend reads the API URL from `NEXT_PUBLIC_API_URL`. Copy `.env.example` to `.env.local` and point it at the local FastAPI server.
+The frontend reads the API URL from `NEXT_PUBLIC_API_URL`. Copy `.env.example` to `.env.local` and point it at the local FastAPI server. If the backend is unreachable, the frontend automatically falls back to built-in mock data.
+
+### Docker Compose
+
+```bash
+docker compose up --build
+# Backend: http://localhost:8000
+# Frontend: http://localhost:3000
+```
+
+## Deployment
+
+- **Backend** → Render (Docker). Use the root `render.yaml` for blueprint deployment, or deploy manually. See `docs/DEPLOYMENT.md` for detailed instructions.
+- **Frontend** → Vercel. Set `NEXT_PUBLIC_API_URL` to your Render backend URL.
+- Each service has its own `Dockerfile`.
 
 ## Data and responsible use
 
 - Use only synthetic or de-identified data in this prototype.
 - Default training data is **Synthea** (COVID-19 10K CSV) with a derived 30-day inpatient readmission label. See `dataset/synthea/README.md`.
+- The Synthea ETL (`ml/src/synthea_etl.py`) extracts encounter-level features and a binary readmission target from raw CSV exports.
 - Recommendations are review templates, not medication, treatment, or diagnostic advice.
 - Staff can override any recommendation, and the reason is retained in the audit history.
 - The prototype has no authentication, EHR integration, real messaging, or production-grade security.
 
 ## Demo checklist
 
-- [ ] Patient queue loads with low-, medium-, and high-risk examples.
-- [ ] Patient review shows drivers and confidence/data-quality flags.
-- [ ] Action assignment, override, and audit history persist after refresh.
-- [ ] Capacity assignment cannot exceed configured limits.
-- [ ] Model/Safety page shows validation metrics and limitations.
+- [x] Patient queue loads with low-, medium-, and high-risk examples.
+- [x] Patient review shows drivers and confidence/data-quality flags.
+- [x] Action assignment, override, and audit history persist after refresh.
+- [x] Capacity assignment cannot exceed configured limits.
+- [x] Model/Safety page shows validation metrics and limitations.
+- [x] Shift handoff export (TXT, CSV, PDF) available from Patient Review.
+- [x] Score Patient dialog scores new synthetic cases via POST /predict.
+- [x] Judge demo scenarios guide structured presentations.
+- [x] Docker Compose orchestration works locally.
 - [ ] Hosted deployment and local fallback are tested before presentation.
 
 ## License
 
-This project is intended for educational and hackathon use. Add an MIT `LICENSE` file before publishing the repository.
+This project is intended for educational and hackathon use. See the [LICENSE](./LICENSE) file.

@@ -10,7 +10,21 @@
 | --- | --- | --- |
 | `demo_only` | boolean | Indicates that results are not clinical predictions. |
 | `data_notice` | string | Synthetic-data and decision-support warning for UI display. |
-| `generated_at` | ISO 8601 datetime | Time that the response was prepared. |
+| `generated_at` | ISO 8601 datetime | Time that the response was prepared (health endpoint only). |
+
+## `GET /`
+
+Returns root service information and safety boundaries.
+
+```json
+{
+  "service": "ReadmitFlow API",
+  "version": "0.1.0",
+  "demo_only": true,
+  "data_notice": "Synthetic demo data only. Not for diagnosis or autonomous clinical decisions.",
+  "docs_url": "/docs"
+}
+```
 
 ## `GET /health`
 
@@ -33,8 +47,10 @@ Returns a prioritized, paginated list of synthetic patients.
 
 | Name | Type | Required | Rules |
 | --- | --- | --- | --- |
-| `query` | string | No | Searches display name or identifier. |
+| `query` | string | No | Searches patient ID, display name, or medical condition. |
+| `search` | string | No | Alias for `query` (takes precedence if both provided). |
 | `risk_tier` | `low`, `medium`, `high` | No | Filters by displayed tier. |
+| `tier` | `low`, `medium`, `high` | No | Alias for `risk_tier` (takes precedence if both provided). |
 | `limit` | integer | No | Default `25`; minimum `1`; maximum `100`. |
 
 ### Response
@@ -45,17 +61,44 @@ Returns a prioritized, paginated list of synthetic patients.
   "data_notice": "Synthetic demo data. Not for diagnosis or autonomous clinical decisions.",
   "patients": [
     {
-      "id": "PT-1001",
-      "display_name": "Patient PT-1001",
-      "age": 67,
-      "medical_condition": "Diabetes",
-      "admission_type": "Urgent",
-      "risk_score": 0.78,
+      "id": "PAT-0001",
+      "display_name": "Patient PAT-0001",
+      "age": 72,
+      "gender": "Female",
+      "blood_type": "O+",
+      "medical_condition": "Heart Failure",
+      "admission_date": "2026-09-08",
+      "admission_type": "Emergency",
+      "discharge_date": "2026-09-15",
+      "hospital": "Metropolitan General Hospital",
+      "insurance_provider": "Medicare",
+      "billing_amount": 24500.0,
+      "medication": "Furosemide",
+      "test_results": "Abnormal",
+      "risk_score": 0.88,
       "risk_tier": "high",
       "confidence_level": "review",
+      "confidence_flags": ["Post-discharge context review recommended"],
+      "confidence": {
+        "level": "review",
+        "summary": "Demographic and admission data complete; discharge summary requires clinical validation.",
+        "flags": ["Post-discharge context review recommended"]
+      },
+      "risk_drivers": [
+        {
+          "label": "Emergency admission with cardiac condition",
+          "direction": "increases",
+          "summary": "Emergency admission for heart failure is heavily associated with elevated post-discharge risk in demo models."
+        }
+      ],
+      "recommendation_templates": [
+        "Care-coordinator 48-hour follow-up call",
+        "Medication reconciliation review"
+      ],
       "assigned_action_status": "pending"
     }
-  ]
+  ],
+  "total": 1
 }
 ```
 
@@ -70,31 +113,50 @@ Returns one synthetic patient with explanation and action-template data.
   "demo_only": true,
   "data_notice": "Synthetic demo data. Not for diagnosis or autonomous clinical decisions.",
   "patient": {
-    "id": "PT-1001",
-    "display_name": "Patient PT-1001",
-    "age": 67,
+    "id": "PAT-0001",
+    "display_name": "Patient PAT-0001",
+    "age": 72,
     "gender": "Female",
-    "medical_condition": "Diabetes",
-    "admission_type": "Urgent",
-    "risk_score": 0.78,
+    "blood_type": "O+",
+    "medical_condition": "Heart Failure",
+    "admission_date": "2026-09-08",
+    "admission_type": "Emergency",
+    "discharge_date": "2026-09-15",
+    "hospital": "Metropolitan General Hospital",
+    "insurance_provider": "Medicare",
+    "billing_amount": 24500.0,
+    "medication": "Furosemide",
+    "test_results": "Abnormal",
+    "risk_score": 0.88,
     "risk_tier": "high",
     "risk_drivers": [
       {
-        "label": "Urgent admission context",
+        "label": "Emergency admission with cardiac condition",
         "direction": "increases",
-        "summary": "This available admission field contributed to the demo score."
+        "summary": "Emergency admission for heart failure is heavily associated with elevated post-discharge risk in demo models."
+      },
+      {
+        "label": "Advanced age (>70)",
+        "direction": "increases",
+        "summary": "Elderly patient demographic increases care coordination requirements."
       }
     ],
     "confidence": {
       "level": "review",
-      "summary": "One or more fields need review before relying on this score.",
-      "flags": ["Incomplete discharge-context field"]
+      "summary": "Demographic and admission data complete; discharge summary requires clinical validation.",
+      "flags": ["Post-discharge context review recommended"]
     },
     "recommendation_templates": [
-      "Care-coordinator follow-up call",
+      "Care-coordinator 48-hour follow-up call",
       "Medication reconciliation review",
-      "Specialist-review request"
-    ]
+      "Cardiology specialist consultation"
+    ],
+    "assigned_action_status": "pending",
+    "admission_count": 0,
+    "days_since_last_admission": 90,
+    "has_pcp": true,
+    "missing_fields": [],
+    "data_notice": "Synthetic demo data only. Not for diagnosis or autonomous clinical decisions."
   }
 }
 ```
@@ -108,7 +170,7 @@ Returns one synthetic patient with explanation and action-template data.
 
 ## `POST /predict`
 
-Validates manual synthetic input and returns a **demo-only** risk result. This endpoint must not accept real patient information.
+Validates manual synthetic input and returns a **demo-only** risk result. This endpoint must not accept real patient information. The backend uses a rule-based heuristic scoring model (`model_service.py`) that generates transparent, explainable risk drivers.
 
 ### Request body
 
@@ -120,7 +182,8 @@ Validates manual synthetic input and returns a **demo-only** risk result. This e
   "admission_type": "Urgent",
   "insurance_provider": "Medicare",
   "billing_amount": 18000.0,
-  "medication": "Example medication"
+  "medication": "Example medication",
+  "test_results": "Normal"
 }
 ```
 
@@ -138,21 +201,39 @@ Validates manual synthetic input and returns a **demo-only** risk result. This e
 {
   "demo_only": true,
   "risk_score": 0.63,
-  "risk_tier": "medium",
+  "risk_tier": "MEDIUM",
   "risk_drivers": [
     {
-      "label": "Available demographic and admission fields",
-      "direction": "review",
-      "summary": "Demo-only explanation generated from the approved synthetic model."
+      "label": "Urgent admission context",
+      "direction": "increases",
+      "summary": "Urgent presentation indicates acute symptom escalation requiring timely care coordinator follow-up."
+    },
+    {
+      "label": "Chronic metabolic condition (Diabetes)",
+      "direction": "increases",
+      "summary": "Glycemic management and post-discharge medication stability require follow-up support."
     }
   ],
   "confidence": {
     "level": "review",
-    "summary": "This result is not a clinical prediction.",
-    "flags": []
+    "summary": "One or more secondary fields need review before relying on this score.",
+    "flags": ["Missing discharge medication field"]
   }
 }
 ```
+
+### Scoring heuristics
+
+The demo model evaluates the following factors with additive weights:
+- **Admission type**: Emergency (+0.28), Urgent (+0.20), Elective (−0.08)
+- **Medical condition**: Heart Failure (+0.25), Diabetes (+0.15), Hypertension (+0.10), Asthma/Respiratory (+0.08)
+- **Age**: 75+ (+0.16), 65–74 (+0.10), <35 (−0.06)
+- **Prior admissions**: +0.07 per prior admission (capped at +0.35)
+- **Recency**: <30 days since last admission (+0.15)
+- **No PCP recorded**: +0.12
+- **Test results**: Abnormal (+0.12), Normal (−0.05)
+
+Final score is clamped to [0.05, 0.95].
 
 ## `GET /metrics`
 
@@ -161,16 +242,20 @@ Returns precomputed model evaluation information and the safety/assumption text 
 ```json
 {
   "demo_only": true,
-  "metrics": {
-    "roc_auc": 0.0,
-    "precision": 0.0,
-    "recall": 0.0,
-    "f1": 0.0,
-    "confusion_matrix": [[0, 0], [0, 0]]
+  "roc_auc": 0.72,
+  "precision": 0.31,
+  "recall": 0.68,
+  "f1": 0.43,
+  "confusion_matrix": {
+    "true_positive": 372,
+    "false_positive": 826,
+    "true_negative": 3282,
+    "false_negative": 174
   },
+  "test_samples": 4654,
   "preprocessing_summary": [
-    "Synthetic dataset validation completed",
-    "Model results require an approved readmission target"
+    "Synthea COVID-19 10K CSV encounters processed",
+    "30-day inpatient readmission label derived from encounter timelines"
   ],
   "limitations": [
     "Not for diagnosis, treatment, or autonomous clinical decisions",
@@ -179,4 +264,14 @@ Returns precomputed model evaluation information and the safety/assumption text 
 }
 ```
 
+The frontend normalizes the backend's flat confusion matrix into the `[[TN, FP], [FN, TP]]` array format expected by the UI.
+
 When no organizer-approved target exists, values must be clearly labelled as demonstration placeholders instead of being represented as clinical model performance.
+
+## Frontend fallback behavior
+
+The frontend API client (`lib/api.ts`) implements graceful fallback:
+- Each API call has an 8-second timeout (accounts for Render cold starts).
+- If the backend is unreachable or returns an error, built-in mock patients with high-fidelity synthetic data are used.
+- The `isMock` flag in each API response indicates whether the data came from the backend or the local fallback.
+- The frontend handles both envelope (`{ patients: [...] }`) and legacy raw-list (`[...]`) response shapes.
