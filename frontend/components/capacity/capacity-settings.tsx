@@ -1,14 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import {
-  Check,
-  RotateCcw,
-  Save,
-  Sliders,
-  Users,
-} from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Check, RotateCcw, Save } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { CapacitySettings } from '@/lib/types';
@@ -21,7 +14,6 @@ export function CapacitySettingsComponent() {
   const [settings, setSettings] = useState<CapacitySettings>(capacity);
   const [savedMsg, setSavedMsg] = useState(false);
 
-  // Synchronize when external capacity changes
   React.useEffect(() => {
     setSettings(capacity);
   }, [capacity]);
@@ -57,199 +49,133 @@ export function CapacitySettingsComponent() {
     setTimeout(() => setSavedMsg(false), 3000);
   };
 
+  const fields = [
+    {
+      key: 'follow_up_call_slots' as const,
+      label: 'Follow-up calls',
+      help: 'Phone or video checks within ~48 hours',
+      max: 40,
+      min: 2,
+    },
+    {
+      key: 'specialist_review_slots' as const,
+      label: 'Specialist chart reviews',
+      help: 'Secondary physician review',
+      max: 20,
+      min: 1,
+    },
+    {
+      key: 'rapid_outreach_slots' as const,
+      label: 'Rapid outreach',
+      help: 'Home / mobile team visits',
+      max: 15,
+      min: 1,
+    },
+    {
+      key: 'nurse_consult_slots' as const,
+      label: 'Nurse consults',
+      help: 'Med reconciliation and education',
+      max: 30,
+      min: 2,
+    },
+  ];
+
   return (
-    <Card className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
-      <CardHeader className="p-5 pb-3 border-b border-slate-200 dark:border-slate-800">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="flex h-7 w-7 items-center justify-center rounded bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-900">
-              <Sliders className="h-4 w-4" />
-            </span>
-            <div>
-              <CardTitle className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
-                Daily Care Team Capacity Limits
-              </CardTitle>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
-                Adjust available daily slots for transitions of care interventions
-              </p>
-            </div>
-          </div>
-
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            onClick={handleResetDefaults}
-            className="h-8 gap-1 text-xs text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
-            title="Reset capacity settings to defaults"
-          >
-            <RotateCcw className="h-3 w-3" />
-            <span>Defaults</span>
-          </Button>
+    <div className="rounded-md border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900">
+      <div className="flex items-start justify-between gap-3 border-b border-neutral-200 px-5 py-4 dark:border-neutral-800">
+        <div>
+          <h2 className="text-base font-semibold text-neutral-900 dark:text-white">
+            Daily limits
+          </h2>
+          <p className="mt-0.5 text-sm text-neutral-500">
+            How many slots each category can take
+          </p>
         </div>
-      </CardHeader>
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          onClick={handleResetDefaults}
+          className="h-8 gap-1 text-sm"
+        >
+          <RotateCcw className="h-3.5 w-3.5" />
+          Defaults
+        </Button>
+      </div>
 
-      <CardContent className="p-5 space-y-5">
-        {/* Quick Operational Presets */}
-        <div className="space-y-1.5 pb-3 border-b border-slate-200 dark:border-slate-800">
-          <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block">
-            Staffing Schedule Presets:
-          </span>
+      <div className="space-y-5 p-5">
+        <div className="space-y-2">
+          <p className="text-xs font-medium uppercase tracking-wide text-neutral-500">
+            Presets
+          </p>
           <div className="grid grid-cols-3 gap-2">
             <button
               type="button"
               onClick={() => applyPreset(16, 6, 4, 10)}
-              className="px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-xs font-semibold text-slate-800 dark:text-slate-200 text-center transition-colors"
+              className="rounded-md border border-neutral-200 px-2 py-2 text-sm text-neutral-800 hover:bg-neutral-50 dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-800"
             >
-              Standard Shift
+              Standard
             </button>
             <button
               type="button"
               onClick={() => applyPreset(24, 10, 8, 16)}
-              className="px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-xs font-semibold text-slate-800 dark:text-slate-200 text-center transition-colors"
+              className="rounded-md border border-neutral-200 px-2 py-2 text-sm text-neutral-800 hover:bg-neutral-50 dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-800"
             >
-              Surge / Peak
+              Busy
             </button>
             <button
               type="button"
               onClick={() => applyPreset(8, 3, 2, 6)}
-              className="px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-xs font-semibold text-slate-800 dark:text-slate-200 text-center transition-colors"
+              className="rounded-md border border-neutral-200 px-2 py-2 text-sm text-neutral-800 hover:bg-neutral-50 dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-800"
             >
-              Weekend Low
+              Light
             </button>
           </div>
         </div>
 
         <form onSubmit={handleSave} className="space-y-5">
-          {/* Sliders Grid */}
-          <div className="space-y-5">
-            {/* Follow-up Calls */}
-            <div className="space-y-2">
-              <div className="flex items-center justify-between text-xs">
+          {fields.map((field) => (
+            <div key={field.key} className="space-y-2">
+              <div className="flex items-start justify-between gap-3 text-sm">
                 <div>
-                  <span className="font-semibold text-slate-800 dark:text-slate-200">
-                    Telehealth & Care Coordinator Follow-Up Calls
-                  </span>
-                  <p className="text-[11px] text-slate-500">
-                    Post-discharge phone checks within 48 hours
+                  <p className="font-medium text-neutral-800 dark:text-neutral-200">
+                    {field.label}
                   </p>
+                  <p className="text-xs text-neutral-500">{field.help}</p>
                 </div>
-                <span className="font-mono font-bold text-sm text-blue-600 dark:text-blue-400 px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-900">
-                  {settings.follow_up_call_slots} slots/day
+                <span className="shrink-0 font-mono text-sm tabular-nums text-neutral-700 dark:text-neutral-300">
+                  {settings[field.key]}/day
                 </span>
               </div>
               <Slider
-                value={[settings.follow_up_call_slots]}
-                max={40}
-                min={2}
+                value={[settings[field.key]]}
+                max={field.max}
+                min={field.min}
                 step={1}
                 onValueChange={(val) =>
-                  setSettings({ ...settings, follow_up_call_slots: val[0] })
+                  setSettings({ ...settings, [field.key]: val[0] })
                 }
               />
             </div>
+          ))}
 
-            {/* Specialist Reviews */}
-            <div className="space-y-2">
-              <div className="flex items-center justify-between text-xs">
-                <div>
-                  <span className="font-semibold text-slate-800 dark:text-slate-200">
-                    Cardio-Pulmonary Specialist Chart Reviews
-                  </span>
-                  <p className="text-[11px] text-slate-500">
-                    Attending physician secondary chart evaluations
-                  </p>
-                </div>
-                <span className="font-mono font-bold text-sm text-blue-600 dark:text-blue-400 px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-900">
-                  {settings.specialist_review_slots} slots/day
-                </span>
-              </div>
-              <Slider
-                value={[settings.specialist_review_slots]}
-                max={20}
-                min={1}
-                step={1}
-                onValueChange={(val) =>
-                  setSettings({ ...settings, specialist_review_slots: val[0] })
-                }
-              />
-            </div>
-
-            {/* Rapid Outreach */}
-            <div className="space-y-2">
-              <div className="flex items-center justify-between text-xs">
-                <div>
-                  <span className="font-semibold text-slate-800 dark:text-slate-200">
-                    Rapid Clinical Outreach & Home Visits
-                  </span>
-                  <p className="text-[11px] text-slate-500">
-                    Mobile health units for fragile or socially vulnerable patients
-                  </p>
-                </div>
-                <span className="font-mono font-bold text-sm text-blue-600 dark:text-blue-400 px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-900">
-                  {settings.rapid_outreach_slots} slots/day
-                </span>
-              </div>
-              <Slider
-                value={[settings.rapid_outreach_slots]}
-                max={15}
-                min={1}
-                step={1}
-                onValueChange={(val) =>
-                  setSettings({ ...settings, rapid_outreach_slots: val[0] })
-                }
-              />
-            </div>
-
-            {/* Nurse Consultations */}
-            <div className="space-y-2">
-              <div className="flex items-center justify-between text-xs">
-                <div>
-                  <span className="font-semibold text-slate-800 dark:text-slate-200">
-                    Medication Reconciliation & Nurse Consults
-                  </span>
-                  <p className="text-[11px] text-slate-500">
-                    In-depth pharmacy review and transition education
-                  </p>
-                </div>
-                <span className="font-mono font-bold text-sm text-blue-600 dark:text-blue-400 px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-900">
-                  {settings.nurse_consult_slots} slots/day
-                </span>
-              </div>
-              <Slider
-                value={[settings.nurse_consult_slots]}
-                max={30}
-                min={2}
-                step={1}
-                onValueChange={(val) =>
-                  setSettings({ ...settings, nurse_consult_slots: val[0] })
-                }
-              />
-            </div>
-          </div>
-
-          <div className="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-800">
+          <div className="flex items-center justify-between border-t border-neutral-100 pt-4 dark:border-neutral-800">
             {savedMsg ? (
-              <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+              <span className="flex items-center gap-1 text-sm text-emerald-700 dark:text-emerald-400">
                 <Check className="h-3.5 w-3.5" />
-                <span>Capacity limits updated!</span>
+                Saved
               </span>
             ) : (
-              <span className="text-[11px] text-slate-400">
-                Changes apply immediately to slot allocation warnings.
-              </span>
+              <span className="text-xs text-neutral-400">Applies to overload warnings</span>
             )}
 
-            <Button
-              type="submit"
-              className="h-9 gap-1.5 text-xs bg-blue-600 hover:bg-blue-700 text-white font-semibold"
-            >
+            <Button type="submit" className="h-9 gap-1.5 text-sm">
               <Save className="h-3.5 w-3.5" />
-              <span>Save Capacity Limits</span>
+              Save
             </Button>
           </div>
         </form>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

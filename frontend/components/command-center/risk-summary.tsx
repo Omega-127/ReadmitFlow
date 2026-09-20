@@ -1,15 +1,6 @@
 'use client';
 
 import React from 'react';
-import {
-  AlertCircle,
-  CheckCircle2,
-  Clock,
-  RotateCcw,
-  ShieldAlert,
-  Users,
-} from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
 import { usePatients } from '@/hooks/use-patients';
 
 export function RiskSummary() {
@@ -19,141 +10,79 @@ export function RiskSummary() {
   const medPct = stats.total > 0 ? (stats.mediumRisk / stats.total) * 100 : 0;
   const lowPct = stats.total > 0 ? (stats.lowRisk / stats.total) * 100 : 0;
 
-  const kpis = [
+  const items = [
     {
-      title: 'Urgent Action Required',
+      label: 'Needs action',
       value: stats.highRiskNeedingAction ?? stats.highRisk,
-      subtext: 'High-risk patients pending intervention',
-      icon: AlertCircle,
-      badgeText: '<24h Target',
-      color: 'text-rose-700 dark:text-rose-400',
-      bg: 'bg-rose-50 dark:bg-rose-950/40',
-      border: 'border-rose-300 dark:border-rose-800',
-      badgeBg: 'bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300',
+      detail: 'High risk, no follow-up yet',
+      emphasize: true,
     },
     {
-      title: 'Monitored Inpatient Cohort',
+      label: 'In cohort',
       value: stats.total,
-      subtext: `${stats.highRisk} High • ${stats.mediumRisk} Medium • ${stats.lowRisk} Low`,
-      icon: Users,
-      badgeText: 'Active Triage',
-      color: 'text-blue-700 dark:text-blue-400',
-      bg: 'bg-blue-50 dark:bg-blue-950/40',
-      border: 'border-slate-200 dark:border-slate-800',
-      badgeBg: 'bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300',
+      detail: `${stats.highRisk} high · ${stats.mediumRisk} medium · ${stats.lowRisk} low`,
     },
     {
-      title: 'Discharge Interventions',
+      label: 'Open follow-ups',
       value: stats.actionsPending + stats.inProgress,
-      subtext: `${stats.inProgress} in progress, ${stats.completed ?? 0} completed`,
-      icon: Clock,
-      badgeText: 'Care Workflow',
-      color: 'text-indigo-700 dark:text-indigo-400',
-      bg: 'bg-indigo-50 dark:bg-indigo-950/40',
-      border: 'border-slate-200 dark:border-slate-800',
-      badgeBg: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300',
+      detail: `${stats.inProgress} in progress · ${stats.completed ?? 0} done`,
     },
     {
-      title: 'Clinician Overrides Logged',
+      label: 'Overrides',
       value: stats.overridden,
-      subtext: 'Audited staff tier adjustments',
-      icon: RotateCcw,
-      badgeText: 'Accountable CDS',
-      color: 'text-amber-700 dark:text-amber-400',
-      bg: 'bg-amber-50 dark:bg-amber-950/40',
-      border: 'border-slate-200 dark:border-slate-800',
-      badgeBg: 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300',
+      detail: 'Staff changed the model tier',
     },
   ];
 
   return (
     <div className="space-y-4">
-      {/* 4 Clinical Metric Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {kpis.map((kpi, idx) => {
-          const Icon = kpi.icon;
-          return (
-            <Card
-              key={idx}
-              className={`border ${kpi.border} bg-white dark:bg-slate-900 shadow-sm transition-colors`}
+      <div className="grid grid-cols-2 gap-px overflow-hidden rounded-md border border-neutral-200 bg-neutral-200 dark:border-neutral-800 dark:bg-neutral-800 lg:grid-cols-4">
+        {items.map((item) => (
+          <div
+            key={item.label}
+            className="bg-white p-4 dark:bg-neutral-900"
+          >
+            <p className="text-sm text-neutral-500">{item.label}</p>
+            <p
+              className={`mt-1 font-mono text-2xl font-semibold tabular-nums ${
+                item.emphasize
+                  ? 'text-rose-700 dark:text-rose-400'
+                  : 'text-neutral-900 dark:text-white'
+              }`}
             >
-              <CardContent className="p-4 sm:p-5 flex flex-col justify-between h-full space-y-3">
-                <div className="flex items-start justify-between gap-2">
-                  <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">
-                    {kpi.title}
-                  </span>
-                  <span className={`text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded ${kpi.badgeBg}`}>
-                    {kpi.badgeText}
-                  </span>
-                </div>
-
-                <div className="flex items-baseline justify-between pt-1">
-                  <span className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white font-mono">
-                    {isLoading ? '—' : kpi.value}
-                  </span>
-                  <div className={`p-2 rounded-md ${kpi.bg} ${kpi.color}`}>
-                    <Icon className="h-4 w-4" />
-                  </div>
-                </div>
-
-                <p className="text-xs text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-2">
-                  {kpi.subtext}
-                </p>
-              </CardContent>
-            </Card>
-          );
-        })}
+              {isLoading ? '—' : item.value}
+            </p>
+            <p className="mt-1 text-xs text-neutral-500">{item.detail}</p>
+          </div>
+        ))}
       </div>
 
-      {/* Cohort Risk Tier Breakdown Progress Bar */}
-      <Card className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
-        <CardContent className="p-4 sm:p-5 space-y-3">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-100 dark:border-slate-800 text-xs">
-            <div>
-              <span className="font-bold text-slate-900 dark:text-slate-100">
-                Cohort Stratification Breakdown
-              </span>
-              <span className="text-slate-500 dark:text-slate-400 ml-2">
-                Active clinical triage targets across {stats.total} patients
-              </span>
-            </div>
-            <div className="flex flex-wrap items-center gap-3 text-xs font-semibold">
-              <span className="flex items-center gap-1.5 text-rose-800 dark:text-rose-300">
-                <span className="h-2.5 w-2.5 rounded-sm bg-rose-600"></span>
-                High: {stats.highRisk} ({highPct.toFixed(0)}%) • &lt;24h
-              </span>
-              <span className="flex items-center gap-1.5 text-amber-800 dark:text-amber-300">
-                <span className="h-2.5 w-2.5 rounded-sm bg-amber-500"></span>
-                Medium: {stats.mediumRisk} ({medPct.toFixed(0)}%) • 48-72h
-              </span>
-              <span className="flex items-center gap-1.5 text-emerald-800 dark:text-emerald-300">
-                <span className="h-2.5 w-2.5 rounded-sm bg-emerald-600"></span>
-                Low: {stats.lowRisk} ({lowPct.toFixed(0)}%) • Routine
-              </span>
-            </div>
+      <div className="rounded-md border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-900">
+        <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2 text-sm">
+          <span className="font-medium text-neutral-800 dark:text-neutral-200">
+            Risk mix
+          </span>
+          <div className="flex flex-wrap gap-4 text-xs text-neutral-600 dark:text-neutral-400">
+            <span>
+              <span className="mr-1.5 inline-block h-2 w-2 bg-rose-600 align-middle" />
+              High {stats.highRisk} ({highPct.toFixed(0)}%)
+            </span>
+            <span>
+              <span className="mr-1.5 inline-block h-2 w-2 bg-amber-500 align-middle" />
+              Medium {stats.mediumRisk} ({medPct.toFixed(0)}%)
+            </span>
+            <span>
+              <span className="mr-1.5 inline-block h-2 w-2 bg-emerald-600 align-middle" />
+              Low {stats.lowRisk} ({lowPct.toFixed(0)}%)
+            </span>
           </div>
-
-          <div>
-            <div className="h-3 w-full rounded bg-slate-100 dark:bg-slate-800 overflow-hidden flex border border-slate-200 dark:border-slate-700">
-              <div
-                style={{ width: `${highPct}%` }}
-                className="bg-rose-600 h-full"
-                title={`High Risk: ${highPct.toFixed(1)}%`}
-              />
-              <div
-                style={{ width: `${medPct}%` }}
-                className="bg-amber-500 h-full"
-                title={`Medium Risk: ${medPct.toFixed(1)}%`}
-              />
-              <div
-                style={{ width: `${lowPct}%` }}
-                className="bg-emerald-600 h-full"
-                title={`Low Risk: ${lowPct.toFixed(1)}%`}
-              />
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+        </div>
+        <div className="flex h-2 w-full overflow-hidden rounded-sm bg-neutral-100 dark:bg-neutral-800">
+          <div style={{ width: `${highPct}%` }} className="bg-rose-600" title="High" />
+          <div style={{ width: `${medPct}%` }} className="bg-amber-500" title="Medium" />
+          <div style={{ width: `${lowPct}%` }} className="bg-emerald-600" title="Low" />
+        </div>
+      </div>
     </div>
   );
 }

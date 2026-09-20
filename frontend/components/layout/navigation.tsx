@@ -3,13 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import {
-  Activity,
-  LayoutDashboard,
-  ShieldCheck,
-  Sliders,
-  Users,
-} from 'lucide-react';
+import { LayoutList, Shield, SlidersHorizontal } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { usePatients } from '@/hooks/use-patients';
 
@@ -17,8 +11,7 @@ interface NavItem {
   title: string;
   href: string;
   icon: React.ElementType;
-  badge?: string | number;
-  badgeVariant?: 'default' | 'high' | 'clinical';
+  hint?: string;
 }
 
 export function Navigation({ className }: { className?: string }) {
@@ -27,28 +20,25 @@ export function Navigation({ className }: { className?: string }) {
 
   const navItems: NavItem[] = [
     {
-      title: 'Command Center',
+      title: 'Patients',
       href: '/',
-      icon: LayoutDashboard,
-      badge: stats.highRisk > 0 ? `${stats.highRisk} High` : undefined,
-      badgeVariant: 'high',
+      icon: LayoutList,
+      hint: stats.highRisk > 0 ? `${stats.highRisk} high risk` : undefined,
     },
     {
-      title: 'Care Capacity Planner',
+      title: 'Capacity',
       href: '/capacity',
-      icon: Sliders,
+      icon: SlidersHorizontal,
     },
     {
-      title: 'Model Safety & Eval',
+      title: 'Model',
       href: '/model-safety',
-      icon: ShieldCheck,
-      badge: 'Demo Model',
-      badgeVariant: 'clinical',
+      icon: Shield,
     },
   ];
 
   return (
-    <nav className={cn('space-y-1', className)} aria-label="Main Navigation">
+    <nav className={cn('space-y-0.5', className)} aria-label="Main">
       {navItems.map((item) => {
         const isActive =
           item.href === '/'
@@ -62,37 +52,27 @@ export function Navigation({ className }: { className?: string }) {
             key={item.href}
             href={item.href}
             className={cn(
-              'group flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-150',
+              'flex items-center justify-between rounded-md px-3 py-2 text-sm transition-colors',
               isActive
-                ? 'bg-blue-50 text-blue-700 shadow-sm dark:bg-blue-950/60 dark:text-blue-300 font-semibold'
-                : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800/60 dark:hover:text-slate-200'
+                ? 'bg-neutral-900 font-medium text-white dark:bg-neutral-100 dark:text-neutral-900'
+                : 'text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-100'
             )}
             aria-current={isActive ? 'page' : undefined}
           >
-            <div className="flex items-center gap-3">
-              <Icon
-                className={cn(
-                  'h-4 w-4 transition-colors',
-                  isActive
-                    ? 'text-blue-600 dark:text-blue-400'
-                    : 'text-slate-400 group-hover:text-slate-600 dark:text-slate-500 dark:group-hover:text-slate-300'
-                )}
-              />
-              <span>{item.title}</span>
-            </div>
-
-            {item.badge && (
+            <span className="flex items-center gap-2.5">
+              <Icon className="h-4 w-4 opacity-70" />
+              {item.title}
+            </span>
+            {item.hint && (
               <span
                 className={cn(
-                  'rounded-full px-2 py-0.5 text-[11px] font-semibold tracking-wide',
-                  item.badgeVariant === 'high'
-                    ? 'bg-rose-100 text-rose-700 dark:bg-rose-950 dark:text-rose-300'
-                    : item.badgeVariant === 'clinical'
-                    ? 'bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300'
-                    : 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300'
+                  'text-xs',
+                  isActive
+                    ? 'text-white/70 dark:text-neutral-600'
+                    : 'text-neutral-400 dark:text-neutral-500'
                 )}
               >
-                {item.badge}
+                {item.hint}
               </span>
             )}
           </Link>

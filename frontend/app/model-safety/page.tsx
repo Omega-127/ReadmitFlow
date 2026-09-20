@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Loader2, ShieldCheck } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import { api } from '@/lib/api';
 import { ModelEvaluationData } from '@/lib/types';
 import { MetricCards } from '@/components/model/metric-cards';
@@ -31,50 +31,37 @@ export default function ModelSafetyPage() {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[50vh] space-y-3">
-        <Loader2 className="h-8 w-8 text-blue-600 animate-spin" />
-        <p className="text-xs text-slate-500 font-medium">Loading model evaluation metrics and safety disclosures...</p>
+      <div className="flex min-h-[40vh] flex-col items-center justify-center gap-2">
+        <Loader2 className="h-6 w-6 animate-spin text-neutral-500" />
+        <p className="text-sm text-neutral-500">Loading model metrics…</p>
       </div>
     );
   }
 
   return (
     <div className="space-y-8">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-200/80 dark:border-slate-800">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-50 flex items-center gap-2">
-            <span>Model Safety & Evaluation</span>
-            <span className="text-xs px-2 py-0.5 rounded-full font-semibold bg-indigo-100 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300">
-              Audit & Governance
-            </span>
-          </h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-            Discrimination benchmarks, confusion matrix trade-offs, and critical clinical boundary disclosures for the synthetic readmission model.
-          </p>
-        </div>
+      <header className="space-y-1">
+        <h1 className="text-2xl font-semibold text-neutral-900 dark:text-neutral-50">
+          Model
+        </h1>
+        <p className="max-w-2xl text-sm text-neutral-600 dark:text-neutral-400">
+          How the synthetic readmission model scores, where it fails, and what
+          it should not be used for.
+        </p>
+      </header>
 
-        <div className="flex items-center gap-2 text-xs text-slate-500">
-          <ShieldCheck className="h-4 w-4 text-emerald-500" />
-          <span>Transparent AI Compliance</span>
-        </div>
-      </div>
-
-      {/* Metric Cards */}
-      <section aria-label="Model Performance Metrics">
+      <section aria-label="Performance">
         <MetricCards metrics={modelData.metrics} demoOnly={modelData.demo_only} />
       </section>
 
-      {/* Main Grid: Confusion Matrix & Limitations */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div className="lg:col-span-6 space-y-6">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
+        <div className="lg:col-span-6">
           <ConfusionMatrix
             matrix={modelData.metrics.confusion_matrix}
             totalSamples={modelData.metrics.total_samples}
           />
         </div>
-
-        <div className="lg:col-span-6 space-y-6">
+        <div className="lg:col-span-6">
           <LimitationCard data={modelData} />
         </div>
       </div>

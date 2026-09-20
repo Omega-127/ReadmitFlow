@@ -2,11 +2,7 @@
 
 import React from 'react';
 import {
-  Activity,
-  CheckCircle2,
-  FileText,
   HelpCircle,
-  SlidersHorizontal,
   TrendingDown,
   TrendingUp,
 } from 'lucide-react';
@@ -20,27 +16,27 @@ interface RiskDriversProps {
 }
 
 function getClinicalFeatureCategory(feature?: string): { category: string; display: string } {
-  if (!feature) return { category: 'Clinical Factor', display: 'General' };
+  if (!feature) return { category: 'Factor', display: 'General' };
 
   const [key, val] = feature.split(':');
   switch (key) {
     case 'admission_type':
-      return { category: 'Admission Context', display: val ? `${val} Admission` : 'Admission Type' };
+      return { category: 'Admission', display: val ? `${val} admission` : 'Admission type' };
     case 'medical_condition':
-      return { category: 'Primary Pathology', display: val || 'Condition' };
+      return { category: 'Condition', display: val || 'Condition' };
     case 'billing_amount':
-      return { category: 'Resource Utilization', display: val ? `${val} Inpatient Intensity` : 'Billing Intensity' };
+      return { category: 'Utilization', display: val ? `${val} intensity` : 'Billing intensity' };
     case 'medication_count':
-      return { category: 'Polypharmacy', display: `${val} Concurrent Medications` };
+      return { category: 'Meds', display: `${val} medications` };
     case 'insurance':
-      return { category: 'Payer Coverage', display: val ? `${val} Plan` : 'Insurance' };
+      return { category: 'Payer', display: val ? `${val} plan` : 'Insurance' };
     case 'data_completeness':
-      return { category: 'Record Completeness', display: `${val} Verified EHR` };
+      return { category: 'Record', display: `${val} verified` };
     case 'age':
       return { category: 'Demographics', display: `Age ${val}` };
     default:
       return {
-        category: 'Clinical Attribute',
+        category: 'Factor',
         display: feature.replace(/_/g, ' ').replace(':', ': '),
       };
   }
@@ -48,25 +44,15 @@ function getClinicalFeatureCategory(feature?: string): { category: string; displ
 
 export function RiskDrivers({ drivers, score }: RiskDriversProps) {
   return (
-    <Card className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
-      <CardHeader className="p-5 pb-3 border-b border-slate-200 dark:border-slate-800">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <span className="flex h-7 w-7 items-center justify-center rounded bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 font-bold border border-blue-200 dark:border-blue-900">
-              <SlidersHorizontal className="h-4 w-4" />
-            </span>
-            <div>
-              <CardTitle className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
-                Explainable Risk Drivers & Contributing Factors
-              </CardTitle>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
-                Algorithmic feature attributions (SHAP) explaining the {formatScore(score)} readmission probability
-              </p>
-            </div>
-          </div>
-          <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold border border-slate-200 dark:border-slate-700">
-            SHAP Attribution
-          </span>
+    <Card className="border border-neutral-200 bg-white shadow-none dark:border-neutral-800 dark:bg-neutral-900">
+      <CardHeader className="border-b border-neutral-200 p-5 pb-3 dark:border-neutral-800">
+        <div>
+          <CardTitle className="text-base font-semibold text-neutral-900 dark:text-white">
+            Why this score
+          </CardTitle>
+          <p className="mt-0.5 text-sm text-neutral-500">
+            Factors that pushed the {formatScore(score)} readmission probability up or down
+          </p>
         </div>
       </CardHeader>
 
@@ -149,15 +135,10 @@ export function RiskDrivers({ drivers, score }: RiskDriversProps) {
           })
         )}
 
-        <div className="rounded-lg bg-slate-100/80 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 p-3.5 text-xs text-slate-800 dark:text-slate-200 space-y-1">
-          <p className="font-bold flex items-center gap-1.5 text-slate-900 dark:text-slate-100">
-            <CheckCircle2 className="h-4 w-4 text-blue-700 dark:text-blue-400" />
-            <span>Clinical Translation & Chart Review Guidance</span>
-          </p>
-          <p className="text-[11px] leading-relaxed text-slate-600 dark:text-slate-400">
-            SHAP values represent the magnitude each variable pushed the risk score above or below the cohort baseline. Use these findings to target post-discharge reconciliation (e.g. confirming medication adherence or checking home oxygen delivery).
-          </p>
-        </div>
+        <p className="rounded-md border border-neutral-200 bg-neutral-50 p-3 text-sm text-neutral-600 dark:border-neutral-800 dark:bg-neutral-800/40 dark:text-neutral-400">
+          Use these factors to focus chart review — for example med adherence or home support —
+          before assigning follow-up.
+        </p>
       </CardContent>
     </Card>
   );

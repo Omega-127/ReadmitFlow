@@ -8,8 +8,6 @@ import {
   Clock,
   History,
   RotateCcw,
-  ShieldCheck,
-  User,
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { AuditEvent } from '@/lib/types';
@@ -22,24 +20,19 @@ interface AuditTimelineProps {
 
 export function AuditTimeline({ events, patientId }: AuditTimelineProps) {
   return (
-    <Card className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
-      <CardHeader className="p-5 pb-3 border-b border-slate-100 dark:border-slate-800">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
-              <History className="h-4 w-4" />
-            </span>
-            <div>
-              <CardTitle className="text-base font-bold">
-                Clinical Workflow Audit Trail
-              </CardTitle>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
-                Immutable event log of all automated scores, clinician overrides, and assigned interventions
-              </p>
-            </div>
+    <Card className="border border-neutral-200 bg-white shadow-none dark:border-neutral-800 dark:bg-neutral-900">
+      <CardHeader className="border-b border-neutral-200 p-5 pb-3 dark:border-neutral-800">
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <CardTitle className="text-base font-semibold">
+              Activity
+            </CardTitle>
+            <p className="mt-0.5 text-sm text-neutral-500">
+              Scores, overrides, and assigned tasks for this patient
+            </p>
           </div>
-          <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold">
-            {events.length} Events Logged
+          <span className="text-sm text-neutral-500">
+            {events.length}
           </span>
         </div>
       </CardHeader>

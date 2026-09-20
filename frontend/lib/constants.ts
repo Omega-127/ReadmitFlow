@@ -1,10 +1,10 @@
 import { CapacitySettings, RiskTier } from './types';
 
 export const SAFETY_DISCLAIMER =
-  'Decision Support Only — Synthetic Data Demonstration — Non-Diagnostic';
+  'Decision support only. Synthetic data. Not for diagnosis or treatment.';
 
 export const SAFETY_SUBTITLE =
-  'All patient profiles, risk assessments, and model outputs are generated from synthetic healthcare data. This prototype is designed exclusively for clinical workflow evaluation and care-capacity planning, not for autonomous diagnostic or treatment decisions.';
+  'Patient profiles, risk scores, and model outputs are synthetic. Use this app to evaluate triage and capacity workflows — not to diagnose or treat real patients.';
 
 export const RISK_TIER_CONFIG: Record<
   RiskTier,

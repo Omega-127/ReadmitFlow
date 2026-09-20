@@ -1,18 +1,13 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {
   AlertCircle,
   AlertTriangle,
-  ArrowRight,
   CheckCircle2,
   ChevronRight,
   Clock,
-  ExternalLink,
-  RotateCcw,
-  ShieldAlert,
   User,
 } from 'lucide-react';
 import {
@@ -23,15 +18,10 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { usePatients } from '@/hooks/use-patients';
 import {
-  formatDate,
-  formatPercentage,
   formatScore,
-  getConfidenceBadgeClasses,
   getTierConfig,
 } from '@/lib/formatters';
 
@@ -41,221 +31,171 @@ export function PatientQueue() {
 
   if (isLoading) {
     return (
-      <Card className="p-6">
-        <div className="space-y-4">
-          <div className="h-6 w-48 bg-slate-200 dark:bg-slate-800 rounded animate-pulse" />
-          <div className="space-y-2">
-            {[1, 2, 3, 4, 5].map((i) => (
-              <div key={i} className="h-16 w-full bg-slate-100 dark:bg-slate-800/60 rounded-lg animate-pulse" />
-            ))}
-          </div>
+      <div className="space-y-3 rounded-md border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-900">
+        <div className="h-5 w-40 animate-pulse rounded bg-neutral-200 dark:bg-neutral-800" />
+        <div className="space-y-2">
+          {[1, 2, 3, 4, 5].map((i) => (
+            <div
+              key={i}
+              className="h-14 w-full animate-pulse rounded bg-neutral-100 dark:bg-neutral-800/60"
+            />
+          ))}
         </div>
-      </Card>
+      </div>
     );
   }
 
   if (error) {
     return (
-      <Card className="p-8 text-center border-rose-200 dark:border-rose-900 bg-rose-50/50 dark:bg-rose-950/20">
-        <AlertCircle className="h-8 w-8 text-rose-500 mx-auto mb-2" />
-        <h3 className="font-bold text-rose-800 dark:text-rose-200">Unable to load patient queue</h3>
-        <p className="text-sm text-rose-600 dark:text-rose-300 mt-1">{error}</p>
-      </Card>
+      <div className="rounded-md border border-rose-300 bg-rose-50 p-8 text-center dark:border-rose-900 dark:bg-rose-950/30">
+        <AlertCircle className="mx-auto mb-2 h-7 w-7 text-rose-600" />
+        <h3 className="font-medium text-rose-900 dark:text-rose-100">Could not load patients</h3>
+        <p className="mt-1 text-sm text-rose-700 dark:text-rose-300">{error}</p>
+      </div>
     );
   }
 
   if (patients.length === 0) {
     return (
-      <Card className="p-12 text-center border-slate-200 dark:border-slate-800">
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400 mx-auto mb-3">
-          <User className="h-6 w-6" />
-        </div>
-        <h3 className="font-semibold text-slate-800 dark:text-slate-200">No matching patients found</h3>
-        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-sm mx-auto">
-          Try adjusting your search query, clearing tier filters, or switching off "Overrides Only".
+      <div className="rounded-md border border-neutral-200 bg-white p-12 text-center dark:border-neutral-800 dark:bg-neutral-900">
+        <User className="mx-auto mb-3 h-8 w-8 text-neutral-400" />
+        <h3 className="font-medium text-neutral-800 dark:text-neutral-200">No matching patients</h3>
+        <p className="mx-auto mt-1 max-w-sm text-sm text-neutral-500">
+          Try clearing search or filters.
         </p>
-      </Card>
+      </div>
     );
   }
 
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm overflow-hidden">
-      <div className="p-4 sm:px-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
-        <div>
-          <h3 className="font-bold text-base text-slate-900 dark:text-slate-100">
-            Triage Priority Queue
-          </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
-            Showing {patients.length} patient records sorted by current triage priority
-          </p>
-        </div>
-        <span className="text-xs font-mono text-slate-400">
-          Decision Support Only
-        </span>
+    <div className="overflow-hidden rounded-md border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900">
+      <div className="flex items-baseline justify-between gap-3 border-b border-neutral-200 px-4 py-3 dark:border-neutral-800 sm:px-5">
+        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+          <span className="font-medium text-neutral-900 dark:text-neutral-100">
+            {patients.length}
+          </span>{' '}
+          {patients.length === 1 ? 'patient' : 'patients'}
+        </p>
+        <p className="text-xs text-neutral-400">Decision support only</p>
       </div>
 
       <div className="overflow-x-auto">
         <Table>
           <TableHeader>
-            <TableRow className="bg-slate-100/70 dark:bg-slate-800/60 text-[11px] font-bold tracking-wider text-slate-600 dark:text-slate-300 uppercase border-b border-slate-200 dark:border-slate-700">
-              <TableHead className="w-[180px]">Patient & Demographics</TableHead>
-              <TableHead className="w-[200px]">Diagnosis & Facility</TableHead>
-              <TableHead className="w-[190px]">30-Day Risk Triage</TableHead>
-              <TableHead className="w-[240px]">Primary Clinical Risk Driver</TableHead>
-              <TableHead className="w-[180px]">Discharge Follow-Up</TableHead>
-              <TableHead className="text-right w-[110px]">Triage Action</TableHead>
+            <TableRow className="border-b border-neutral-200 bg-neutral-50 text-xs text-neutral-500 dark:border-neutral-800 dark:bg-neutral-900/80 dark:text-neutral-400">
+              <TableHead className="w-[160px] font-medium">Patient</TableHead>
+              <TableHead className="w-[200px] font-medium">Condition</TableHead>
+              <TableHead className="w-[160px] font-medium">Risk</TableHead>
+              <TableHead className="w-[220px] font-medium">Top driver</TableHead>
+              <TableHead className="w-[140px] font-medium">Follow-up</TableHead>
+              <TableHead className="w-[90px] text-right font-medium" />
             </TableRow>
           </TableHeader>
           <TableBody>
             {patients.map((patient) => {
               const tierConfig = getTierConfig(patient.risk_tier);
-              const confConfig = getConfidenceBadgeClasses(patient.confidence_level);
               const primaryDriver = patient.risk_drivers?.[0];
 
               return (
                 <TableRow
                   key={patient.id}
                   onClick={() => router.push(`/patients/${patient.id}`)}
-                  className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group border-b border-slate-100 dark:border-slate-800"
+                  className="cursor-pointer border-b border-neutral-100 transition-colors hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800/40"
                 >
-                  {/* Patient & Demographics */}
                   <TableCell className="py-3">
-                    <div className="flex items-center gap-2.5">
-                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono font-bold text-xs border border-slate-200 dark:border-slate-700">
-                        {patient.gender === 'Female' ? 'F' : 'M'}
-                      </div>
-                      <div>
-                        <div className="font-bold text-slate-900 dark:text-slate-100 text-xs sm:text-sm group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors flex items-center gap-1.5">
-                          <span className="font-mono">{patient.id}</span>
-                          {patient.blood_type && (
-                            <span className="text-[10px] px-1 py-0.2 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-mono border border-slate-200 dark:border-slate-700">
-                              {patient.blood_type}
-                            </span>
-                          )}
-                        </div>
-                        <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
-                          {patient.age}y • {patient.gender} • {patient.insurance_provider}
-                        </div>
-                      </div>
+                    <div className="font-mono text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                      {patient.id}
+                    </div>
+                    <div className="mt-0.5 text-xs text-neutral-500">
+                      {patient.age}y · {patient.gender}
                     </div>
                   </TableCell>
 
-                  {/* Diagnosis & Facility */}
                   <TableCell className="py-3">
-                    <div className="space-y-0.5">
-                      <div className="text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
-                        <span>{patient.medical_condition}</span>
-                        <span
-                          className={`text-[10px] font-semibold px-1.5 py-0.2 rounded border ${
-                            patient.admission_type === 'Emergency'
-                              ? 'bg-rose-50 text-rose-800 border-rose-200 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-900'
-                              : patient.admission_type === 'Urgent'
-                              ? 'bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-900'
-                              : 'bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700'
-                          }`}
-                        >
-                          {patient.admission_type}
-                        </span>
-                      </div>
-                      <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate max-w-[200px]" title={patient.hospital}>
-                        {patient.hospital}
-                      </div>
+                    <div className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                      {patient.medical_condition}
+                    </div>
+                    <div className="mt-0.5 truncate text-xs text-neutral-500" title={patient.hospital}>
+                      {patient.admission_type} · {patient.hospital}
                     </div>
                   </TableCell>
 
-                  {/* 30-Day Risk Triage */}
                   <TableCell className="py-3">
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-1.5 flex-wrap">
-                        <span
-                          className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-bold border ${tierConfig.badgeBg} ${tierConfig.badgeText} ${tierConfig.border}`}
-                        >
-                          <span className={`h-1.5 w-1.5 rounded-full ${tierConfig.dotBg}`}></span>
-                          {tierConfig.label}
-                        </span>
-
-                        <span className="font-mono text-xs font-bold text-slate-800 dark:text-slate-200">
-                          {formatScore(patient.risk_score)}
-                        </span>
-
-                        {patient.is_overridden && (
-                          <span
-                            className="inline-flex items-center gap-0.5 px-1 py-0.2 rounded text-[10px] font-bold bg-amber-100 text-amber-900 dark:bg-amber-950 dark:text-amber-300 border border-amber-300 dark:border-amber-800"
-                            title={`Clinician override from ${patient.original_risk_tier.toUpperCase()}`}
-                          >
-                            <RotateCcw className="h-2.5 w-2.5" />
-                            Overridden
-                          </span>
-                        )}
+                    <div className="flex items-center gap-2">
+                      <span
+                        className={`inline-block h-2 w-2 shrink-0 ${tierConfig.dotBg}`}
+                      />
+                      <span className="text-sm font-medium text-neutral-800 dark:text-neutral-200">
+                        {tierConfig.label}
+                      </span>
+                      <span className="font-mono text-sm tabular-nums text-neutral-600 dark:text-neutral-400">
+                        {formatScore(patient.risk_score)}
+                      </span>
+                    </div>
+                    <div className="mt-1.5 flex items-center gap-2">
+                      <div className="h-1 w-14 overflow-hidden rounded-sm bg-neutral-200 dark:bg-neutral-700">
+                        <div
+                          style={{ width: `${patient.risk_score * 100}%` }}
+                          className={`h-full ${tierConfig.barColor}`}
+                        />
                       </div>
-
-                      <div className="flex items-center gap-2">
-                        <div className="h-1.5 w-16 bg-slate-200 dark:bg-slate-700 rounded overflow-hidden">
-                          <div
-                            style={{ width: `${patient.risk_score * 100}%` }}
-                            className={`h-full ${tierConfig.barColor}`}
-                          />
-                        </div>
-                        <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">
-                          Target: {tierConfig.timeframe}
+                      <span className="text-xs text-neutral-500">{tierConfig.timeframe}</span>
+                      {patient.is_overridden && (
+                        <span className="text-xs text-amber-700 dark:text-amber-400">
+                          overridden
                         </span>
-                      </div>
+                      )}
                     </div>
                   </TableCell>
 
-                  {/* Primary Clinical Driver */}
                   <TableCell className="py-3">
                     {primaryDriver ? (
-                      <div className="space-y-0.5 max-w-[230px]">
-                        <div className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate" title={primaryDriver.label}>
+                      <div className="max-w-[220px]">
+                        <div
+                          className="truncate text-sm text-neutral-800 dark:text-neutral-200"
+                          title={primaryDriver.label}
+                        >
                           {primaryDriver.label}
                         </div>
-                        <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1" title={primaryDriver.summary}>
+                        <p
+                          className="mt-0.5 line-clamp-1 text-xs text-neutral-500"
+                          title={primaryDriver.summary}
+                        >
                           {primaryDriver.summary}
                         </p>
                       </div>
                     ) : (
-                      <span className="text-xs text-slate-400 italic">Standard profile</span>
+                      <span className="text-sm text-neutral-400">—</span>
                     )}
                   </TableCell>
 
-                  {/* Discharge Follow-Up Status */}
                   <TableCell className="py-3">
-                    <div className="space-y-0.5">
-                      {patient.assigned_action_status === 'completed' ? (
-                        <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-900">
-                          <CheckCircle2 className="h-3 w-3 text-emerald-600" />
-                          <span>Action Completed</span>
-                        </span>
-                      ) : patient.assigned_action_status === 'in_progress' ? (
-                        <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded bg-blue-50 text-blue-800 border border-blue-200 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-900">
-                          <Clock className="h-3 w-3 text-blue-600" />
-                          <span>In Progress</span>
-                        </span>
-                      ) : (
-                        <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-900">
-                          <AlertTriangle className="h-3 w-3 text-amber-600" />
-                          <span>Action Needed</span>
-                        </span>
-                      )}
-
-                      {patient.active_action_count > 0 && (
-                        <div className="text-[10px] text-slate-500 dark:text-slate-400 pl-0.5">
-                          {patient.active_action_count} assigned task{patient.active_action_count > 1 ? 's' : ''}
-                        </div>
-                      )}
-                    </div>
+                    {patient.assigned_action_status === 'completed' ? (
+                      <span className="inline-flex items-center gap-1 text-sm text-emerald-700 dark:text-emerald-400">
+                        <CheckCircle2 className="h-3.5 w-3.5" />
+                        Done
+                      </span>
+                    ) : patient.assigned_action_status === 'in_progress' ? (
+                      <span className="inline-flex items-center gap-1 text-sm text-neutral-700 dark:text-neutral-300">
+                        <Clock className="h-3.5 w-3.5" />
+                        In progress
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1 text-sm text-amber-800 dark:text-amber-400">
+                        <AlertTriangle className="h-3.5 w-3.5" />
+                        Needed
+                      </span>
+                    )}
                   </TableCell>
 
-                  {/* Review Action */}
                   <TableCell className="py-3 text-right">
                     <Button
-                      variant="outline"
+                      variant="ghost"
                       size="sm"
-                      className="h-8 px-2.5 text-xs font-semibold text-blue-700 dark:text-blue-300 border-slate-300 dark:border-slate-700 group-hover:border-blue-500 group-hover:bg-blue-50 dark:group-hover:bg-blue-950/40"
+                      className="h-8 gap-1 px-2 text-sm text-neutral-600"
                     >
-                      <span>Review</span>
-                      <ChevronRight className="h-3.5 w-3.5 ml-1 group-hover:translate-x-0.5 transition-transform" />
+                      Open
+                      <ChevronRight className="h-3.5 w-3.5" />
                     </Button>
                   </TableCell>
                 </TableRow>

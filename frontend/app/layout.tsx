@@ -1,16 +1,26 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google';
 import './globals.css';
 import { SafetyBanner } from '@/components/layout/safety-banner';
 import { AppShell } from '@/components/layout/app-shell';
 import { TooltipProvider } from '@/components/ui/tooltip';
 
-const inter = Inter({ subsets: ['latin'] });
+const sans = IBM_Plex_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-sans',
+});
+
+const mono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-mono',
+});
 
 export const metadata: Metadata = {
-  title: 'ReadmitFlow | Clinical Decision Support & Risk Triage',
+  title: 'ReadmitFlow',
   description:
-    'Clinical-grade 30-day readmission risk triage, explainable SHAP drivers, clinician overrides, and care capacity planning with synthetic healthcare data.',
+    '30-day readmission risk triage with explainable drivers, clinician overrides, and care capacity planning. Synthetic demo data only.',
 };
 
 export default function RootLayout({
@@ -20,7 +30,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-full">
-      <body className={`${inter.className} min-h-full flex flex-col`}>
+      <body className={`${sans.variable} ${mono.variable} font-sans min-h-full flex flex-col`}>
         <TooltipProvider delayDuration={300}>
           <SafetyBanner />
           <AppShell>{children}</AppShell>

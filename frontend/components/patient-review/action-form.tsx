@@ -78,24 +78,19 @@ export function ActionForm({ patient }: ActionFormProps) {
   };
 
   return (
-    <Card className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
-      <CardHeader className="p-5 pb-3 border-b border-slate-200 dark:border-slate-800">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <span className="flex h-7 w-7 items-center justify-center rounded bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-bold border border-indigo-200 dark:border-indigo-900">
-              <CalendarCheck className="h-4 w-4" />
-            </span>
-            <div>
-              <CardTitle className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
-                Discharge Follow-Up & Intervention Planning
-              </CardTitle>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
-                Schedule accountable transitions-of-care tasks and assign to care team staff
-              </p>
-            </div>
+    <Card className="border border-neutral-200 bg-white shadow-none dark:border-neutral-800 dark:bg-neutral-900">
+      <CardHeader className="border-b border-neutral-200 p-5 pb-3 dark:border-neutral-800">
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <CardTitle className="text-base font-semibold text-neutral-900 dark:text-white">
+              Follow-up
+            </CardTitle>
+            <p className="mt-0.5 text-sm text-neutral-500">
+              Assign a task and owner for this patient
+            </p>
           </div>
-          <span className="text-xs font-bold px-2 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-900">
-            {currentActions.length} Assigned
+          <span className="text-sm text-neutral-500">
+            {currentActions.length} assigned
           </span>
         </div>
       </CardHeader>
@@ -104,8 +99,8 @@ export function ActionForm({ patient }: ActionFormProps) {
         {/* Active Assigned Actions for this Patient */}
         {currentActions.length > 0 && (
           <div className="space-y-2.5">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-              Active Interventions for {patient.id}
+            <h4 className="text-xs font-medium uppercase tracking-wide text-neutral-500">
+              Assigned
             </h4>
             <div className="space-y-2">
               {currentActions.map((action) => {
