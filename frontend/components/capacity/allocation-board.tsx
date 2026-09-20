@@ -52,13 +52,13 @@ export function AllocationBoard() {
 
             <div className="flex items-center gap-2">
               {hasOverCapacity ? (
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300 border border-rose-300 animate-pulse">
-                  <AlertCircle className="h-3.5 w-3.5 text-rose-600" />
-                  <span>Over Capacity Alert</span>
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-bold bg-rose-100 text-rose-900 dark:bg-rose-950 dark:text-rose-200 border border-rose-300 dark:border-rose-800">
+                  <AlertCircle className="h-3.5 w-3.5 text-rose-700" />
+                  <span>Over Capacity Warning</span>
                 </span>
               ) : (
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-bold bg-emerald-50 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-700" />
                   <span>Within Operational Capacity</span>
                 </span>
               )}

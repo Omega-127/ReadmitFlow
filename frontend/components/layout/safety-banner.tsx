@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { AlertTriangle, ChevronDown, ChevronUp, ShieldAlert } from 'lucide-react';
+import { ChevronDown, ChevronUp, ShieldAlert, CheckCircle2, Lock, Users } from 'lucide-react';
 import { SAFETY_DISCLAIMER, SAFETY_SUBTITLE } from '@/lib/constants';
 
 export function SafetyBanner() {
@@ -9,52 +9,50 @@ export function SafetyBanner() {
 
   return (
     <aside
-      aria-label="Clinical safety and synthetic data disclaimer"
-      className="w-full bg-gradient-to-r from-amber-500/15 via-amber-500/10 to-amber-500/15 border-b border-amber-300 dark:border-amber-800/80 text-amber-950 dark:text-amber-200 px-4 py-2 transition-all duration-200 select-none shadow-sm"
+      aria-label="Clinical decision support notice"
+      className="w-full bg-amber-50 dark:bg-amber-950/40 border-b border-amber-200 dark:border-amber-900/60 text-amber-950 dark:text-amber-100 px-4 py-2 transition-colors select-none text-xs"
     >
-      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs sm:text-sm">
-        <div className="flex items-center gap-2.5 font-medium">
-          <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-amber-500/20 text-amber-700 dark:text-amber-400 ring-1 ring-amber-500/40 animate-pulse">
+      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+        <div className="flex items-center gap-2.5">
+          <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-amber-200/80 text-amber-900 dark:bg-amber-900/80 dark:text-amber-200 font-bold">
             <ShieldAlert className="h-3.5 w-3.5" />
           </span>
           <div className="flex flex-wrap items-center gap-x-2">
-            <span className="font-semibold tracking-wide uppercase text-xs px-2 py-0.5 rounded bg-amber-500/20 border border-amber-500/30 text-amber-800 dark:text-amber-300">
-              Safety Notice
+            <span className="font-bold uppercase tracking-wider text-[10px] px-1.5 py-0.5 rounded bg-amber-200/90 text-amber-900 dark:bg-amber-900 dark:text-amber-200">
+              CDS Protocol
             </span>
-            <span className="font-semibold text-amber-900 dark:text-amber-100">
+            <span className="font-semibold text-amber-950 dark:text-amber-100">
               {SAFETY_DISCLAIMER}
             </span>
           </div>
         </div>
 
-        <div className="flex items-center gap-3 self-end sm:self-center">
-          <button
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="flex items-center gap-1 text-xs text-amber-800 dark:text-amber-300 hover:text-amber-950 dark:hover:text-amber-100 underline-offset-2 hover:underline transition-colors focus:outline-none"
-            aria-expanded={isExpanded}
-          >
-            <span>{isExpanded ? 'Hide disclosures' : 'Clinical disclosures & boundaries'}</span>
-            {isExpanded ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
-          </button>
-        </div>
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="flex items-center gap-1 text-[11px] font-medium text-amber-900 dark:text-amber-200 hover:text-amber-950 dark:hover:text-white underline-offset-2 hover:underline transition-colors focus:outline-none shrink-0 self-end sm:self-center"
+          aria-expanded={isExpanded}
+        >
+          <span>{isExpanded ? 'Hide clinical governance' : 'Governance & safety boundaries'}</span>
+          {isExpanded ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
+        </button>
       </div>
 
       {isExpanded && (
-        <div className="max-w-7xl mx-auto mt-2 pt-2 border-t border-amber-300/60 dark:border-amber-800/50 text-xs text-amber-900/90 dark:text-amber-200/90 space-y-1.5 animate-in fade-in slide-in-from-top-1 duration-200">
-          <p>{SAFETY_SUBTITLE}</p>
-          <div className="flex flex-wrap gap-4 pt-1 font-mono text-[11px] text-amber-800 dark:text-amber-300">
-            <span className="flex items-center gap-1">
-              <span className="h-1.5 w-1.5 rounded-full bg-amber-500"></span>
-              Human-in-the-Loop Mandate: Overrides require clinical rationale
-            </span>
-            <span className="flex items-center gap-1">
-              <span className="h-1.5 w-1.5 rounded-full bg-amber-500"></span>
-              Zero PHI: Synthetic patient records only
-            </span>
-            <span className="flex items-center gap-1">
-              <span className="h-1.5 w-1.5 rounded-full bg-amber-500"></span>
-              Readmission model outputs marked Demo Only
-            </span>
+        <div className="max-w-7xl mx-auto mt-2.5 pt-2.5 border-t border-amber-200/70 dark:border-amber-900/60 text-[11px] text-amber-900/90 dark:text-amber-200/90 space-y-2">
+          <p className="leading-relaxed">{SAFETY_SUBTITLE}</p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1">
+            <div className="flex items-center gap-1.5 p-1.5 rounded bg-white/60 dark:bg-slate-900/60 border border-amber-200/60 dark:border-amber-900/40 text-slate-800 dark:text-slate-200">
+              <Users className="h-3.5 w-3.5 text-amber-700 dark:text-amber-400 shrink-0" />
+              <span><strong>Human-in-the-Loop:</strong> Overrides require clinical staff rationale</span>
+            </div>
+            <div className="flex items-center gap-1.5 p-1.5 rounded bg-white/60 dark:bg-slate-900/60 border border-amber-200/60 dark:border-amber-900/40 text-slate-800 dark:text-slate-200">
+              <Lock className="h-3.5 w-3.5 text-emerald-700 dark:text-emerald-400 shrink-0" />
+              <span><strong>Zero PHI:</strong> De-identified synthetic patient cohort</span>
+            </div>
+            <div className="flex items-center gap-1.5 p-1.5 rounded bg-white/60 dark:bg-slate-900/60 border border-amber-200/60 dark:border-amber-900/40 text-slate-800 dark:text-slate-200">
+              <CheckCircle2 className="h-3.5 w-3.5 text-blue-700 dark:text-blue-400 shrink-0" />
+              <span><strong>Decision Support:</strong> Staff retain discharge authority</span>
+            </div>
           </div>
         </div>
       )}

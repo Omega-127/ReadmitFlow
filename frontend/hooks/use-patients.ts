@@ -21,6 +21,7 @@ export function usePatients() {
   // Filter & Search states
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTier, setSelectedTier] = useState<RiskTier | 'all'>('all');
+  const [actionStatusFilter, setActionStatusFilter] = useState<ActionStatus | 'all'>('all');
   const [showOverridesOnly, setShowOverridesOnly] = useState(false);
   const [sortBy, setSortBy] = useState<'risk_desc' | 'risk_asc' | 'age_desc' | 'date_desc'>('risk_desc');
 
@@ -99,6 +100,11 @@ export function usePatients() {
           return false;
         }
 
+        // Action Status filter
+        if (actionStatusFilter !== 'all' && p.assigned_action_status !== actionStatusFilter) {
+          return false;
+        }
+
         // Overrides toggle
         if (showOverridesOnly && !p.is_overridden) {
           return false;
@@ -115,7 +121,7 @@ export function usePatients() {
         }
         return 0;
       });
-  }, [enrichedPatients, searchQuery, selectedTier, showOverridesOnly, sortBy]);
+  }, [enrichedPatients, searchQuery, selectedTier, actionStatusFilter, showOverridesOnly, sortBy]);
 
   // Aggregate KPI summary stats
   const stats = useMemo(() => {
@@ -126,6 +132,10 @@ export function usePatients() {
     const overridden = enrichedPatients.filter((p) => p.is_overridden).length;
     const actionsPending = enrichedPatients.filter((p) => p.assigned_action_status === 'pending').length;
     const inProgress = enrichedPatients.filter((p) => p.assigned_action_status === 'in_progress').length;
+    const completed = enrichedPatients.filter((p) => p.assigned_action_status === 'completed').length;
+    const highRiskNeedingAction = enrichedPatients.filter(
+      (p) => p.risk_tier === 'high' && p.assigned_action_status === 'pending'
+    ).length;
 
     return {
       total,
@@ -135,6 +145,8 @@ export function usePatients() {
       overridden,
       actionsPending,
       inProgress,
+      completed,
+      highRiskNeedingAction,
     };
   }, [enrichedPatients]);
 
@@ -148,6 +160,8 @@ export function usePatients() {
     setSearchQuery,
     selectedTier,
     setSelectedTier,
+    actionStatusFilter,
+    setActionStatusFilter,
     showOverridesOnly,
     setShowOverridesOnly,
     sortBy,

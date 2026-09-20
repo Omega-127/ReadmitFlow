@@ -3,13 +3,13 @@
 import React from 'react';
 import {
   Activity,
+  CalendarCheck,
   CheckCircle2,
   Clock,
   History,
   RotateCcw,
   ShieldCheck,
   User,
-  Zap,
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { AuditEvent } from '@/lib/types';
@@ -73,7 +73,7 @@ export function AuditTimeline({ events, patientId }: AuditTimelineProps) {
                     {isOverride ? (
                       <RotateCcw className="h-2.5 w-2.5" />
                     ) : isAction ? (
-                      <Zap className="h-2.5 w-2.5" />
+                      <CalendarCheck className="h-2.5 w-2.5" />
                     ) : (
                       <Activity className="h-2.5 w-2.5" />
                     )}

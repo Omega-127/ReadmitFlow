@@ -11,39 +11,47 @@ export const RISK_TIER_CONFIG: Record<
   {
     label: string;
     description: string;
+    timeframe: string;
+    actionSummary: string;
     badgeBg: string;
     badgeText: string;
     border: string;
     dotBg: string;
-    gradient: string;
+    barColor: string;
   }
 > = {
   high: {
     label: 'High Risk',
-    description: 'Immediate multi-disciplinary review and rapid intervention recommended within 24h.',
+    description: 'Immediate multidisciplinary review and rapid outreach recommended within 24 hours.',
+    timeframe: '< 24 hours',
+    actionSummary: 'Urgent follow-up call & provider consult',
     badgeBg: 'bg-rose-50 dark:bg-rose-950/40',
-    badgeText: 'text-rose-700 dark:text-rose-300',
-    border: 'border-rose-200 dark:border-rose-800/60',
-    dotBg: 'bg-rose-500',
-    gradient: 'from-rose-500/20 to-rose-500/5',
+    badgeText: 'text-rose-800 dark:text-rose-200',
+    border: 'border-rose-300 dark:border-rose-800',
+    dotBg: 'bg-rose-600',
+    barColor: 'bg-rose-600',
   },
   medium: {
     label: 'Medium Risk',
-    description: 'Post-discharge follow-up call and medication reconciliation recommended within 48-72h.',
+    description: 'Post-discharge follow-up call and medication reconciliation recommended within 48 to 72 hours.',
+    timeframe: '48 - 72 hours',
+    actionSummary: 'Care coordinator call & med check',
     badgeBg: 'bg-amber-50 dark:bg-amber-950/40',
-    badgeText: 'text-amber-700 dark:text-amber-300',
-    border: 'border-amber-200 dark:border-amber-800/60',
+    badgeText: 'text-amber-800 dark:text-amber-200',
+    border: 'border-amber-300 dark:border-amber-800',
     dotBg: 'bg-amber-500',
-    gradient: 'from-amber-500/20 to-amber-500/5',
+    barColor: 'bg-amber-500',
   },
   low: {
     label: 'Low Risk',
-    description: 'Standard outpatient discharge summary and routine primary care visit recommended within 14 days.',
+    description: 'Standard outpatient discharge summary and routine primary care visit within 14 days.',
+    timeframe: '7 - 14 days',
+    actionSummary: 'Standard outpatient PCP follow-up',
     badgeBg: 'bg-emerald-50 dark:bg-emerald-950/40',
-    badgeText: 'text-emerald-700 dark:text-emerald-300',
-    border: 'border-emerald-200 dark:border-emerald-800/60',
-    dotBg: 'bg-emerald-500',
-    gradient: 'from-emerald-500/20 to-emerald-500/5',
+    badgeText: 'text-emerald-800 dark:text-emerald-200',
+    border: 'border-emerald-300 dark:border-emerald-800',
+    dotBg: 'bg-emerald-600',
+    barColor: 'bg-emerald-600',
   },
 };
 

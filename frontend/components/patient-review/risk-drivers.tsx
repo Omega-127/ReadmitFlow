@@ -2,11 +2,11 @@
 
 import React from 'react';
 import {
-  ArrowDownRight,
-  ArrowUpRight,
-  CheckCircle,
+  Activity,
+  CheckCircle2,
+  FileText,
   HelpCircle,
-  Sparkles,
+  SlidersHorizontal,
   TrendingDown,
   TrendingUp,
 } from 'lucide-react';
@@ -19,26 +19,53 @@ interface RiskDriversProps {
   score: number;
 }
 
+function getClinicalFeatureCategory(feature?: string): { category: string; display: string } {
+  if (!feature) return { category: 'Clinical Factor', display: 'General' };
+
+  const [key, val] = feature.split(':');
+  switch (key) {
+    case 'admission_type':
+      return { category: 'Admission Context', display: val ? `${val} Admission` : 'Admission Type' };
+    case 'medical_condition':
+      return { category: 'Primary Pathology', display: val || 'Condition' };
+    case 'billing_amount':
+      return { category: 'Resource Utilization', display: val ? `${val} Inpatient Intensity` : 'Billing Intensity' };
+    case 'medication_count':
+      return { category: 'Polypharmacy', display: `${val} Concurrent Medications` };
+    case 'insurance':
+      return { category: 'Payer Coverage', display: val ? `${val} Plan` : 'Insurance' };
+    case 'data_completeness':
+      return { category: 'Record Completeness', display: `${val} Verified EHR` };
+    case 'age':
+      return { category: 'Demographics', display: `Age ${val}` };
+    default:
+      return {
+        category: 'Clinical Attribute',
+        display: feature.replace(/_/g, ' ').replace(':', ': '),
+      };
+  }
+}
+
 export function RiskDrivers({ drivers, score }: RiskDriversProps) {
   return (
     <Card className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
-      <CardHeader className="p-5 pb-3 border-b border-slate-100 dark:border-slate-800">
+      <CardHeader className="p-5 pb-3 border-b border-slate-200 dark:border-slate-800">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400">
-              <Sparkles className="h-4 w-4" />
+          <div className="flex items-center gap-2.5">
+            <span className="flex h-7 w-7 items-center justify-center rounded bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 font-bold border border-blue-200 dark:border-blue-900">
+              <SlidersHorizontal className="h-4 w-4" />
             </span>
             <div>
-              <CardTitle className="text-base font-bold">
-                Explainable Risk Drivers (SHAP)
+              <CardTitle className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
+                Explainable Risk Drivers & Contributing Factors
               </CardTitle>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-                Key clinical and admission factors contributing to the 30-day readmission estimate ({formatScore(score)})
+                Algorithmic feature attributions (SHAP) explaining the {formatScore(score)} readmission probability
               </p>
             </div>
           </div>
-          <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium">
-            Model Explainability
+          <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold border border-slate-200 dark:border-slate-700">
+            SHAP Attribution
           </span>
         </div>
       </CardHeader>
@@ -51,71 +78,70 @@ export function RiskDrivers({ drivers, score }: RiskDriversProps) {
             const isIncrease = driver.direction === 'increases';
             const isDecrease = driver.direction === 'decreases';
             const weight = driver.impact_weight || 0.15;
-            const pctBar = Math.min(100, Math.max(10, Math.abs(weight) * 250));
+            const pctBar = Math.min(100, Math.max(12, Math.abs(weight) * 250));
+            const meta = getClinicalFeatureCategory(driver.feature);
 
             return (
               <div
                 key={idx}
-                className="rounded-lg border border-slate-100 dark:border-slate-800/80 bg-slate-50/50 dark:bg-slate-800/30 p-3.5 space-y-2"
+                className="rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/40 p-3.5 space-y-2.5"
               >
                 <div className="flex items-start justify-between gap-3">
-                  <div className="space-y-0.5">
-                    <div className="flex items-center gap-2">
-                      <span className="font-semibold text-xs text-slate-900 dark:text-slate-100">
+                  <div className="space-y-1">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="font-bold text-xs sm:text-sm text-slate-900 dark:text-slate-100">
                         {driver.label}
                       </span>
-                      {driver.feature && (
-                        <span className="font-mono text-[10px] px-1.5 py-0.2 rounded bg-slate-200/70 dark:bg-slate-700/60 text-slate-600 dark:text-slate-300">
-                          {driver.feature}
-                        </span>
-                      )}
+                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                        {meta.category}: {meta.display}
+                      </span>
                     </div>
-                    <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                    <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
                       {driver.summary}
                     </p>
                   </div>
 
                   {/* Directional Badge */}
                   <span
-                    className={`shrink-0 inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-semibold border ${
+                    className={`shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded text-xs font-bold border ${
                       isIncrease
-                        ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-900/60'
+                        ? 'bg-rose-50 text-rose-800 border-rose-200 dark:bg-rose-950/50 dark:text-rose-300 dark:border-rose-900'
                         : isDecrease
-                        ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-900/60'
-                        : 'bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-900/60'
+                        ? 'bg-emerald-50 text-emerald-800 border-emerald-200 dark:bg-emerald-950/50 dark:text-emerald-300 dark:border-emerald-900'
+                        : 'bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-950/50 dark:text-amber-300 dark:border-amber-900'
                     }`}
                   >
                     {isIncrease ? (
                       <>
-                        <TrendingUp className="h-3 w-3" />
+                        <TrendingUp className="h-3.5 w-3.5" />
                         <span>Increases Risk</span>
                       </>
                     ) : isDecrease ? (
                       <>
-                        <TrendingDown className="h-3 w-3" />
-                        <span>Mitigating Factor</span>
+                        <TrendingDown className="h-3.5 w-3.5" />
+                        <span>Protective Factor</span>
                       </>
                     ) : (
                       <>
-                        <HelpCircle className="h-3 w-3" />
-                        <span>Review</span>
+                        <HelpCircle className="h-3.5 w-3.5" />
+                        <span>Contextual Factor</span>
                       </>
                     )}
                   </span>
                 </div>
 
                 {/* Relative impact bar */}
-                <div className="flex items-center gap-2 pt-1">
-                  <div className="h-1.5 flex-1 bg-slate-200/80 dark:bg-slate-700 rounded-full overflow-hidden">
+                <div className="flex items-center gap-3 pt-1 border-t border-slate-200/60 dark:border-slate-700/60">
+                  <div className="h-2 flex-1 bg-slate-200 dark:bg-slate-700 rounded overflow-hidden">
                     <div
                       style={{ width: `${pctBar}%` }}
-                      className={`h-full rounded-full ${
-                        isIncrease ? 'bg-rose-500' : isDecrease ? 'bg-emerald-500' : 'bg-amber-500'
+                      className={`h-full ${
+                        isIncrease ? 'bg-rose-600' : isDecrease ? 'bg-emerald-600' : 'bg-amber-500'
                       }`}
                     />
                   </div>
-                  <span className="font-mono text-[10px] text-slate-500 font-medium">
-                    {weight > 0 ? `+${(weight * 100).toFixed(0)}%` : `${(weight * 100).toFixed(0)}%`} SHAP impact
+                  <span className="font-mono text-xs text-slate-700 dark:text-slate-300 font-bold shrink-0">
+                    {weight > 0 ? `+${(weight * 100).toFixed(0)}%` : `${(weight * 100).toFixed(0)}%`} relative weight
                   </span>
                 </div>
               </div>
@@ -123,13 +149,13 @@ export function RiskDrivers({ drivers, score }: RiskDriversProps) {
           })
         )}
 
-        <div className="rounded-lg bg-blue-50/60 dark:bg-blue-950/30 border border-blue-100 dark:border-blue-900/50 p-3 text-xs text-blue-900 dark:text-blue-200 space-y-1">
-          <p className="font-semibold flex items-center gap-1.5">
-            <CheckCircle className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
-            <span>Clinical Translation Note</span>
+        <div className="rounded-lg bg-slate-100/80 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 p-3.5 text-xs text-slate-800 dark:text-slate-200 space-y-1">
+          <p className="font-bold flex items-center gap-1.5 text-slate-900 dark:text-slate-100">
+            <CheckCircle2 className="h-4 w-4 text-blue-700 dark:text-blue-400" />
+            <span>Clinical Translation & Chart Review Guidance</span>
           </p>
-          <p className="text-[11px] leading-relaxed text-blue-800/90 dark:text-blue-300/90">
-            Drivers are algorithmically computed feature attributions against the synthetic baseline cohort. They are provided to accelerate chart review, not to substitute for clinician physical exam or comprehensive history.
+          <p className="text-[11px] leading-relaxed text-slate-600 dark:text-slate-400">
+            SHAP values represent the magnitude each variable pushed the risk score above or below the cohort baseline. Use these findings to target post-discharge reconciliation (e.g. confirming medication adherence or checking home oxygen delivery).
           </p>
         </div>
       </CardContent>

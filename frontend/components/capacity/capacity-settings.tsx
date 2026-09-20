@@ -43,16 +43,30 @@ export function CapacitySettingsComponent() {
     setTimeout(() => setSavedMsg(false), 3000);
   };
 
+  const applyPreset = (calls: number, specialist: number, outreach: number, consults: number) => {
+    const updated = {
+      follow_up_call_slots: calls,
+      specialist_review_slots: specialist,
+      rapid_outreach_slots: outreach,
+      nurse_consult_slots: consults,
+      last_updated: new Date().toISOString(),
+    };
+    setSettings(updated);
+    updateCapacitySettings(updated);
+    setSavedMsg(true);
+    setTimeout(() => setSavedMsg(false), 3000);
+  };
+
   return (
     <Card className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
-      <CardHeader className="p-5 pb-3 border-b border-slate-100 dark:border-slate-800">
+      <CardHeader className="p-5 pb-3 border-b border-slate-200 dark:border-slate-800">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400">
+            <span className="flex h-7 w-7 items-center justify-center rounded bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-900">
               <Sliders className="h-4 w-4" />
             </span>
             <div>
-              <CardTitle className="text-base font-bold">
+              <CardTitle className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
                 Daily Care Team Capacity Limits
               </CardTitle>
               <p className="text-xs text-slate-500 dark:text-slate-400">
@@ -66,7 +80,7 @@ export function CapacitySettingsComponent() {
             variant="ghost"
             size="sm"
             onClick={handleResetDefaults}
-            className="h-8 gap-1 text-xs text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
+            className="h-8 gap-1 text-xs text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
             title="Reset capacity settings to defaults"
           >
             <RotateCcw className="h-3 w-3" />
@@ -75,8 +89,38 @@ export function CapacitySettingsComponent() {
         </div>
       </CardHeader>
 
-      <CardContent className="p-5">
-        <form onSubmit={handleSave} className="space-y-6">
+      <CardContent className="p-5 space-y-5">
+        {/* Quick Operational Presets */}
+        <div className="space-y-1.5 pb-3 border-b border-slate-200 dark:border-slate-800">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block">
+            Staffing Schedule Presets:
+          </span>
+          <div className="grid grid-cols-3 gap-2">
+            <button
+              type="button"
+              onClick={() => applyPreset(16, 6, 4, 10)}
+              className="px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-xs font-semibold text-slate-800 dark:text-slate-200 text-center transition-colors"
+            >
+              Standard Shift
+            </button>
+            <button
+              type="button"
+              onClick={() => applyPreset(24, 10, 8, 16)}
+              className="px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-xs font-semibold text-slate-800 dark:text-slate-200 text-center transition-colors"
+            >
+              Surge / Peak
+            </button>
+            <button
+              type="button"
+              onClick={() => applyPreset(8, 3, 2, 6)}
+              className="px-2.5 py-1.5 rounded border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-xs font-semibold text-slate-800 dark:text-slate-200 text-center transition-colors"
+            >
+              Weekend Low
+            </button>
+          </div>
+        </div>
+
+        <form onSubmit={handleSave} className="space-y-5">
           {/* Sliders Grid */}
           <div className="space-y-5">
             {/* Follow-up Calls */}

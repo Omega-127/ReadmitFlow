@@ -114,14 +114,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <aside className="hidden lg:flex w-64 flex-col border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm shrink-0">
           <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2.5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-600 text-white shadow-md shadow-blue-500/20">
+              <div className="flex h-9 w-9 items-center justify-center rounded-md bg-blue-700 text-white">
                 <Activity className="h-5 w-5" />
               </div>
               <div>
                 <span className="font-bold tracking-tight text-base text-slate-900 dark:text-white flex items-center gap-1.5">
-                  Readmit<span className="text-blue-600 dark:text-blue-400 font-extrabold">Flow</span>
+                  Readmit<span className="text-blue-700 dark:text-blue-400 font-extrabold">Flow</span>
                 </span>
-                <span className="block text-[10px] font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+                <span className="block text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                   Clinical Decision Support
                 </span>
               </div>
@@ -273,7 +273,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   </>
                 ) : (
                   <>
-                    <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span className="h-2 w-2 rounded-full bg-emerald-600"></span>
                     <span className="hidden sm:inline">API Connected</span>
                     <span className="sm:hidden">Live</span>
                   </>

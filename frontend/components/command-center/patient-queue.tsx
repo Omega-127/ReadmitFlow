@@ -97,86 +97,91 @@ export function PatientQueue() {
       <div className="overflow-x-auto">
         <Table>
           <TableHeader>
-            <TableRow className="bg-slate-50/60 dark:bg-slate-800/40 text-[11px] font-semibold tracking-wider text-slate-500 uppercase">
-              <TableHead className="w-[200px]">Patient & MRN</TableHead>
-              <TableHead className="w-[240px]">Condition & Admission</TableHead>
-              <TableHead className="w-[200px]">30-Day Risk Triage</TableHead>
-              <TableHead className="w-[160px]">Confidence Guard</TableHead>
-              <TableHead className="w-[160px]">Action Status</TableHead>
-              <TableHead className="text-right w-[100px]">Action</TableHead>
+            <TableRow className="bg-slate-100/70 dark:bg-slate-800/60 text-[11px] font-bold tracking-wider text-slate-600 dark:text-slate-300 uppercase border-b border-slate-200 dark:border-slate-700">
+              <TableHead className="w-[180px]">Patient & Demographics</TableHead>
+              <TableHead className="w-[200px]">Diagnosis & Facility</TableHead>
+              <TableHead className="w-[190px]">30-Day Risk Triage</TableHead>
+              <TableHead className="w-[240px]">Primary Clinical Risk Driver</TableHead>
+              <TableHead className="w-[180px]">Discharge Follow-Up</TableHead>
+              <TableHead className="text-right w-[110px]">Triage Action</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {patients.map((patient) => {
               const tierConfig = getTierConfig(patient.risk_tier);
               const confConfig = getConfidenceBadgeClasses(patient.confidence_level);
+              const primaryDriver = patient.risk_drivers?.[0];
 
               return (
                 <TableRow
                   key={patient.id}
                   onClick={() => router.push(`/patients/${patient.id}`)}
-                  className="cursor-pointer hover:bg-blue-50/40 dark:hover:bg-blue-950/20 transition-colors group"
+                  className="cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group border-b border-slate-100 dark:border-slate-800"
                 >
-                  {/* Patient & MRN */}
-                  <TableCell className="py-3.5">
+                  {/* Patient & Demographics */}
+                  <TableCell className="py-3">
                     <div className="flex items-center gap-2.5">
-                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold text-xs">
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-mono font-bold text-xs border border-slate-200 dark:border-slate-700">
                         {patient.gender === 'Female' ? 'F' : 'M'}
                       </div>
                       <div>
-                        <div className="font-semibold text-slate-900 dark:text-slate-100 text-sm group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors flex items-center gap-1.5">
-                          <span>{patient.id}</span>
+                        <div className="font-bold text-slate-900 dark:text-slate-100 text-xs sm:text-sm group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors flex items-center gap-1.5">
+                          <span className="font-mono">{patient.id}</span>
                           {patient.blood_type && (
-                            <span className="text-[10px] px-1 py-0.2 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 font-mono">
+                            <span className="text-[10px] px-1 py-0.2 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-mono border border-slate-200 dark:border-slate-700">
                               {patient.blood_type}
                             </span>
                           )}
                         </div>
-                        <div className="text-xs text-slate-500 dark:text-slate-400">
-                          {patient.age} yrs • {patient.gender} • {patient.insurance_provider}
+                        <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                          {patient.age}y • {patient.gender} • {patient.insurance_provider}
                         </div>
                       </div>
                     </div>
                   </TableCell>
 
-                  {/* Condition & Admission */}
-                  <TableCell className="py-3.5">
+                  {/* Diagnosis & Facility */}
+                  <TableCell className="py-3">
                     <div className="space-y-0.5">
-                      <div className="text-xs font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+                      <div className="text-xs font-bold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
                         <span>{patient.medical_condition}</span>
                         <span
-                          className={`text-[10px] px-1.5 py-0.2 rounded font-medium ${
+                          className={`text-[10px] font-semibold px-1.5 py-0.2 rounded border ${
                             patient.admission_type === 'Emergency'
-                              ? 'bg-rose-100 text-rose-700 dark:bg-rose-950 dark:text-rose-300'
+                              ? 'bg-rose-50 text-rose-800 border-rose-200 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-900'
                               : patient.admission_type === 'Urgent'
-                              ? 'bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300'
-                              : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300'
+                              ? 'bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-900'
+                              : 'bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700'
                           }`}
                         >
                           {patient.admission_type}
                         </span>
                       </div>
-                      <div className="text-[11px] text-slate-500 truncate max-w-[220px]">
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate max-w-[200px]" title={patient.hospital}>
                         {patient.hospital}
                       </div>
                     </div>
                   </TableCell>
 
                   {/* 30-Day Risk Triage */}
-                  <TableCell className="py-3.5">
+                  <TableCell className="py-3">
                     <div className="space-y-1">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1.5 flex-wrap">
                         <span
-                          className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-semibold border ${tierConfig.badgeBg} ${tierConfig.badgeText} ${tierConfig.border}`}
+                          className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-bold border ${tierConfig.badgeBg} ${tierConfig.badgeText} ${tierConfig.border}`}
                         >
                           <span className={`h-1.5 w-1.5 rounded-full ${tierConfig.dotBg}`}></span>
                           {tierConfig.label}
                         </span>
 
+                        <span className="font-mono text-xs font-bold text-slate-800 dark:text-slate-200">
+                          {formatScore(patient.risk_score)}
+                        </span>
+
                         {patient.is_overridden && (
                           <span
-                            className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300 border border-amber-300 dark:border-amber-800"
-                            title={`Human override: previously ${patient.original_risk_tier.toUpperCase()}`}
+                            className="inline-flex items-center gap-0.5 px-1 py-0.2 rounded text-[10px] font-bold bg-amber-100 text-amber-900 dark:bg-amber-950 dark:text-amber-300 border border-amber-300 dark:border-amber-800"
+                            title={`Clinician override from ${patient.original_risk_tier.toUpperCase()}`}
                           >
                             <RotateCcw className="h-2.5 w-2.5" />
                             Overridden
@@ -184,79 +189,73 @@ export function PatientQueue() {
                         )}
                       </div>
 
-                      {/* Score gauge mini bar */}
                       <div className="flex items-center gap-2">
-                        <div className="h-1.5 w-20 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                        <div className="h-1.5 w-16 bg-slate-200 dark:bg-slate-700 rounded overflow-hidden">
                           <div
                             style={{ width: `${patient.risk_score * 100}%` }}
-                            className={`h-full ${
-                              patient.risk_score >= 0.7
-                                ? 'bg-rose-500'
-                                : patient.risk_score >= 0.45
-                                ? 'bg-amber-500'
-                                : 'bg-emerald-500'
-                            }`}
+                            className={`h-full ${tierConfig.barColor}`}
                           />
                         </div>
-                        <span className="font-mono text-xs text-slate-700 dark:text-slate-300 font-medium">
-                          {formatScore(patient.risk_score)}
+                        <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">
+                          Target: {tierConfig.timeframe}
                         </span>
                       </div>
                     </div>
                   </TableCell>
 
-                  {/* Confidence Guard */}
-                  <TableCell className="py-3.5">
-                    <div className="space-y-0.5">
-                      <span
-                        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium border ${confConfig.bg} ${confConfig.text} ${confConfig.border}`}
-                      >
-                        {confConfig.label}
-                      </span>
-                      {patient.confidence_flags && patient.confidence_flags.length > 0 && (
-                        <div className="text-[10px] text-amber-700 dark:text-amber-400 truncate max-w-[150px]">
-                          {patient.confidence_flags[0]}
+                  {/* Primary Clinical Driver */}
+                  <TableCell className="py-3">
+                    {primaryDriver ? (
+                      <div className="space-y-0.5 max-w-[230px]">
+                        <div className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate" title={primaryDriver.label}>
+                          {primaryDriver.label}
                         </div>
-                      )}
-                    </div>
+                        <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1" title={primaryDriver.summary}>
+                          {primaryDriver.summary}
+                        </p>
+                      </div>
+                    ) : (
+                      <span className="text-xs text-slate-400 italic">Standard profile</span>
+                    )}
                   </TableCell>
 
-                  {/* Action Status */}
-                  <TableCell className="py-3.5">
-                    <div>
+                  {/* Discharge Follow-Up Status */}
+                  <TableCell className="py-3">
+                    <div className="space-y-0.5">
                       {patient.assigned_action_status === 'completed' ? (
-                        <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-700 dark:text-emerald-400">
-                          <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
+                        <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-900">
+                          <CheckCircle2 className="h-3 w-3 text-emerald-600" />
                           <span>Action Completed</span>
                         </span>
                       ) : patient.assigned_action_status === 'in_progress' ? (
-                        <span className="inline-flex items-center gap-1 text-xs font-semibold text-blue-700 dark:text-blue-400">
-                          <Clock className="h-3.5 w-3.5 text-blue-600 animate-spin" />
+                        <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded bg-blue-50 text-blue-800 border border-blue-200 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-900">
+                          <Clock className="h-3 w-3 text-blue-600" />
                           <span>In Progress</span>
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1 text-xs font-medium text-amber-700 dark:text-amber-400">
-                          <AlertTriangle className="h-3.5 w-3.5 text-amber-600" />
+                        <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-900">
+                          <AlertTriangle className="h-3 w-3 text-amber-600" />
                           <span>Action Needed</span>
                         </span>
                       )}
+
                       {patient.active_action_count > 0 && (
-                        <div className="text-[10px] text-slate-500">
-                          {patient.active_action_count} active intervention{patient.active_action_count > 1 ? 's' : ''}
+                        <div className="text-[10px] text-slate-500 dark:text-slate-400 pl-0.5">
+                          {patient.active_action_count} assigned task{patient.active_action_count > 1 ? 's' : ''}
                         </div>
                       )}
                     </div>
                   </TableCell>
 
                   {/* Review Action */}
-                  <TableCell className="py-3.5 text-right">
+                  <TableCell className="py-3 text-right">
                     <Button
-                      variant="ghost"
+                      variant="outline"
                       size="sm"
-                      className="h-8 gap-1 text-xs font-semibold text-blue-600 dark:text-blue-400 group-hover:bg-blue-100/60 dark:group-hover:bg-blue-900/40"
+                      className="h-8 px-2.5 text-xs font-semibold text-blue-700 dark:text-blue-300 border-slate-300 dark:border-slate-700 group-hover:border-blue-500 group-hover:bg-blue-50 dark:group-hover:bg-blue-950/40"
                     >
                       <span>Review</span>
-                      <ChevronRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
+                      <ChevronRight className="h-3.5 w-3.5 ml-1 group-hover:translate-x-0.5 transition-transform" />
                     </Button>
                   </TableCell>
                 </TableRow>

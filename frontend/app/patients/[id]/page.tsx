@@ -3,10 +3,11 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
-import { AlertCircle, ArrowLeft, Loader2, ShieldCheck } from 'lucide-react';
+import { AlertCircle, ArrowLeft, CheckCircle2, Clock, Info, Loader2, ShieldAlert } from 'lucide-react';
 import { api } from '@/lib/api';
 import { Patient, RiskTier } from '@/lib/types';
 import { useDemoWorkflow } from '@/hooks/use-demo-workflow';
+import { usePatients } from '@/hooks/use-patients';
 import { PatientHeader } from '@/components/patient-review/patient-header';
 import { RiskDrivers } from '@/components/patient-review/risk-drivers';
 import { ConfidenceGuard } from '@/components/patient-review/confidence-guard';
@@ -15,6 +16,7 @@ import { OverrideDialog } from '@/components/patient-review/override-dialog';
 import { AuditTimeline } from '@/components/patient-review/audit-timeline';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { formatScore, getTierConfig } from '@/lib/formatters';
 
 export default function PatientReviewPage() {
   const params = useParams();
@@ -31,6 +33,15 @@ export default function PatientReviewPage() {
     getPatientAudit,
     isReady,
   } = useDemoWorkflow();
+
+  const { allPatients } = usePatients();
+
+  const currentIndex = allPatients.findIndex((p) => p.id === patientId);
+  const prevPatientId = currentIndex > 0 ? allPatients[currentIndex - 1].id : null;
+  const nextPatientId =
+    currentIndex >= 0 && currentIndex < allPatients.length - 1
+      ? allPatients[currentIndex + 1].id
+      : null;
 
   useEffect(() => {
     async function loadPatient() {
@@ -89,17 +100,57 @@ export default function PatientReviewPage() {
   const effectiveTier: RiskTier = patientOverride ? patientOverride.selected_tier : patient.risk_tier;
   const isOverridden = !!patientOverride;
   const auditEvents = getPatientAudit(patient.id);
+  const tierConfig = getTierConfig(effectiveTier);
 
   return (
     <div className="space-y-6">
-      {/* Patient Demographic & Risk Header */}
+      {/* Patient Demographic & Risk Header with Queue Navigation */}
       <PatientHeader
         patient={patient}
         effectiveTier={effectiveTier}
         isOverridden={isOverridden}
         originalTier={patient.risk_tier}
         onOpenOverride={() => setShowOverrideDialog(true)}
+        prevPatientId={prevPatientId}
+        nextPatientId={nextPatientId}
+        currentIndex={currentIndex >= 0 ? currentIndex : undefined}
+        totalPatients={allPatients.length > 0 ? allPatients.length : undefined}
       />
+
+      {/* Clinical Triage Protocol Banner */}
+      <div className={`p-4 rounded-lg border ${tierConfig.border} ${tierConfig.badgeBg} flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs`}>
+        <div className="space-y-1">
+          <div className="flex items-center gap-2">
+            <span className="font-bold text-sm text-slate-900 dark:text-slate-100">
+              Discharge Triage Strategy: {tierConfig.label} ({formatScore(patient.risk_score)})
+            </span>
+            <span className="font-semibold px-2 py-0.5 rounded text-[11px] bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700">
+              Target Window: {tierConfig.timeframe}
+            </span>
+          </div>
+          <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+            {tierConfig.description}
+          </p>
+        </div>
+
+        {patient.recommendation_templates && patient.recommendation_templates.length > 0 && (
+          <div className="sm:border-l sm:border-slate-300 dark:sm:border-slate-700 sm:pl-4 space-y-1 shrink-0">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block">
+              Suggested Pathways:
+            </span>
+            <div className="flex flex-wrap gap-1.5">
+              {patient.recommendation_templates.slice(0, 2).map((tmpl, idx) => (
+                <span
+                  key={idx}
+                  className="px-2 py-0.5 rounded bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 font-medium text-[11px] border border-slate-300 dark:border-slate-700"
+                >
+                  {tmpl}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
 
       {/* Main Review Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
