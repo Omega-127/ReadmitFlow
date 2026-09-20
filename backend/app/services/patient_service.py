@@ -188,6 +188,9 @@ class PatientService:
         clean_query = query.strip().lower() if query else None
         clean_tier = risk_tier.strip().upper() if risk_tier else None
 
+        if clean_tier in ("ALL", "ANY", "EVERY", ""):
+            clean_tier = None
+
         if clean_tier and clean_tier not in {"HIGH", "MEDIUM", "LOW"}:
             return []
 
