@@ -33,6 +33,7 @@ class PredictionService:
             risk_tier=prediction_result["risk_tier"],
             risk_drivers=prediction_result["risk_drivers"],
             confidence=prediction_result["confidence"],
+            confidence_warnings=prediction_result["confidence"].flags,
         )
 
 

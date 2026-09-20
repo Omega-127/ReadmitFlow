@@ -126,7 +126,41 @@ class ModelService:
                 )
             )
 
-        # 4. Lab / Test Result indicators
+        # 4. Prior Admissions & Recency impact
+        adm_cnt = getattr(request, "admission_count", 0) or 0
+        if adm_cnt > 0:
+            score += min(0.35, 0.07 * adm_cnt)
+            drivers.append(
+                RiskDriver(
+                    label="Prior hospital admissions",
+                    direction="increases",
+                    summary=f"History of {adm_cnt} prior admission(s) increases predicted readmission risk.",
+                )
+            )
+
+        recency = getattr(request, "days_since_last_admission", 90)
+        if recency is not None and recency < 30:
+            score += 0.15
+            drivers.append(
+                RiskDriver(
+                    label="Recency of prior discharge",
+                    direction="increases",
+                    summary=f"Recent discharge within {recency} day(s) increases 30-day readmission risk.",
+                )
+            )
+
+        if getattr(request, "has_pcp", True) is False:
+            score += 0.12
+            flags.append("Primary care provider (PCP) is not recorded")
+            drivers.append(
+                RiskDriver(
+                    label="Primary care provider (PCP) status",
+                    direction="increases",
+                    summary="No recorded primary care provider increases post-discharge coordination vulnerability.",
+                )
+            )
+
+        # 5. Lab / Test Result indicators
         if request.test_results:
             tr = request.test_results.strip().lower()
             if "abnormal" in tr:
@@ -148,7 +182,7 @@ class ModelService:
                     )
                 )
 
-        # 5. Data completeness check for Confidence Guard
+        # 6. Data completeness check for Confidence Guard
         if not request.medication:
             flags.append("Missing discharge medication field")
         if not request.test_results:
@@ -175,7 +209,7 @@ class ModelService:
 
         # Clamp calculated risk score strictly to [0.05, 0.95]
         final_score = round(max(0.05, min(score, 0.95)), 2)
-        tier = get_risk_tier(final_score)
+        tier = str(get_risk_tier(final_score)).upper()
 
         # If no drivers triggered, add a default explanatory item
         if not drivers:

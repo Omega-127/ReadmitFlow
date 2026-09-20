@@ -6,8 +6,13 @@ Prefers sampling real Synthea-derived encounter features when available so the
 Command Center shows a realistic HIGH / MEDIUM / LOW mix.
 """
 
+import sys
 from pathlib import Path
 from typing import Dict, List, Optional
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
 import joblib
 import numpy as np

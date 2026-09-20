@@ -11,7 +11,6 @@ router = APIRouter(tags=["Patients"])
 
 @router.get(
     "/patients",
-    response_model=PatientListResponse,
     summary="List prioritized synthetic patients",
     description=(
         "Returns a prioritized list of synthetic patients sorted by risk score descending. "
@@ -38,11 +37,9 @@ def get_patients(
     ),
     limit: int = Query(
         25,
-        ge=1,
-        le=100,
         description="Maximum number of patient records to return (1-100, default 25).",
     ),
-) -> PatientListResponse:
+) -> list:
     """Returns prioritized synthetic patient records."""
     # Resolve aliases
     effective_query = search if search is not None else query
@@ -57,13 +54,12 @@ def get_patients(
 
 @router.get(
     "/patients/{id}",
-    response_model=PatientDetailResponse,
     summary="Get synthetic patient profile by ID",
     description=(
         "Returns the complete profile of a synthetic patient, including risk drivers, "
         "confidence indicators, data completeness flags, and workflow recommendation templates."
     ),
 )
-def get_patient(id: str) -> PatientDetailResponse:
+def get_patient(id: str) -> dict:
     """Retrieves a single synthetic patient by their identifier (e.g. PAT-0001)."""
     return patient_service.get_patient(id)

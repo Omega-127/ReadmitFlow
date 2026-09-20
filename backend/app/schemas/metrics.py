@@ -1,6 +1,6 @@
 """Pydantic schemas for model metrics, evaluation summaries, and health checks."""
 
-from typing import List
+from typing import Dict, List, Optional, Union
 from pydantic import BaseModel, Field
 
 
@@ -32,14 +32,38 @@ class MetricsResponse(BaseModel):
         default=True,
         description="Safety flag indicating metrics are demonstration placeholders",
     )
-    metrics: ModelMetricsData = Field(
-        ..., description="Model evaluation performance values"
+    model_type: Optional[str] = Field(
+        default="LogisticRegression", description="Model architecture type"
+    )
+    roc_auc: Optional[float] = Field(
+        default=0.0, description="Top-level ROC-AUC score"
+    )
+    precision: Optional[float] = Field(
+        default=0.0, description="Top-level Precision score"
+    )
+    recall: Optional[float] = Field(
+        default=0.0, description="Top-level Recall score"
+    )
+    f1: Optional[float] = Field(
+        default=0.0, description="Top-level F1 score"
+    )
+    confusion_matrix: Optional[Union[Dict[str, int], List[List[int]]]] = Field(
+        default=None, description="Confusion matrix dict or 2x2 matrix"
+    )
+    training_samples: Optional[int] = Field(
+        default=None, description="Number of training samples"
+    )
+    test_samples: Optional[int] = Field(
+        default=None, description="Number of test samples"
+    )
+    metrics: Optional[ModelMetricsData] = Field(
+        default=None, description="Model evaluation performance values object"
     )
     preprocessing_summary: List[str] = Field(
-        ..., description="Notes regarding data preparation and encoding status"
+        default_factory=list, description="Notes regarding data preparation and encoding status"
     )
     limitations: List[str] = Field(
-        ..., description="Clinical safety constraints and data boundaries"
+        default_factory=list, description="Clinical safety constraints and data boundaries"
     )
 
 

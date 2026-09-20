@@ -29,16 +29,31 @@ class MetricsService:
 
         # Parse metrics data safely
         metrics_data = raw_metrics.get("metrics", {})
+        roc_auc = float(raw_metrics.get("roc_auc", metrics_data.get("roc_auc", 0.0)))
+        precision = float(raw_metrics.get("precision", metrics_data.get("precision", 0.0)))
+        recall = float(raw_metrics.get("recall", metrics_data.get("recall", 0.0)))
+        f1 = float(raw_metrics.get("f1", metrics_data.get("f1", 0.0)))
+
         parsed_metrics = ModelMetricsData(
-            roc_auc=float(metrics_data.get("roc_auc", 0.0)),
-            precision=float(metrics_data.get("precision", 0.0)),
-            recall=float(metrics_data.get("recall", 0.0)),
-            f1=float(metrics_data.get("f1", 0.0)),
+            roc_auc=roc_auc,
+            precision=precision,
+            recall=recall,
+            f1=f1,
             confusion_matrix=metrics_data.get("confusion_matrix", [[0, 0], [0, 0]]),
         )
 
+        cm = raw_metrics.get("confusion_matrix", metrics_data.get("confusion_matrix"))
+
         return MetricsResponse(
             demo_only=True,
+            model_type=raw_metrics.get("model_type", "LogisticRegression"),
+            roc_auc=roc_auc,
+            precision=precision,
+            recall=recall,
+            f1=f1,
+            confusion_matrix=cm,
+            training_samples=raw_metrics.get("training_samples"),
+            test_samples=raw_metrics.get("test_samples"),
             metrics=parsed_metrics,
             preprocessing_summary=raw_metrics.get(
                 "preprocessing_summary",

@@ -14,7 +14,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from ml.src.data_loading import load_raw_data, build_demo_proxy_target
+from ml.src.synthea_etl import load_synthea_training_frame
 from ml.src.feature_engineering import normalize_input_features
 from ml.src.evaluation import evaluate_model
 from ml.src.export import export_metrics_json, BACKEND_MODELS_DIR
@@ -31,10 +31,12 @@ def run_evaluation():
     print(f"Loading trained model from {model_path}...")
     model = joblib.load(model_path)
 
-    print("Loading raw data and building evaluation split...")
-    df_raw = load_raw_data()
-    df_prep, _ = build_demo_proxy_target(df_raw)
-    df_clean = normalize_input_features(df_prep)
+    print("Loading Synthea encounter features and building holdout test split...")
+    df_raw, source_meta = load_synthea_training_frame(rebuild=False)
+    df_clean = normalize_input_features(df_raw)
+
+    if "target" not in df_clean.columns and "readmitted_30d" in df_clean.columns:
+        df_clean["target"] = df_clean["readmitted_30d"].astype(int)
 
     X = df_clean[ALL_FEATURE_COLUMNS]
     y = df_clean["target"]
@@ -43,16 +45,20 @@ def run_evaluation():
         X, y, test_size=0.2, random_state=42, stratify=y
     )
 
-    print(f"Evaluating model on {len(X_test)} holdout test samples...")
+    print(f"Evaluating model on {len(X_test)} Synthea holdout test samples...")
     metrics = evaluate_model(
         model=model,
         X_test=X_test,
         y_test=y_test,
         model_type_name="LogisticRegression",
         training_samples=len(X) - len(X_test),
+        data_source_note=(
+            "Trained on Synthea COVID-19 10K synthetic EHR sample with a derived "
+            "30-day inpatient readmission label (next inpatient within 30 days of discharge)."
+        ),
     )
 
-    print("\n--- Model Evaluation Results (DEMO-ONLY) ---")
+    print("\n--- Model Evaluation Results (SYNTHEA DERIVED LABEL) ---")
     print(f"Model Type:        {metrics['model_type']}")
     print(f"ROC-AUC:           {metrics['roc_auc']:.4f}")
     print(f"Precision:         {metrics['precision']:.4f}")
