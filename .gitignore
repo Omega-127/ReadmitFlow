@@ -1,0 +1,47 @@
+# Dependencies
+node_modules/
+.venv/
+venv/
+env/
+
+# Next.js / frontend build
+frontend/.next/
+frontend/out/
+*.tsbuildinfo
+next-env.d.ts
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Env & secrets
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs & coverage
+*.log
+npm-debug.log*
+coverage/
+.coverage
+htmlcov/
+
+# Package locks sometimes kept; keep package-lock if present
+# Dist
+dist/
+build/
+*.egg
