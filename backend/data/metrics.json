@@ -1,23 +1,34 @@
 {
   "demo_only": true,
   "metrics": {
-    "roc_auc": 0.0,
-    "precision": 0.0,
-    "recall": 0.0,
-    "f1": 0.0,
+    "roc_auc": 0.9132,
+    "precision": 0.5151,
+    "recall": 0.9448,
+    "f1": 0.6667,
     "confusion_matrix": [
-      [0, 0],
-      [0, 0]
+      [
+        1215,
+        290
+      ],
+      [
+        18,
+        308
+      ]
     ]
   },
   "preprocessing_summary": [
-    "Synthetic dataset validation completed",
-    "Categorical encoding and numeric scaling pipelines initialized",
-    "Baseline demonstration placeholders active pending organizer-approved target"
+    "Synthea inpatient encounters joined with patients, conditions, and payers",
+    "Derived 30-day inpatient readmission label from encounter timelines",
+    "StandardScaler (age, admission_count, days_since_last_admission) + OneHotEncoder (gender, primary_diagnosis, insurance, has_pcp)"
   ],
   "limitations": [
-    "Demonstration prototype only; not for diagnosis, treatment, or clinical intervention",
-    "Model metrics reflect synthetic baseline placeholders rather than validated clinical outcomes",
-    "Dataset lacks verified 30-day readmission endpoint labels in current synthetic distribution"
-  ]
+    "Trained on Synthea COVID-19 10K synthetic EHR sample with a derived 30-day inpatient readmission label (next inpatient within 30 days of discharge).",
+    "Label is derived from Synthea encounter timelines (next inpatient within 30 days), not a real-world clinical outcomes registry.",
+    "All predictions carry demo_only=True and must not be used for diagnostic or autonomous clinical decisions.",
+    "Class imbalance handled with class_weight='balanced' in Logistic Regression."
+  ],
+  "notes": "Baseline explainable Logistic Regression evaluated on Synthea-derived holdout set.",
+  "model_type": "LogisticRegression",
+  "training_samples": 7324,
+  "test_samples": 1831
 }

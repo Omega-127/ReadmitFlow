@@ -231,7 +231,7 @@ def build_synthea_features(
         "source_dir": str(directory),
         "label_definition": (
             f"Derived inpatient-to-inpatient return within {readmission_window_days} days "
-            "of discharge (STOP → next inpatient START)."
+            "of discharge (STOP -> next inpatient START)."
         ),
         "is_demo_proxy": False,
         "is_synthetic_derived_label": True,

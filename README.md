@@ -108,7 +108,7 @@ The frontend reads the API URL from `NEXT_PUBLIC_API_URL`. Copy `.env.example` t
 ## Data and responsible use
 
 - Use only synthetic or de-identified data in this prototype.
-- The organizer-specified healthcare dataset may not contain a valid readmission target. Until an approved target strategy exists, any displayed risk result must be marked **Demo Only**.
+- Default training data is **Synthea** (COVID-19 10K CSV) with a derived 30-day inpatient readmission label. See `dataset/synthea/README.md`.
 - Recommendations are review templates, not medication, treatment, or diagnostic advice.
 - Staff can override any recommendation, and the reason is retained in the audit history.
 - The prototype has no authentication, EHR integration, real messaging, or production-grade security.
