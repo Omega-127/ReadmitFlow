@@ -4,13 +4,14 @@ import React from 'react';
 import Link from 'next/link';
 import { ArrowLeft, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Patient, RiskTier } from '@/lib/types';
+import { Action, AuditEvent, Override, Patient, RiskTier } from '@/lib/types';
 import {
   formatCurrency,
   formatDate,
   formatScore,
   getTierConfig,
 } from '@/lib/formatters';
+import { HandoffExport } from '@/components/patient-review/handoff-export';
 
 interface PatientHeaderProps {
   patient: Patient;
@@ -22,6 +23,9 @@ interface PatientHeaderProps {
   nextPatientId?: string | null;
   currentIndex?: number;
   totalPatients?: number;
+  override?: Override;
+  actions?: Action[];
+  auditEvents?: AuditEvent[];
 }
 
 export function PatientHeader({
@@ -34,6 +38,9 @@ export function PatientHeader({
   nextPatientId,
   currentIndex,
   totalPatients,
+  override,
+  actions = [],
+  auditEvents = [],
 }: PatientHeaderProps) {
   const tierConfig = getTierConfig(effectiveTier);
 
@@ -102,6 +109,15 @@ export function PatientHeader({
               Overridden (was {originalTier})
             </span>
           )}
+
+          <HandoffExport
+            patient={patient}
+            effectiveTier={effectiveTier}
+            override={override}
+            actions={actions}
+            auditEvents={auditEvents}
+            triggerVariant="header"
+          />
 
           <Button
             onClick={onOpenOverride}

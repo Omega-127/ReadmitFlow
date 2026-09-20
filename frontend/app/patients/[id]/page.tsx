@@ -15,6 +15,7 @@ import { ConfidenceGuard } from '@/components/patient-review/confidence-guard';
 import { ActionForm } from '@/components/patient-review/action-form';
 import { OverrideDialog } from '@/components/patient-review/override-dialog';
 import { AuditTimeline } from '@/components/patient-review/audit-timeline';
+import { HandoffExport } from '@/components/patient-review/handoff-export';
 import { Button } from '@/components/ui/button';
 import { formatScore, getTierConfig } from '@/lib/formatters';
 
@@ -30,6 +31,7 @@ export default function PatientReviewPage() {
   const {
     getPatientOverride,
     getPatientAudit,
+    getPatientActions,
     isReady,
   } = useDemoWorkflow();
 
@@ -105,6 +107,7 @@ export default function PatientReviewPage() {
   const effectiveTier: RiskTier = patientOverride ? patientOverride.selected_tier : patient.risk_tier;
   const isOverridden = !!patientOverride;
   const auditEvents = getPatientAudit(patient.id);
+  const patientActions = getPatientActions(patient.id);
   const tierConfig = getTierConfig(effectiveTier);
 
   return (
@@ -119,6 +122,9 @@ export default function PatientReviewPage() {
         nextPatientId={nextPatientId}
         currentIndex={currentIndex >= 0 ? currentIndex : undefined}
         totalPatients={allPatients.length > 0 ? allPatients.length : undefined}
+        override={patientOverride}
+        actions={patientActions}
+        auditEvents={auditEvents}
       />
 
       <div
@@ -155,6 +161,23 @@ export default function PatientReviewPage() {
         </div>
         <div className="space-y-6 lg:col-span-5">
           <ActionForm patient={patient} />
+          <div className="rounded-md border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-900">
+            <h2 className="text-base font-semibold text-neutral-900 dark:text-white">
+              Shift handoff
+            </h2>
+            <p className="mt-0.5 text-sm text-neutral-500">
+              Package this review for the next coordinator — print, PDF, or download.
+            </p>
+            <div className="mt-3">
+              <HandoffExport
+                patient={patient}
+                effectiveTier={effectiveTier}
+                override={patientOverride}
+                actions={patientActions}
+                auditEvents={auditEvents}
+              />
+            </div>
+          </div>
           <AuditTimeline events={auditEvents} patientId={patient.id} />
         </div>
       </div>
