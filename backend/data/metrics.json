@@ -1,18 +1,18 @@
 {
   "demo_only": true,
   "metrics": {
-    "roc_auc": 0.9132,
-    "precision": 0.5151,
-    "recall": 0.9448,
-    "f1": 0.6667,
+    "roc_auc": 0.6906,
+    "precision": 0.2893,
+    "recall": 0.1953,
+    "f1": 0.2332,
     "confusion_matrix": [
       [
-        1215,
-        290
+        8713,
+        774
       ],
       [
-        18,
-        308
+        1298,
+        315
       ]
     ]
   },
@@ -22,13 +22,13 @@
     "StandardScaler (age, admission_count, days_since_last_admission) + OneHotEncoder (gender, primary_diagnosis, insurance, has_pcp)"
   ],
   "limitations": [
-    "Trained on Synthea COVID-19 10K synthetic EHR sample with a derived 30-day inpatient readmission label (next inpatient within 30 days of discharge).",
+    "Trained on Synthea synthetic EHR encounters with a derived 30-day inpatient readmission label for software and UI demonstration.",
     "Label is derived from Synthea encounter timelines (next inpatient within 30 days), not a real-world clinical outcomes registry.",
     "All predictions carry demo_only=True and must not be used for diagnostic or autonomous clinical decisions.",
     "Class imbalance handled with class_weight='balanced' in Logistic Regression."
   ],
   "notes": "Baseline explainable Logistic Regression evaluated on Synthea-derived holdout set.",
   "model_type": "LogisticRegression",
-  "training_samples": 7324,
-  "test_samples": 1831
+  "training_samples": 44400,
+  "test_samples": 11100
 }

@@ -8,9 +8,18 @@ records belong in this repository.
 
 import json
 import os
+import sys
 from pathlib import Path
 from typing import Generator
 from unittest.mock import MagicMock, patch
+
+# Ensure backend and repo root are in sys.path
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+BACKEND_ROOT = PROJECT_ROOT / "backend"
+if str(BACKEND_ROOT) not in sys.path:
+    sys.path.insert(0, str(BACKEND_ROOT))
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
 import pytest
 from fastapi.testclient import TestClient

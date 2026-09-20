@@ -1,19 +1,19 @@
 [
   {
-    "id": "PT-1001",
-    "name": "Demo Patient PT-1001",
-    "display_name": "Patient PT-1001",
-    "age": 56,
+    "id": "PT-1010",
+    "name": "Demo Patient PT-1010",
+    "display_name": "Patient PT-1010",
+    "age": 62,
     "gender": "M",
-    "admission_count": 7,
-    "days_since_last_admission": 20,
+    "admission_count": 13,
+    "days_since_last_admission": 25,
     "primary_diagnosis": "Cancer",
     "medical_condition": "Cancer",
     "admission_type": "Inpatient",
-    "insurance": "NO_INSURANCE",
+    "insurance": "Humana",
     "has_pcp": true,
     "missing_fields": [],
-    "risk_score": 0.9041,
+    "risk_score": 0.9713,
     "risk_tier": "high",
     "risk_drivers": [
       {
@@ -24,18 +24,18 @@
         "summary": "Primary condition: Cancer increases the model's predicted risk (demo contribution weight: 2.53)."
       },
       {
-        "factor": "Recency of prior discharge",
-        "label": "Recency of prior discharge",
-        "direction": "increases",
-        "weight": 0.75,
-        "summary": "Recency of prior discharge increases the model's predicted risk (demo contribution weight: 0.75)."
-      },
-      {
         "factor": "Prior hospital admissions",
         "label": "Prior hospital admissions",
         "direction": "increases",
-        "weight": 0.43,
-        "summary": "Prior hospital admissions increases the model's predicted risk (demo contribution weight: 0.43)."
+        "weight": 1.07,
+        "summary": "Prior hospital admissions increases the model's predicted risk (demo contribution weight: 1.07)."
+      },
+      {
+        "factor": "Recency of prior discharge",
+        "label": "Recency of prior discharge",
+        "direction": "increases",
+        "weight": 0.7,
+        "summary": "Recency of prior discharge increases the model's predicted risk (demo contribution weight: 0.70)."
       }
     ],
     "confidence_flags": [],
@@ -49,20 +49,20 @@
     "demo_only": true
   },
   {
-    "id": "PT-1008",
-    "name": "Demo Patient PT-1008",
-    "display_name": "Patient PT-1008",
-    "age": 82,
-    "gender": "F",
+    "id": "PT-1001",
+    "name": "Demo Patient PT-1001",
+    "display_name": "Patient PT-1001",
+    "age": 81,
+    "gender": "M",
     "admission_count": 2,
-    "days_since_last_admission": 0,
+    "days_since_last_admission": 21,
     "primary_diagnosis": "Cancer",
     "medical_condition": "Cancer",
     "admission_type": "Inpatient",
     "insurance": "Medicare",
     "has_pcp": true,
     "missing_fields": [],
-    "risk_score": 0.8964,
+    "risk_score": 0.9213,
     "risk_tier": "high",
     "risk_drivers": [
       {
@@ -76,15 +76,15 @@
         "factor": "Patient age",
         "label": "Patient age",
         "direction": "increases",
-        "weight": 1.5,
-        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 1.50)."
+        "weight": 1.45,
+        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 1.45)."
       },
       {
         "factor": "Recency of prior discharge",
         "label": "Recency of prior discharge",
         "direction": "increases",
-        "weight": 0.91,
-        "summary": "Recency of prior discharge increases the model's predicted risk (demo contribution weight: 0.91)."
+        "weight": 0.74,
+        "summary": "Recency of prior discharge increases the model's predicted risk (demo contribution weight: 0.74)."
       }
     ],
     "confidence_flags": [
@@ -100,20 +100,20 @@
     "demo_only": true
   },
   {
-    "id": "PT-1006",
-    "name": "Demo Patient PT-1006",
-    "display_name": "Patient PT-1006",
-    "age": 71,
+    "id": "PT-1009",
+    "name": "Demo Patient PT-1009",
+    "display_name": "Patient PT-1009",
+    "age": 76,
     "gender": "M",
     "admission_count": 12,
-    "days_since_last_admission": 31,
+    "days_since_last_admission": 32,
     "primary_diagnosis": "Other",
     "medical_condition": "Other",
     "admission_type": "Inpatient",
     "insurance": "Medicare",
     "has_pcp": true,
     "missing_fields": [],
-    "risk_score": 0.8866,
+    "risk_score": 0.9084,
     "risk_tier": "high",
     "risk_drivers": [
       {
@@ -124,18 +124,18 @@
         "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
       },
       {
+        "factor": "Patient age",
+        "label": "Patient age",
+        "direction": "increases",
+        "weight": 1.21,
+        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 1.21)."
+      },
+      {
         "factor": "Prior hospital admissions",
         "label": "Prior hospital admissions",
         "direction": "increases",
         "weight": 0.97,
         "summary": "Prior hospital admissions increases the model's predicted risk (demo contribution weight: 0.97)."
-      },
-      {
-        "factor": "Patient age",
-        "label": "Patient age",
-        "direction": "increases",
-        "weight": 0.96,
-        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 0.96)."
       }
     ],
     "confidence_flags": [],
@@ -152,39 +152,39 @@
     "id": "PT-1003",
     "name": "Demo Patient PT-1003",
     "display_name": "Patient PT-1003",
-    "age": 78,
-    "gender": "M",
-    "admission_count": 8,
-    "days_since_last_admission": 30,
-    "primary_diagnosis": "Other",
-    "medical_condition": "Other",
+    "age": 50,
+    "gender": "F",
+    "admission_count": 14,
+    "days_since_last_admission": 21,
+    "primary_diagnosis": "Cancer",
+    "medical_condition": "Cancer",
     "admission_type": "Inpatient",
-    "insurance": "Medicare",
+    "insurance": "Aetna",
     "has_pcp": true,
     "missing_fields": [],
-    "risk_score": 0.8784,
+    "risk_score": 0.908,
     "risk_tier": "high",
     "risk_drivers": [
       {
-        "factor": "Primary Diagnosis Other",
-        "label": "Primary Diagnosis Other",
+        "factor": "Primary condition: Cancer",
+        "label": "Primary condition: Cancer",
         "direction": "increases",
-        "weight": 1.62,
-        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
+        "weight": 2.53,
+        "summary": "Primary condition: Cancer increases the model's predicted risk (demo contribution weight: 2.53)."
       },
       {
-        "factor": "Patient age",
-        "label": "Patient age",
+        "factor": "Prior hospital admissions",
+        "label": "Prior hospital admissions",
         "direction": "increases",
-        "weight": 1.31,
-        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 1.31)."
+        "weight": 1.18,
+        "summary": "Prior hospital admissions increases the model's predicted risk (demo contribution weight: 1.18)."
       },
       {
         "factor": "Recency of prior discharge",
         "label": "Recency of prior discharge",
         "direction": "increases",
-        "weight": 0.66,
-        "summary": "Recency of prior discharge increases the model's predicted risk (demo contribution weight: 0.66)."
+        "weight": 0.74,
+        "summary": "Recency of prior discharge increases the model's predicted risk (demo contribution weight: 0.74)."
       }
     ],
     "confidence_flags": [],
@@ -198,20 +198,22 @@
     "demo_only": true
   },
   {
-    "id": "PT-1002",
-    "name": "Demo Patient PT-1002",
-    "display_name": "Patient PT-1002",
-    "age": 50,
+    "id": "PT-1004",
+    "name": "Demo Patient PT-1004",
+    "display_name": "Patient PT-1004",
+    "age": 83,
     "gender": "M",
-    "admission_count": 11,
-    "days_since_last_admission": 27,
+    "admission_count": 7,
+    "days_since_last_admission": 31,
     "primary_diagnosis": "Other",
     "medical_condition": "Other",
     "admission_type": "Inpatient",
-    "insurance": "NO_INSURANCE",
+    "insurance": null,
     "has_pcp": true,
-    "missing_fields": [],
-    "risk_score": 0.8045,
+    "missing_fields": [
+      "insurance"
+    ],
+    "risk_score": 0.8915,
     "risk_tier": "high",
     "risk_drivers": [
       {
@@ -222,11 +224,63 @@
         "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
       },
       {
-        "factor": "Prior hospital admissions",
-        "label": "Prior hospital admissions",
+        "factor": "Patient age",
+        "label": "Patient age",
         "direction": "increases",
-        "weight": 0.86,
-        "summary": "Prior hospital admissions increases the model's predicted risk (demo contribution weight: 0.86)."
+        "weight": 1.55,
+        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 1.55)."
+      },
+      {
+        "factor": "Recency of prior discharge",
+        "label": "Recency of prior discharge",
+        "direction": "increases",
+        "weight": 0.65,
+        "summary": "Recency of prior discharge increases the model's predicted risk (demo contribution weight: 0.65)."
+      }
+    ],
+    "confidence_flags": [
+      "insurance field missing",
+      "Advanced patient age requires review"
+    ],
+    "confidence_level": "review",
+    "action_templates": [
+      "Schedule 48h care-coordinator follow-up call",
+      "Arrange home health visit & medication review",
+      "Specialist urgent consult request"
+    ],
+    "assigned_action_status": "pending",
+    "demo_only": true
+  },
+  {
+    "id": "PT-1006",
+    "name": "Demo Patient PT-1006",
+    "display_name": "Patient PT-1006",
+    "age": 74,
+    "gender": "M",
+    "admission_count": 7,
+    "days_since_last_admission": 27,
+    "primary_diagnosis": "Other",
+    "medical_condition": "Other",
+    "admission_type": "Inpatient",
+    "insurance": "Medicare",
+    "has_pcp": true,
+    "missing_fields": [],
+    "risk_score": 0.8452,
+    "risk_tier": "high",
+    "risk_drivers": [
+      {
+        "factor": "Primary Diagnosis Other",
+        "label": "Primary Diagnosis Other",
+        "direction": "increases",
+        "weight": 1.62,
+        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
+      },
+      {
+        "factor": "Patient age",
+        "label": "Patient age",
+        "direction": "increases",
+        "weight": 1.11,
+        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 1.11)."
       },
       {
         "factor": "Recency of prior discharge",
@@ -247,58 +301,9 @@
     "demo_only": true
   },
   {
-    "id": "PT-1009",
-    "name": "Demo Patient PT-1009",
-    "display_name": "Patient PT-1009",
-    "age": 70,
-    "gender": "M",
-    "admission_count": 5,
-    "days_since_last_admission": 28,
-    "primary_diagnosis": "Other",
-    "medical_condition": "Other",
-    "admission_type": "Inpatient",
-    "insurance": "Medicare",
-    "has_pcp": true,
-    "missing_fields": [],
-    "risk_score": 0.7818,
-    "risk_tier": "high",
-    "risk_drivers": [
-      {
-        "factor": "Primary Diagnosis Other",
-        "label": "Primary Diagnosis Other",
-        "direction": "increases",
-        "weight": 1.62,
-        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
-      },
-      {
-        "factor": "Patient age",
-        "label": "Patient age",
-        "direction": "increases",
-        "weight": 0.91,
-        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 0.91)."
-      },
-      {
-        "factor": "Recency of prior discharge",
-        "label": "Recency of prior discharge",
-        "direction": "increases",
-        "weight": 0.68,
-        "summary": "Recency of prior discharge increases the model's predicted risk (demo contribution weight: 0.68)."
-      }
-    ],
-    "confidence_flags": [],
-    "confidence_level": "high",
-    "action_templates": [
-      "Schedule 48h care-coordinator follow-up call",
-      "Arrange home health visit & medication review",
-      "Specialist urgent consult request"
-    ],
-    "assigned_action_status": "pending",
-    "demo_only": true
-  },
-  {
-    "id": "PT-1010",
-    "name": "Demo Patient PT-1010",
-    "display_name": "Patient PT-1010",
+    "id": "PT-1007",
+    "name": "Demo Patient PT-1007",
+    "display_name": "Patient PT-1007",
     "age": 67,
     "gender": "M",
     "admission_count": 6,
@@ -306,10 +311,10 @@
     "primary_diagnosis": "Other",
     "medical_condition": "Other",
     "admission_type": "Inpatient",
-    "insurance": "Medicare",
+    "insurance": "NO_INSURANCE",
     "has_pcp": true,
     "missing_fields": [],
-    "risk_score": 0.7691,
+    "risk_score": 0.8415,
     "risk_tier": "high",
     "risk_drivers": [
       {
@@ -345,50 +350,46 @@
     "demo_only": true
   },
   {
-    "id": "PT-1004",
-    "name": "Demo Patient PT-1004",
-    "display_name": "Patient PT-1004",
-    "age": 51,
-    "gender": "F",
-    "admission_count": 3,
-    "days_since_last_admission": 21,
-    "primary_diagnosis": "Cancer",
-    "medical_condition": "Cancer",
+    "id": "PT-1002",
+    "name": "Demo Patient PT-1002",
+    "display_name": "Patient PT-1002",
+    "age": 78,
+    "gender": "M",
+    "admission_count": 4,
+    "days_since_last_admission": 27,
+    "primary_diagnosis": "Other",
+    "medical_condition": "Other",
     "admission_type": "Inpatient",
-    "insurance": null,
+    "insurance": "Medicare",
     "has_pcp": true,
-    "missing_fields": [
-      "insurance"
-    ],
-    "risk_score": 0.7596,
+    "missing_fields": [],
+    "risk_score": 0.8278,
     "risk_tier": "high",
     "risk_drivers": [
       {
-        "factor": "Primary condition: Cancer",
-        "label": "Primary condition: Cancer",
+        "factor": "Primary Diagnosis Other",
+        "label": "Primary Diagnosis Other",
         "direction": "increases",
-        "weight": 2.53,
-        "summary": "Primary condition: Cancer increases the model's predicted risk (demo contribution weight: 2.53)."
+        "weight": 1.62,
+        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
+      },
+      {
+        "factor": "Patient age",
+        "label": "Patient age",
+        "direction": "increases",
+        "weight": 1.31,
+        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 1.31)."
       },
       {
         "factor": "Recency of prior discharge",
         "label": "Recency of prior discharge",
         "direction": "increases",
-        "weight": 0.74,
-        "summary": "Recency of prior discharge increases the model's predicted risk (demo contribution weight: 0.74)."
-      },
-      {
-        "factor": "Demographic gender (Female)",
-        "label": "Demographic gender (Female)",
-        "direction": "decreases",
-        "weight": 0.72,
-        "summary": "Demographic gender (Female) decreases the model's predicted risk (demo contribution weight: 0.72)."
+        "weight": 0.69,
+        "summary": "Recency of prior discharge increases the model's predicted risk (demo contribution weight: 0.69)."
       }
     ],
-    "confidence_flags": [
-      "insurance field missing"
-    ],
-    "confidence_level": "review",
+    "confidence_flags": [],
+    "confidence_level": "high",
     "action_templates": [
       "Schedule 48h care-coordinator follow-up call",
       "Arrange home health visit & medication review",
@@ -398,20 +399,20 @@
     "demo_only": true
   },
   {
-    "id": "PT-1007",
-    "name": "Demo Patient PT-1007",
-    "display_name": "Patient PT-1007",
-    "age": 51,
-    "gender": "F",
-    "admission_count": 9,
-    "days_since_last_admission": 5,
+    "id": "PT-1008",
+    "name": "Demo Patient PT-1008",
+    "display_name": "Patient PT-1008",
+    "age": 61,
+    "gender": "M",
+    "admission_count": 6,
+    "days_since_last_admission": 29,
     "primary_diagnosis": "Other",
     "medical_condition": "Other",
     "admission_type": "Inpatient",
-    "insurance": "Aetna",
+    "insurance": "NO_INSURANCE",
     "has_pcp": true,
     "missing_fields": [],
-    "risk_score": 0.7357,
+    "risk_score": 0.8021,
     "risk_tier": "high",
     "risk_drivers": [
       {
@@ -425,15 +426,15 @@
         "factor": "Recency of prior discharge",
         "label": "Recency of prior discharge",
         "direction": "increases",
-        "weight": 0.87,
-        "summary": "Recency of prior discharge increases the model's predicted risk (demo contribution weight: 0.87)."
+        "weight": 0.67,
+        "summary": "Recency of prior discharge increases the model's predicted risk (demo contribution weight: 0.67)."
       },
       {
-        "factor": "Demographic gender (Female)",
-        "label": "Demographic gender (Female)",
-        "direction": "decreases",
-        "weight": 0.72,
-        "summary": "Demographic gender (Female) decreases the model's predicted risk (demo contribution weight: 0.72)."
+        "factor": "Patient age",
+        "label": "Patient age",
+        "direction": "increases",
+        "weight": 0.47,
+        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 0.47)."
       }
     ],
     "confidence_flags": [],
@@ -450,39 +451,39 @@
     "id": "PT-1005",
     "name": "Demo Patient PT-1005",
     "display_name": "Patient PT-1005",
-    "age": 45,
-    "gender": "F",
-    "admission_count": 4,
-    "days_since_last_admission": 18,
-    "primary_diagnosis": "Cancer",
-    "medical_condition": "Cancer",
+    "age": 61,
+    "gender": "M",
+    "admission_count": 5,
+    "days_since_last_admission": 36,
+    "primary_diagnosis": "Other",
+    "medical_condition": "Other",
     "admission_type": "Inpatient",
-    "insurance": "NO_INSURANCE",
+    "insurance": "UnitedHealthcare",
     "has_pcp": true,
     "missing_fields": [],
-    "risk_score": 0.7048,
+    "risk_score": 0.7969,
     "risk_tier": "high",
     "risk_drivers": [
       {
-        "factor": "Primary condition: Cancer",
-        "label": "Primary condition: Cancer",
+        "factor": "Primary Diagnosis Other",
+        "label": "Primary Diagnosis Other",
         "direction": "increases",
-        "weight": 2.53,
-        "summary": "Primary condition: Cancer increases the model's predicted risk (demo contribution weight: 2.53)."
+        "weight": 1.62,
+        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
       },
       {
         "factor": "Recency of prior discharge",
         "label": "Recency of prior discharge",
         "direction": "increases",
-        "weight": 0.76,
-        "summary": "Recency of prior discharge increases the model's predicted risk (demo contribution weight: 0.76)."
+        "weight": 0.61,
+        "summary": "Recency of prior discharge increases the model's predicted risk (demo contribution weight: 0.61)."
       },
       {
-        "factor": "Demographic gender (Female)",
-        "label": "Demographic gender (Female)",
-        "direction": "decreases",
-        "weight": 0.72,
-        "summary": "Demographic gender (Female) decreases the model's predicted risk (demo contribution weight: 0.72)."
+        "factor": "Patient age",
+        "label": "Patient age",
+        "direction": "increases",
+        "weight": 0.47,
+        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 0.47)."
       }
     ],
     "confidence_flags": [],
@@ -496,69 +497,20 @@
     "demo_only": true
   },
   {
-    "id": "PT-1017",
-    "name": "Demo Patient PT-1017",
-    "display_name": "Patient PT-1017",
-    "age": 74,
-    "gender": "F",
-    "admission_count": 0,
-    "days_since_last_admission": 90,
-    "primary_diagnosis": "Cancer",
-    "medical_condition": "Cancer",
-    "admission_type": "Inpatient",
-    "insurance": "Medicare",
-    "has_pcp": true,
-    "missing_fields": [],
-    "risk_score": 0.6899,
-    "risk_tier": "medium",
-    "risk_drivers": [
-      {
-        "factor": "Primary condition: Cancer",
-        "label": "Primary condition: Cancer",
-        "direction": "increases",
-        "weight": 2.53,
-        "summary": "Primary condition: Cancer increases the model's predicted risk (demo contribution weight: 2.53)."
-      },
-      {
-        "factor": "Patient age",
-        "label": "Patient age",
-        "direction": "increases",
-        "weight": 1.11,
-        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 1.11)."
-      },
-      {
-        "factor": "Demographic gender (Female)",
-        "label": "Demographic gender (Female)",
-        "direction": "decreases",
-        "weight": 0.72,
-        "summary": "Demographic gender (Female) decreases the model's predicted risk (demo contribution weight: 0.72)."
-      }
-    ],
-    "confidence_flags": [],
-    "confidence_level": "high",
-    "action_templates": [
-      "Schedule 7-day clinic follow-up visit",
-      "Medication reconciliation review",
-      "Dietary and disease-management consultation"
-    ],
-    "assigned_action_status": "pending",
-    "demo_only": true
-  },
-  {
-    "id": "PT-1026",
-    "name": "Demo Patient PT-1026",
-    "display_name": "Patient PT-1026",
-    "age": 49,
+    "id": "PT-1022",
+    "name": "Demo Patient PT-1022",
+    "display_name": "Patient PT-1022",
+    "age": 55,
     "gender": "M",
-    "admission_count": 5,
-    "days_since_last_admission": 28,
+    "admission_count": 2,
+    "days_since_last_admission": 30,
     "primary_diagnosis": "Other",
     "medical_condition": "Other",
     "admission_type": "Inpatient",
-    "insurance": "NO_INSURANCE",
+    "insurance": "Aetna",
     "has_pcp": true,
     "missing_fields": [],
-    "risk_score": 0.6703,
+    "risk_score": 0.6862,
     "risk_tier": "medium",
     "risk_drivers": [
       {
@@ -572,8 +524,8 @@
         "factor": "Recency of prior discharge",
         "label": "Recency of prior discharge",
         "direction": "increases",
-        "weight": 0.68,
-        "summary": "Recency of prior discharge increases the model's predicted risk (demo contribution weight: 0.68)."
+        "weight": 0.66,
+        "summary": "Recency of prior discharge increases the model's predicted risk (demo contribution weight: 0.66)."
       },
       {
         "factor": "Has recorded primary care provider",
@@ -594,46 +546,48 @@
     "demo_only": true
   },
   {
-    "id": "PT-1023",
-    "name": "Demo Patient PT-1023",
-    "display_name": "Patient PT-1023",
-    "age": 72,
-    "gender": "F",
+    "id": "PT-1012",
+    "name": "Demo Patient PT-1012",
+    "display_name": "Patient PT-1012",
+    "age": 81,
+    "gender": "M",
     "admission_count": 0,
     "days_since_last_admission": 90,
-    "primary_diagnosis": "Cancer",
-    "medical_condition": "Cancer",
+    "primary_diagnosis": "Other",
+    "medical_condition": "Other",
     "admission_type": "Inpatient",
     "insurance": "Medicare",
     "has_pcp": true,
     "missing_fields": [],
-    "risk_score": 0.6685,
+    "risk_score": 0.6818,
     "risk_tier": "medium",
     "risk_drivers": [
       {
-        "factor": "Primary condition: Cancer",
-        "label": "Primary condition: Cancer",
+        "factor": "Primary Diagnosis Other",
+        "label": "Primary Diagnosis Other",
         "direction": "increases",
-        "weight": 2.53,
-        "summary": "Primary condition: Cancer increases the model's predicted risk (demo contribution weight: 2.53)."
+        "weight": 1.62,
+        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
       },
       {
         "factor": "Patient age",
         "label": "Patient age",
         "direction": "increases",
-        "weight": 1.01,
-        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 1.01)."
+        "weight": 1.45,
+        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 1.45)."
       },
       {
-        "factor": "Demographic gender (Female)",
-        "label": "Demographic gender (Female)",
+        "factor": "Has recorded primary care provider",
+        "label": "Has recorded primary care provider",
         "direction": "decreases",
-        "weight": 0.72,
-        "summary": "Demographic gender (Female) decreases the model's predicted risk (demo contribution weight: 0.72)."
+        "weight": 0.4,
+        "summary": "Has recorded primary care provider decreases the model's predicted risk (demo contribution weight: 0.40)."
       }
     ],
-    "confidence_flags": [],
-    "confidence_level": "high",
+    "confidence_flags": [
+      "Advanced patient age requires review"
+    ],
+    "confidence_level": "review",
     "action_templates": [
       "Schedule 7-day clinic follow-up visit",
       "Medication reconciliation review",
@@ -643,20 +597,20 @@
     "demo_only": true
   },
   {
-    "id": "PT-1020",
-    "name": "Demo Patient PT-1020",
-    "display_name": "Patient PT-1020",
+    "id": "PT-1017",
+    "name": "Demo Patient PT-1017",
+    "display_name": "Patient PT-1017",
     "age": 66,
     "gender": "M",
-    "admission_count": 4,
-    "days_since_last_admission": 63,
+    "admission_count": 2,
+    "days_since_last_admission": 33,
     "primary_diagnosis": "Other",
     "medical_condition": "Other",
     "admission_type": "Inpatient",
     "insurance": "Medicare",
     "has_pcp": true,
     "missing_fields": [],
-    "risk_score": 0.6638,
+    "risk_score": 0.6713,
     "risk_tier": "medium",
     "risk_drivers": [
       {
@@ -674,6 +628,106 @@
         "summary": "Patient age increases the model's predicted risk (demo contribution weight: 0.72)."
       },
       {
+        "factor": "Recency of prior discharge",
+        "label": "Recency of prior discharge",
+        "direction": "increases",
+        "weight": 0.64,
+        "summary": "Recency of prior discharge increases the model's predicted risk (demo contribution weight: 0.64)."
+      }
+    ],
+    "confidence_flags": [],
+    "confidence_level": "high",
+    "action_templates": [
+      "Schedule 7-day clinic follow-up visit",
+      "Medication reconciliation review",
+      "Dietary and disease-management consultation"
+    ],
+    "assigned_action_status": "pending",
+    "demo_only": true
+  },
+  {
+    "id": "PT-1014",
+    "name": "Demo Patient PT-1014",
+    "display_name": "Patient PT-1014",
+    "age": 83,
+    "gender": "M",
+    "admission_count": 1,
+    "days_since_last_admission": 125,
+    "primary_diagnosis": "Other",
+    "medical_condition": "Other",
+    "admission_type": "Inpatient",
+    "insurance": "Medicare",
+    "has_pcp": true,
+    "missing_fields": [],
+    "risk_score": 0.6631,
+    "risk_tier": "medium",
+    "risk_drivers": [
+      {
+        "factor": "Primary Diagnosis Other",
+        "label": "Primary Diagnosis Other",
+        "direction": "increases",
+        "weight": 1.62,
+        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
+      },
+      {
+        "factor": "Patient age",
+        "label": "Patient age",
+        "direction": "increases",
+        "weight": 1.55,
+        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 1.55)."
+      },
+      {
+        "factor": "Has recorded primary care provider",
+        "label": "Has recorded primary care provider",
+        "direction": "decreases",
+        "weight": 0.4,
+        "summary": "Has recorded primary care provider decreases the model's predicted risk (demo contribution weight: 0.40)."
+      }
+    ],
+    "confidence_flags": [
+      "Advanced patient age requires review"
+    ],
+    "confidence_level": "review",
+    "action_templates": [
+      "Schedule 7-day clinic follow-up visit",
+      "Medication reconciliation review",
+      "Dietary and disease-management consultation"
+    ],
+    "assigned_action_status": "pending",
+    "demo_only": true
+  },
+  {
+    "id": "PT-1020",
+    "name": "Demo Patient PT-1020",
+    "display_name": "Patient PT-1020",
+    "age": 51,
+    "gender": "M",
+    "admission_count": 4,
+    "days_since_last_admission": 32,
+    "primary_diagnosis": "Other",
+    "medical_condition": "Other",
+    "admission_type": "Inpatient",
+    "insurance": "NO_INSURANCE",
+    "has_pcp": true,
+    "missing_fields": [],
+    "risk_score": 0.6608,
+    "risk_tier": "medium",
+    "risk_drivers": [
+      {
+        "factor": "Primary Diagnosis Other",
+        "label": "Primary Diagnosis Other",
+        "direction": "increases",
+        "weight": 1.62,
+        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
+      },
+      {
+        "factor": "Recency of prior discharge",
+        "label": "Recency of prior discharge",
+        "direction": "increases",
+        "weight": 0.65,
+        "summary": "Recency of prior discharge increases the model's predicted risk (demo contribution weight: 0.65)."
+      },
+      {
         "factor": "Has recorded primary care provider",
         "label": "Has recorded primary care provider",
         "direction": "decreases",
@@ -683,6 +737,157 @@
     ],
     "confidence_flags": [],
     "confidence_level": "high",
+    "action_templates": [
+      "Schedule 7-day clinic follow-up visit",
+      "Medication reconciliation review",
+      "Dietary and disease-management consultation"
+    ],
+    "assigned_action_status": "pending",
+    "demo_only": true
+  },
+  {
+    "id": "PT-1021",
+    "name": "Demo Patient PT-1021",
+    "display_name": "Patient PT-1021",
+    "age": 71,
+    "gender": "F",
+    "admission_count": 6,
+    "days_since_last_admission": 0,
+    "primary_diagnosis": "Cancer",
+    "medical_condition": "Cancer",
+    "admission_type": "Inpatient",
+    "insurance": "Dual Eligible",
+    "has_pcp": true,
+    "missing_fields": [],
+    "risk_score": 0.655,
+    "risk_tier": "medium",
+    "risk_drivers": [
+      {
+        "factor": "Primary condition: Cancer",
+        "label": "Primary condition: Cancer",
+        "direction": "increases",
+        "weight": 2.53,
+        "summary": "Primary condition: Cancer increases the model's predicted risk (demo contribution weight: 2.53)."
+      },
+      {
+        "factor": "Insurance Dual Eligible",
+        "label": "Insurance Dual Eligible",
+        "direction": "decreases",
+        "weight": 1.67,
+        "summary": "Insurance Dual Eligible decreases the model's predicted risk (demo contribution weight: 1.67)."
+      },
+      {
+        "factor": "Patient age",
+        "label": "Patient age",
+        "direction": "increases",
+        "weight": 0.96,
+        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 0.96)."
+      }
+    ],
+    "confidence_flags": [],
+    "confidence_level": "high",
+    "action_templates": [
+      "Schedule 7-day clinic follow-up visit",
+      "Medication reconciliation review",
+      "Dietary and disease-management consultation"
+    ],
+    "assigned_action_status": "pending",
+    "demo_only": true
+  },
+  {
+    "id": "PT-1013",
+    "name": "Demo Patient PT-1013",
+    "display_name": "Patient PT-1013",
+    "age": 75,
+    "gender": "M",
+    "admission_count": 0,
+    "days_since_last_admission": 90,
+    "primary_diagnosis": "Other",
+    "medical_condition": "Other",
+    "admission_type": "Inpatient",
+    "insurance": "Medicare",
+    "has_pcp": true,
+    "missing_fields": [],
+    "risk_score": 0.6146,
+    "risk_tier": "medium",
+    "risk_drivers": [
+      {
+        "factor": "Primary Diagnosis Other",
+        "label": "Primary Diagnosis Other",
+        "direction": "increases",
+        "weight": 1.62,
+        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
+      },
+      {
+        "factor": "Patient age",
+        "label": "Patient age",
+        "direction": "increases",
+        "weight": 1.16,
+        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 1.16)."
+      },
+      {
+        "factor": "Has recorded primary care provider",
+        "label": "Has recorded primary care provider",
+        "direction": "decreases",
+        "weight": 0.4,
+        "summary": "Has recorded primary care provider decreases the model's predicted risk (demo contribution weight: 0.40)."
+      }
+    ],
+    "confidence_flags": [],
+    "confidence_level": "high",
+    "action_templates": [
+      "Schedule 7-day clinic follow-up visit",
+      "Medication reconciliation review",
+      "Dietary and disease-management consultation"
+    ],
+    "assigned_action_status": "pending",
+    "demo_only": true
+  },
+  {
+    "id": "PT-1011",
+    "name": "Demo Patient PT-1011",
+    "display_name": "Patient PT-1011",
+    "age": 55,
+    "gender": "F",
+    "admission_count": 0,
+    "days_since_last_admission": 90,
+    "primary_diagnosis": "Cancer",
+    "medical_condition": "Cancer",
+    "admission_type": "Inpatient",
+    "insurance": null,
+    "has_pcp": true,
+    "missing_fields": [
+      "insurance"
+    ],
+    "risk_score": 0.6143,
+    "risk_tier": "medium",
+    "risk_drivers": [
+      {
+        "factor": "Primary condition: Cancer",
+        "label": "Primary condition: Cancer",
+        "direction": "increases",
+        "weight": 2.53,
+        "summary": "Primary condition: Cancer increases the model's predicted risk (demo contribution weight: 2.53)."
+      },
+      {
+        "factor": "Demographic gender (Female)",
+        "label": "Demographic gender (Female)",
+        "direction": "decreases",
+        "weight": 0.72,
+        "summary": "Demographic gender (Female) decreases the model's predicted risk (demo contribution weight: 0.72)."
+      },
+      {
+        "factor": "Has recorded primary care provider",
+        "label": "Has recorded primary care provider",
+        "direction": "decreases",
+        "weight": 0.4,
+        "summary": "Has recorded primary care provider decreases the model's predicted risk (demo contribution weight: 0.40)."
+      }
+    ],
+    "confidence_flags": [
+      "insurance field missing"
+    ],
+    "confidence_level": "review",
     "action_templates": [
       "Schedule 7-day clinic follow-up visit",
       "Medication reconciliation review",
@@ -695,39 +900,39 @@
     "id": "PT-1015",
     "name": "Demo Patient PT-1015",
     "display_name": "Patient PT-1015",
-    "age": 64,
-    "gender": "M",
+    "age": 50,
+    "gender": "F",
     "admission_count": 0,
     "days_since_last_admission": 90,
-    "primary_diagnosis": "Other",
-    "medical_condition": "Other",
+    "primary_diagnosis": "Cancer",
+    "medical_condition": "Cancer",
     "admission_type": "Inpatient",
-    "insurance": "NO_INSURANCE",
+    "insurance": "Humana",
     "has_pcp": true,
     "missing_fields": [],
-    "risk_score": 0.5967,
+    "risk_score": 0.6132,
     "risk_tier": "medium",
     "risk_drivers": [
       {
-        "factor": "Primary Diagnosis Other",
-        "label": "Primary Diagnosis Other",
+        "factor": "Primary condition: Cancer",
+        "label": "Primary condition: Cancer",
         "direction": "increases",
-        "weight": 1.62,
-        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
+        "weight": 2.53,
+        "summary": "Primary condition: Cancer increases the model's predicted risk (demo contribution weight: 2.53)."
       },
       {
-        "factor": "Patient age",
-        "label": "Patient age",
-        "direction": "increases",
-        "weight": 0.62,
-        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 0.62)."
-      },
-      {
-        "factor": "Has recorded primary care provider",
-        "label": "Has recorded primary care provider",
+        "factor": "Demographic gender (Female)",
+        "label": "Demographic gender (Female)",
         "direction": "decreases",
-        "weight": 0.4,
-        "summary": "Has recorded primary care provider decreases the model's predicted risk (demo contribution weight: 0.40)."
+        "weight": 0.72,
+        "summary": "Demographic gender (Female) decreases the model's predicted risk (demo contribution weight: 0.72)."
+      },
+      {
+        "factor": "Insurance Humana",
+        "label": "Insurance Humana",
+        "direction": "increases",
+        "weight": 0.57,
+        "summary": "Insurance Humana increases the model's predicted risk (demo contribution weight: 0.57)."
       }
     ],
     "confidence_flags": [],
@@ -741,69 +946,20 @@
     "demo_only": true
   },
   {
-    "id": "PT-1022",
-    "name": "Demo Patient PT-1022",
-    "display_name": "Patient PT-1022",
-    "age": 61,
-    "gender": "M",
-    "admission_count": 0,
-    "days_since_last_admission": 90,
+    "id": "PT-1024",
+    "name": "Demo Patient PT-1024",
+    "display_name": "Patient PT-1024",
+    "age": 48,
+    "gender": "F",
+    "admission_count": 4,
+    "days_since_last_admission": 0,
     "primary_diagnosis": "Other",
     "medical_condition": "Other",
     "admission_type": "Inpatient",
     "insurance": "UnitedHealthcare",
     "has_pcp": true,
     "missing_fields": [],
-    "risk_score": 0.5935,
-    "risk_tier": "medium",
-    "risk_drivers": [
-      {
-        "factor": "Primary Diagnosis Other",
-        "label": "Primary Diagnosis Other",
-        "direction": "increases",
-        "weight": 1.62,
-        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
-      },
-      {
-        "factor": "Patient age",
-        "label": "Patient age",
-        "direction": "increases",
-        "weight": 0.47,
-        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 0.47)."
-      },
-      {
-        "factor": "Has recorded primary care provider",
-        "label": "Has recorded primary care provider",
-        "direction": "decreases",
-        "weight": 0.4,
-        "summary": "Has recorded primary care provider decreases the model's predicted risk (demo contribution weight: 0.40)."
-      }
-    ],
-    "confidence_flags": [],
-    "confidence_level": "high",
-    "action_templates": [
-      "Schedule 7-day clinic follow-up visit",
-      "Medication reconciliation review",
-      "Dietary and disease-management consultation"
-    ],
-    "assigned_action_status": "pending",
-    "demo_only": true
-  },
-  {
-    "id": "PT-1016",
-    "name": "Demo Patient PT-1016",
-    "display_name": "Patient PT-1016",
-    "age": 54,
-    "gender": "F",
-    "admission_count": 1,
-    "days_since_last_admission": 0,
-    "primary_diagnosis": "Other",
-    "medical_condition": "Other",
-    "admission_type": "Inpatient",
-    "insurance": "Blue Cross Blue Shield",
-    "has_pcp": true,
-    "missing_fields": [],
-    "risk_score": 0.5821,
+    "risk_score": 0.5972,
     "risk_tier": "medium",
     "risk_drivers": [
       {
@@ -839,108 +995,10 @@
     "demo_only": true
   },
   {
-    "id": "PT-1019",
-    "name": "Demo Patient PT-1019",
-    "display_name": "Patient PT-1019",
-    "age": 66,
-    "gender": "M",
-    "admission_count": 2,
-    "days_since_last_admission": 89,
-    "primary_diagnosis": "Other",
-    "medical_condition": "Other",
-    "admission_type": "Inpatient",
-    "insurance": "Medicare",
-    "has_pcp": true,
-    "missing_fields": [],
-    "risk_score": 0.5618,
-    "risk_tier": "medium",
-    "risk_drivers": [
-      {
-        "factor": "Primary Diagnosis Other",
-        "label": "Primary Diagnosis Other",
-        "direction": "increases",
-        "weight": 1.62,
-        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
-      },
-      {
-        "factor": "Patient age",
-        "label": "Patient age",
-        "direction": "increases",
-        "weight": 0.72,
-        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 0.72)."
-      },
-      {
-        "factor": "Has recorded primary care provider",
-        "label": "Has recorded primary care provider",
-        "direction": "decreases",
-        "weight": 0.4,
-        "summary": "Has recorded primary care provider decreases the model's predicted risk (demo contribution weight: 0.40)."
-      }
-    ],
-    "confidence_flags": [],
-    "confidence_level": "high",
-    "action_templates": [
-      "Schedule 7-day clinic follow-up visit",
-      "Medication reconciliation review",
-      "Dietary and disease-management consultation"
-    ],
-    "assigned_action_status": "pending",
-    "demo_only": true
-  },
-  {
-    "id": "PT-1014",
-    "name": "Demo Patient PT-1014",
-    "display_name": "Patient PT-1014",
-    "age": 67,
-    "gender": "M",
-    "admission_count": 0,
-    "days_since_last_admission": 90,
-    "primary_diagnosis": "Other",
-    "medical_condition": "Other",
-    "admission_type": "Inpatient",
-    "insurance": "Medicare",
-    "has_pcp": true,
-    "missing_fields": [],
-    "risk_score": 0.5183,
-    "risk_tier": "medium",
-    "risk_drivers": [
-      {
-        "factor": "Primary Diagnosis Other",
-        "label": "Primary Diagnosis Other",
-        "direction": "increases",
-        "weight": 1.62,
-        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
-      },
-      {
-        "factor": "Patient age",
-        "label": "Patient age",
-        "direction": "increases",
-        "weight": 0.76,
-        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 0.76)."
-      },
-      {
-        "factor": "Has recorded primary care provider",
-        "label": "Has recorded primary care provider",
-        "direction": "decreases",
-        "weight": 0.4,
-        "summary": "Has recorded primary care provider decreases the model's predicted risk (demo contribution weight: 0.40)."
-      }
-    ],
-    "confidence_flags": [],
-    "confidence_level": "high",
-    "action_templates": [
-      "Schedule 7-day clinic follow-up visit",
-      "Medication reconciliation review",
-      "Dietary and disease-management consultation"
-    ],
-    "assigned_action_status": "pending",
-    "demo_only": true
-  },
-  {
     "id": "PT-1025",
     "name": "Demo Patient PT-1025",
     "display_name": "Patient PT-1025",
-    "age": 49,
+    "age": 54,
     "gender": "F",
     "admission_count": 0,
     "days_since_last_admission": 90,
@@ -952,7 +1010,7 @@
     "missing_fields": [
       "insurance"
     ],
-    "risk_score": 0.5091,
+    "risk_score": 0.5945,
     "risk_tier": "medium",
     "risk_drivers": [
       {
@@ -993,10 +1051,10 @@
     "id": "PT-1018",
     "name": "Demo Patient PT-1018",
     "display_name": "Patient PT-1018",
-    "age": 45,
+    "age": 61,
     "gender": "M",
-    "admission_count": 5,
-    "days_since_last_admission": 36,
+    "admission_count": 0,
+    "days_since_last_admission": 90,
     "primary_diagnosis": "Other",
     "medical_condition": "Other",
     "admission_type": "Inpatient",
@@ -1005,7 +1063,7 @@
     "missing_fields": [
       "insurance"
     ],
-    "risk_score": 0.5027,
+    "risk_score": 0.5935,
     "risk_tier": "medium",
     "risk_drivers": [
       {
@@ -1016,11 +1074,11 @@
         "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
       },
       {
-        "factor": "Recency of prior discharge",
-        "label": "Recency of prior discharge",
+        "factor": "Patient age",
+        "label": "Patient age",
         "direction": "increases",
-        "weight": 0.61,
-        "summary": "Recency of prior discharge increases the model's predicted risk (demo contribution weight: 0.61)."
+        "weight": 0.47,
+        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 0.47)."
       },
       {
         "factor": "Has recorded primary care provider",
@@ -1043,107 +1101,9 @@
     "demo_only": true
   },
   {
-    "id": "PT-1013",
-    "name": "Demo Patient PT-1013",
-    "display_name": "Patient PT-1013",
-    "age": 65,
-    "gender": "M",
-    "admission_count": 0,
-    "days_since_last_admission": 90,
-    "primary_diagnosis": "Other",
-    "medical_condition": "Other",
-    "admission_type": "Inpatient",
-    "insurance": "Medicare",
-    "has_pcp": true,
-    "missing_fields": [],
-    "risk_score": 0.4937,
-    "risk_tier": "medium",
-    "risk_drivers": [
-      {
-        "factor": "Primary Diagnosis Other",
-        "label": "Primary Diagnosis Other",
-        "direction": "increases",
-        "weight": 1.62,
-        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
-      },
-      {
-        "factor": "Patient age",
-        "label": "Patient age",
-        "direction": "increases",
-        "weight": 0.67,
-        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 0.67)."
-      },
-      {
-        "factor": "Has recorded primary care provider",
-        "label": "Has recorded primary care provider",
-        "direction": "decreases",
-        "weight": 0.4,
-        "summary": "Has recorded primary care provider decreases the model's predicted risk (demo contribution weight: 0.40)."
-      }
-    ],
-    "confidence_flags": [],
-    "confidence_level": "high",
-    "action_templates": [
-      "Schedule 7-day clinic follow-up visit",
-      "Medication reconciliation review",
-      "Dietary and disease-management consultation"
-    ],
-    "assigned_action_status": "pending",
-    "demo_only": true
-  },
-  {
-    "id": "PT-1024",
-    "name": "Demo Patient PT-1024",
-    "display_name": "Patient PT-1024",
-    "age": 23,
-    "gender": "M",
-    "admission_count": 19,
-    "days_since_last_admission": 110,
-    "primary_diagnosis": "Other",
-    "medical_condition": "Other",
-    "admission_type": "Inpatient",
-    "insurance": "Medicaid",
-    "has_pcp": true,
-    "missing_fields": [],
-    "risk_score": 0.4562,
-    "risk_tier": "medium",
-    "risk_drivers": [
-      {
-        "factor": "Prior hospital admissions",
-        "label": "Prior hospital admissions",
-        "direction": "increases",
-        "weight": 1.72,
-        "summary": "Prior hospital admissions increases the model's predicted risk (demo contribution weight: 1.72)."
-      },
-      {
-        "factor": "Primary Diagnosis Other",
-        "label": "Primary Diagnosis Other",
-        "direction": "increases",
-        "weight": 1.62,
-        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
-      },
-      {
-        "factor": "Patient age",
-        "label": "Patient age",
-        "direction": "decreases",
-        "weight": 1.4,
-        "summary": "Patient age decreases the model's predicted risk (demo contribution weight: 1.40)."
-      }
-    ],
-    "confidence_flags": [],
-    "confidence_level": "high",
-    "action_templates": [
-      "Schedule 7-day clinic follow-up visit",
-      "Medication reconciliation review",
-      "Dietary and disease-management consultation"
-    ],
-    "assigned_action_status": "pending",
-    "demo_only": true
-  },
-  {
-    "id": "PT-1021",
-    "name": "Demo Patient PT-1021",
-    "display_name": "Patient PT-1021",
+    "id": "PT-1016",
+    "name": "Demo Patient PT-1016",
+    "display_name": "Patient PT-1016",
     "age": 46,
     "gender": "F",
     "admission_count": 0,
@@ -1151,10 +1111,10 @@
     "primary_diagnosis": "Cancer",
     "medical_condition": "Cancer",
     "admission_type": "Inpatient",
-    "insurance": "Cigna Health",
+    "insurance": "Humana",
     "has_pcp": true,
     "missing_fields": [],
-    "risk_score": 0.4401,
+    "risk_score": 0.5656,
     "risk_tier": "medium",
     "risk_drivers": [
       {
@@ -1163,106 +1123,6 @@
         "direction": "increases",
         "weight": 2.53,
         "summary": "Primary condition: Cancer increases the model's predicted risk (demo contribution weight: 2.53)."
-      },
-      {
-        "factor": "Demographic gender (Female)",
-        "label": "Demographic gender (Female)",
-        "direction": "decreases",
-        "weight": 0.72,
-        "summary": "Demographic gender (Female) decreases the model's predicted risk (demo contribution weight: 0.72)."
-      },
-      {
-        "factor": "Has recorded primary care provider",
-        "label": "Has recorded primary care provider",
-        "direction": "decreases",
-        "weight": 0.4,
-        "summary": "Has recorded primary care provider decreases the model's predicted risk (demo contribution weight: 0.40)."
-      }
-    ],
-    "confidence_flags": [],
-    "confidence_level": "high",
-    "action_templates": [
-      "Schedule 7-day clinic follow-up visit",
-      "Medication reconciliation review",
-      "Dietary and disease-management consultation"
-    ],
-    "assigned_action_status": "pending",
-    "demo_only": true
-  },
-  {
-    "id": "PT-1012",
-    "name": "Demo Patient PT-1012",
-    "display_name": "Patient PT-1012",
-    "age": 52,
-    "gender": "M",
-    "admission_count": 0,
-    "days_since_last_admission": 90,
-    "primary_diagnosis": "Other",
-    "medical_condition": "Other",
-    "admission_type": "Inpatient",
-    "insurance": "Cigna Health",
-    "has_pcp": true,
-    "missing_fields": [],
-    "risk_score": 0.4187,
-    "risk_tier": "medium",
-    "risk_drivers": [
-      {
-        "factor": "Primary Diagnosis Other",
-        "label": "Primary Diagnosis Other",
-        "direction": "increases",
-        "weight": 1.62,
-        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
-      },
-      {
-        "factor": "Has recorded primary care provider",
-        "label": "Has recorded primary care provider",
-        "direction": "decreases",
-        "weight": 0.4,
-        "summary": "Has recorded primary care provider decreases the model's predicted risk (demo contribution weight: 0.40)."
-      },
-      {
-        "factor": "Prior hospital admissions",
-        "label": "Prior hospital admissions",
-        "direction": "decreases",
-        "weight": 0.33,
-        "summary": "Prior hospital admissions decreases the model's predicted risk (demo contribution weight: 0.33)."
-      }
-    ],
-    "confidence_flags": [],
-    "confidence_level": "high",
-    "action_templates": [
-      "Schedule 7-day clinic follow-up visit",
-      "Medication reconciliation review",
-      "Dietary and disease-management consultation"
-    ],
-    "assigned_action_status": "pending",
-    "demo_only": true
-  },
-  {
-    "id": "PT-1011",
-    "name": "Demo Patient PT-1011",
-    "display_name": "Patient PT-1011",
-    "age": 51,
-    "gender": "F",
-    "admission_count": 0,
-    "days_since_last_admission": 90,
-    "primary_diagnosis": "Other",
-    "medical_condition": "Other",
-    "admission_type": "Inpatient",
-    "insurance": null,
-    "has_pcp": true,
-    "missing_fields": [
-      "insurance"
-    ],
-    "risk_score": 0.4018,
-    "risk_tier": "medium",
-    "risk_drivers": [
-      {
-        "factor": "Primary Diagnosis Other",
-        "label": "Primary Diagnosis Other",
-        "direction": "increases",
-        "weight": 1.62,
-        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
       },
       {
         "factor": "Demographic gender (Female)",
@@ -1279,10 +1139,8 @@
         "summary": "Insurance Humana increases the model's predicted risk (demo contribution weight: 0.57)."
       }
     ],
-    "confidence_flags": [
-      "insurance field missing"
-    ],
-    "confidence_level": "review",
+    "confidence_flags": [],
+    "confidence_level": "high",
     "action_templates": [
       "Schedule 7-day clinic follow-up visit",
       "Medication reconciliation review",
@@ -1292,10 +1150,59 @@
     "demo_only": true
   },
   {
-    "id": "PT-1044",
-    "name": "Demo Patient PT-1044",
-    "display_name": "Patient PT-1044",
-    "age": 58,
+    "id": "PT-1019",
+    "name": "Demo Patient PT-1019",
+    "display_name": "Patient PT-1019",
+    "age": 65,
+    "gender": "F",
+    "admission_count": 0,
+    "days_since_last_admission": 90,
+    "primary_diagnosis": "Other",
+    "medical_condition": "Other",
+    "admission_type": "Inpatient",
+    "insurance": "UnitedHealthcare",
+    "has_pcp": true,
+    "missing_fields": [],
+    "risk_score": 0.5124,
+    "risk_tier": "medium",
+    "risk_drivers": [
+      {
+        "factor": "Primary Diagnosis Other",
+        "label": "Primary Diagnosis Other",
+        "direction": "increases",
+        "weight": 1.62,
+        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
+      },
+      {
+        "factor": "Demographic gender (Female)",
+        "label": "Demographic gender (Female)",
+        "direction": "decreases",
+        "weight": 0.72,
+        "summary": "Demographic gender (Female) decreases the model's predicted risk (demo contribution weight: 0.72)."
+      },
+      {
+        "factor": "Patient age",
+        "label": "Patient age",
+        "direction": "increases",
+        "weight": 0.67,
+        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 0.67)."
+      }
+    ],
+    "confidence_flags": [],
+    "confidence_level": "high",
+    "action_templates": [
+      "Schedule 7-day clinic follow-up visit",
+      "Medication reconciliation review",
+      "Dietary and disease-management consultation"
+    ],
+    "assigned_action_status": "pending",
+    "demo_only": true
+  },
+  {
+    "id": "PT-1023",
+    "name": "Demo Patient PT-1023",
+    "display_name": "Patient PT-1023",
+    "age": 63,
     "gender": "F",
     "admission_count": 0,
     "days_since_last_admission": 90,
@@ -1305,8 +1212,8 @@
     "insurance": "NO_INSURANCE",
     "has_pcp": true,
     "missing_fields": [],
-    "risk_score": 0.3944,
-    "risk_tier": "low",
+    "risk_score": 0.4544,
+    "risk_tier": "medium",
     "risk_drivers": [
       {
         "factor": "Primary Diagnosis Other",
@@ -1323,404 +1230,46 @@
         "summary": "Demographic gender (Female) decreases the model's predicted risk (demo contribution weight: 0.72)."
       },
       {
-        "factor": "Has recorded primary care provider",
-        "label": "Has recorded primary care provider",
-        "direction": "decreases",
-        "weight": 0.4,
-        "summary": "Has recorded primary care provider decreases the model's predicted risk (demo contribution weight: 0.40)."
+        "factor": "Patient age",
+        "label": "Patient age",
+        "direction": "increases",
+        "weight": 0.57,
+        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 0.57)."
       }
     ],
     "confidence_flags": [],
     "confidence_level": "high",
     "action_templates": [
-      "Send electronic discharge summary to patient portal",
-      "Provide routine educational follow-up pamphlet",
-      "Confirm scheduled outpatient follow-up in 30 days"
+      "Schedule 7-day clinic follow-up visit",
+      "Medication reconciliation review",
+      "Dietary and disease-management consultation"
     ],
     "assigned_action_status": "pending",
     "demo_only": true
   },
   {
-    "id": "PT-1047",
-    "name": "Demo Patient PT-1047",
-    "display_name": "Patient PT-1047",
-    "age": 2,
-    "gender": "F",
-    "admission_count": 7,
-    "days_since_last_admission": 18,
-    "primary_diagnosis": "Cancer",
-    "medical_condition": "Cancer",
-    "admission_type": "Inpatient",
-    "insurance": "Humana",
-    "has_pcp": false,
-    "missing_fields": [],
-    "risk_score": 0.3392,
-    "risk_tier": "low",
-    "risk_drivers": [
-      {
-        "factor": "Primary condition: Cancer",
-        "label": "Primary condition: Cancer",
-        "direction": "increases",
-        "weight": 2.53,
-        "summary": "Primary condition: Cancer increases the model's predicted risk (demo contribution weight: 2.53)."
-      },
-      {
-        "factor": "Patient age",
-        "label": "Patient age",
-        "direction": "decreases",
-        "weight": 2.43,
-        "summary": "Patient age decreases the model's predicted risk (demo contribution weight: 2.43)."
-      },
-      {
-        "factor": "Recency of prior discharge",
-        "label": "Recency of prior discharge",
-        "direction": "increases",
-        "weight": 0.76,
-        "summary": "Recency of prior discharge increases the model's predicted risk (demo contribution weight: 0.76)."
-      }
-    ],
-    "confidence_flags": [
-      "Primary care provider (PCP) is not recorded"
-    ],
-    "confidence_level": "review",
-    "action_templates": [
-      "Send electronic discharge summary to patient portal",
-      "Provide routine educational follow-up pamphlet",
-      "Confirm scheduled outpatient follow-up in 30 days"
-    ],
-    "assigned_action_status": "pending",
-    "demo_only": true
-  },
-  {
-    "id": "PT-1034",
-    "name": "Demo Patient PT-1034",
-    "display_name": "Patient PT-1034",
-    "age": 34,
-    "gender": "F",
-    "admission_count": 1,
-    "days_since_last_admission": 5,
-    "primary_diagnosis": "Other",
-    "medical_condition": "Other",
-    "admission_type": "Inpatient",
-    "insurance": "Blue Cross Blue Shield",
-    "has_pcp": false,
-    "missing_fields": [],
-    "risk_score": 0.3068,
-    "risk_tier": "low",
-    "risk_drivers": [
-      {
-        "factor": "Primary Diagnosis Other",
-        "label": "Primary Diagnosis Other",
-        "direction": "increases",
-        "weight": 1.62,
-        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
-      },
-      {
-        "factor": "Recency of prior discharge",
-        "label": "Recency of prior discharge",
-        "direction": "increases",
-        "weight": 0.87,
-        "summary": "Recency of prior discharge increases the model's predicted risk (demo contribution weight: 0.87)."
-      },
-      {
-        "factor": "Patient age",
-        "label": "Patient age",
-        "direction": "decreases",
-        "weight": 0.86,
-        "summary": "Patient age decreases the model's predicted risk (demo contribution weight: 0.86)."
-      }
-    ],
-    "confidence_flags": [
-      "Primary care provider (PCP) is not recorded"
-    ],
-    "confidence_level": "review",
-    "action_templates": [
-      "Send electronic discharge summary to patient portal",
-      "Provide routine educational follow-up pamphlet",
-      "Confirm scheduled outpatient follow-up in 30 days"
-    ],
-    "assigned_action_status": "pending",
-    "demo_only": true
-  },
-  {
-    "id": "PT-1032",
-    "name": "Demo Patient PT-1032",
-    "display_name": "Patient PT-1032",
-    "age": 35,
-    "gender": "F",
-    "admission_count": 3,
-    "days_since_last_admission": 13,
-    "primary_diagnosis": "Other",
-    "medical_condition": "Other",
-    "admission_type": "Inpatient",
-    "insurance": null,
-    "has_pcp": true,
-    "missing_fields": [
-      "insurance"
-    ],
-    "risk_score": 0.2628,
-    "risk_tier": "low",
-    "risk_drivers": [
-      {
-        "factor": "Primary Diagnosis Other",
-        "label": "Primary Diagnosis Other",
-        "direction": "increases",
-        "weight": 1.62,
-        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
-      },
-      {
-        "factor": "Patient age",
-        "label": "Patient age",
-        "direction": "decreases",
-        "weight": 0.81,
-        "summary": "Patient age decreases the model's predicted risk (demo contribution weight: 0.81)."
-      },
-      {
-        "factor": "Recency of prior discharge",
-        "label": "Recency of prior discharge",
-        "direction": "increases",
-        "weight": 0.8,
-        "summary": "Recency of prior discharge increases the model's predicted risk (demo contribution weight: 0.80)."
-      }
-    ],
-    "confidence_flags": [
-      "insurance field missing"
-    ],
-    "confidence_level": "review",
-    "action_templates": [
-      "Send electronic discharge summary to patient portal",
-      "Provide routine educational follow-up pamphlet",
-      "Confirm scheduled outpatient follow-up in 30 days"
-    ],
-    "assigned_action_status": "pending",
-    "demo_only": true
-  },
-  {
-    "id": "PT-1037",
-    "name": "Demo Patient PT-1037",
-    "display_name": "Patient PT-1037",
-    "age": 53,
-    "gender": "F",
-    "admission_count": 5,
-    "days_since_last_admission": 365,
-    "primary_diagnosis": "Cancer",
-    "medical_condition": "Cancer",
-    "admission_type": "Inpatient",
-    "insurance": "Humana",
-    "has_pcp": true,
-    "missing_fields": [],
-    "risk_score": 0.2424,
-    "risk_tier": "low",
-    "risk_drivers": [
-      {
-        "factor": "Primary condition: Cancer",
-        "label": "Primary condition: Cancer",
-        "direction": "increases",
-        "weight": 2.53,
-        "summary": "Primary condition: Cancer increases the model's predicted risk (demo contribution weight: 2.53)."
-      },
-      {
-        "factor": "Recency of prior discharge",
-        "label": "Recency of prior discharge",
-        "direction": "decreases",
-        "weight": 2.12,
-        "summary": "Recency of prior discharge decreases the model's predicted risk (demo contribution weight: 2.12)."
-      },
-      {
-        "factor": "Demographic gender (Female)",
-        "label": "Demographic gender (Female)",
-        "direction": "decreases",
-        "weight": 0.72,
-        "summary": "Demographic gender (Female) decreases the model's predicted risk (demo contribution weight: 0.72)."
-      }
-    ],
-    "confidence_flags": [],
-    "confidence_level": "high",
-    "action_templates": [
-      "Send electronic discharge summary to patient portal",
-      "Provide routine educational follow-up pamphlet",
-      "Confirm scheduled outpatient follow-up in 30 days"
-    ],
-    "assigned_action_status": "pending",
-    "demo_only": true
-  },
-  {
-    "id": "PT-1042",
-    "name": "Demo Patient PT-1042",
-    "display_name": "Patient PT-1042",
-    "age": 21,
-    "gender": "M",
-    "admission_count": 11,
-    "days_since_last_admission": 129,
-    "primary_diagnosis": "Other",
-    "medical_condition": "Other",
-    "admission_type": "Inpatient",
-    "insurance": "Medicaid",
-    "has_pcp": true,
-    "missing_fields": [],
-    "risk_score": 0.2149,
-    "risk_tier": "low",
-    "risk_drivers": [
-      {
-        "factor": "Primary Diagnosis Other",
-        "label": "Primary Diagnosis Other",
-        "direction": "increases",
-        "weight": 1.62,
-        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
-      },
-      {
-        "factor": "Patient age",
-        "label": "Patient age",
-        "direction": "decreases",
-        "weight": 1.5,
-        "summary": "Patient age decreases the model's predicted risk (demo contribution weight: 1.50)."
-      },
-      {
-        "factor": "Prior hospital admissions",
-        "label": "Prior hospital admissions",
-        "direction": "increases",
-        "weight": 0.86,
-        "summary": "Prior hospital admissions increases the model's predicted risk (demo contribution weight: 0.86)."
-      }
-    ],
-    "confidence_flags": [],
-    "confidence_level": "high",
-    "action_templates": [
-      "Send electronic discharge summary to patient portal",
-      "Provide routine educational follow-up pamphlet",
-      "Confirm scheduled outpatient follow-up in 30 days"
-    ],
-    "assigned_action_status": "pending",
-    "demo_only": true
-  },
-  {
-    "id": "PT-1031",
-    "name": "Demo Patient PT-1031",
-    "display_name": "Patient PT-1031",
-    "age": 71,
-    "gender": "F",
-    "admission_count": 1,
-    "days_since_last_admission": 365,
-    "primary_diagnosis": "Cancer",
-    "medical_condition": "Cancer",
-    "admission_type": "Inpatient",
-    "insurance": "Medicare",
-    "has_pcp": true,
-    "missing_fields": [],
-    "risk_score": 0.1784,
-    "risk_tier": "low",
-    "risk_drivers": [
-      {
-        "factor": "Primary condition: Cancer",
-        "label": "Primary condition: Cancer",
-        "direction": "increases",
-        "weight": 2.53,
-        "summary": "Primary condition: Cancer increases the model's predicted risk (demo contribution weight: 2.53)."
-      },
-      {
-        "factor": "Recency of prior discharge",
-        "label": "Recency of prior discharge",
-        "direction": "decreases",
-        "weight": 2.12,
-        "summary": "Recency of prior discharge decreases the model's predicted risk (demo contribution weight: 2.12)."
-      },
-      {
-        "factor": "Patient age",
-        "label": "Patient age",
-        "direction": "increases",
-        "weight": 0.96,
-        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 0.96)."
-      }
-    ],
-    "confidence_flags": [],
-    "confidence_level": "high",
-    "action_templates": [
-      "Send electronic discharge summary to patient portal",
-      "Provide routine educational follow-up pamphlet",
-      "Confirm scheduled outpatient follow-up in 30 days"
-    ],
-    "assigned_action_status": "pending",
-    "demo_only": true
-  },
-  {
-    "id": "PT-1050",
-    "name": "Demo Patient PT-1050",
-    "display_name": "Patient PT-1050",
-    "age": 59,
-    "gender": "M",
-    "admission_count": 6,
-    "days_since_last_admission": 22,
-    "primary_diagnosis": "COVID-19",
-    "medical_condition": "COVID-19",
-    "admission_type": "Inpatient",
-    "insurance": "Aetna",
-    "has_pcp": true,
-    "missing_fields": [],
-    "risk_score": 0.1653,
-    "risk_tier": "low",
-    "risk_drivers": [
-      {
-        "factor": "Primary Diagnosis Covid-19",
-        "label": "Primary Diagnosis Covid-19",
-        "direction": "decreases",
-        "weight": 1.47,
-        "summary": "Primary Diagnosis Covid-19 decreases the model's predicted risk (demo contribution weight: 1.47)."
-      },
-      {
-        "factor": "Recency of prior discharge",
-        "label": "Recency of prior discharge",
-        "direction": "increases",
-        "weight": 0.73,
-        "summary": "Recency of prior discharge increases the model's predicted risk (demo contribution weight: 0.73)."
-      },
-      {
-        "factor": "Has recorded primary care provider",
-        "label": "Has recorded primary care provider",
-        "direction": "decreases",
-        "weight": 0.4,
-        "summary": "Has recorded primary care provider decreases the model's predicted risk (demo contribution weight: 0.40)."
-      }
-    ],
-    "confidence_flags": [],
-    "confidence_level": "high",
-    "action_templates": [
-      "Send electronic discharge summary to patient portal",
-      "Provide routine educational follow-up pamphlet",
-      "Confirm scheduled outpatient follow-up in 30 days"
-    ],
-    "assigned_action_status": "pending",
-    "demo_only": true
-  },
-  {
-    "id": "PT-1028",
-    "name": "Demo Patient PT-1028",
-    "display_name": "Patient PT-1028",
-    "age": 103,
+    "id": "PT-1026",
+    "name": "Demo Patient PT-1026",
+    "display_name": "Patient PT-1026",
+    "age": 41,
     "gender": "F",
     "admission_count": 0,
     "days_since_last_admission": 90,
-    "primary_diagnosis": "COVID-19",
-    "medical_condition": "COVID-19",
+    "primary_diagnosis": "Cancer",
+    "medical_condition": "Cancer",
     "admission_type": "Inpatient",
-    "insurance": "Medicare",
+    "insurance": "UnitedHealthcare",
     "has_pcp": true,
     "missing_fields": [],
-    "risk_score": 0.1445,
-    "risk_tier": "low",
+    "risk_score": 0.4445,
+    "risk_tier": "medium",
     "risk_drivers": [
       {
-        "factor": "Patient age",
-        "label": "Patient age",
+        "factor": "Primary condition: Cancer",
+        "label": "Primary condition: Cancer",
         "direction": "increases",
-        "weight": 2.54,
-        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 2.54)."
-      },
-      {
-        "factor": "Primary Diagnosis Covid-19",
-        "label": "Primary Diagnosis Covid-19",
-        "direction": "decreases",
-        "weight": 1.47,
-        "summary": "Primary Diagnosis Covid-19 decreases the model's predicted risk (demo contribution weight: 1.47)."
+        "weight": 2.53,
+        "summary": "Primary condition: Cancer increases the model's predicted risk (demo contribution weight: 2.53)."
       },
       {
         "factor": "Demographic gender (Female)",
@@ -1728,12 +1277,66 @@
         "direction": "decreases",
         "weight": 0.72,
         "summary": "Demographic gender (Female) decreases the model's predicted risk (demo contribution weight: 0.72)."
+      },
+      {
+        "factor": "Patient age",
+        "label": "Patient age",
+        "direction": "decreases",
+        "weight": 0.51,
+        "summary": "Patient age decreases the model's predicted risk (demo contribution weight: 0.51)."
       }
     ],
-    "confidence_flags": [
-      "Advanced patient age requires review"
+    "confidence_flags": [],
+    "confidence_level": "high",
+    "action_templates": [
+      "Schedule 7-day clinic follow-up visit",
+      "Medication reconciliation review",
+      "Dietary and disease-management consultation"
     ],
-    "confidence_level": "review",
+    "assigned_action_status": "pending",
+    "demo_only": true
+  },
+  {
+    "id": "PT-1048",
+    "name": "Demo Patient PT-1048",
+    "display_name": "Patient PT-1048",
+    "age": 59,
+    "gender": "F",
+    "admission_count": 0,
+    "days_since_last_admission": 90,
+    "primary_diagnosis": "Other",
+    "medical_condition": "Other",
+    "admission_type": "Inpatient",
+    "insurance": "Cigna Health",
+    "has_pcp": true,
+    "missing_fields": [],
+    "risk_score": 0.3754,
+    "risk_tier": "low",
+    "risk_drivers": [
+      {
+        "factor": "Primary Diagnosis Other",
+        "label": "Primary Diagnosis Other",
+        "direction": "increases",
+        "weight": 1.62,
+        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
+      },
+      {
+        "factor": "Demographic gender (Female)",
+        "label": "Demographic gender (Female)",
+        "direction": "decreases",
+        "weight": 0.72,
+        "summary": "Demographic gender (Female) decreases the model's predicted risk (demo contribution weight: 0.72)."
+      },
+      {
+        "factor": "Has recorded primary care provider",
+        "label": "Has recorded primary care provider",
+        "direction": "decreases",
+        "weight": 0.4,
+        "summary": "Has recorded primary care provider decreases the model's predicted risk (demo contribution weight: 0.40)."
+      }
+    ],
+    "confidence_flags": [],
+    "confidence_level": "high",
     "action_templates": [
       "Send electronic discharge summary to patient portal",
       "Provide routine educational follow-up pamphlet",
@@ -1746,17 +1349,17 @@
     "id": "PT-1027",
     "name": "Demo Patient PT-1027",
     "display_name": "Patient PT-1027",
-    "age": 33,
+    "age": 47,
     "gender": "F",
     "admission_count": 0,
     "days_since_last_admission": 90,
     "primary_diagnosis": "Other",
     "medical_condition": "Other",
     "admission_type": "Inpatient",
-    "insurance": "NO_INSURANCE",
-    "has_pcp": false,
+    "insurance": "Blue Cross Blue Shield",
+    "has_pcp": true,
     "missing_fields": [],
-    "risk_score": 0.1444,
+    "risk_score": 0.2954,
     "risk_tier": "low",
     "risk_drivers": [
       {
@@ -1765,13 +1368,6 @@
         "direction": "increases",
         "weight": 1.62,
         "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
-      },
-      {
-        "factor": "Patient age",
-        "label": "Patient age",
-        "direction": "decreases",
-        "weight": 0.91,
-        "summary": "Patient age decreases the model's predicted risk (demo contribution weight: 0.91)."
       },
       {
         "factor": "Demographic gender (Female)",
@@ -1779,50 +1375,6 @@
         "direction": "decreases",
         "weight": 0.72,
         "summary": "Demographic gender (Female) decreases the model's predicted risk (demo contribution weight: 0.72)."
-      }
-    ],
-    "confidence_flags": [
-      "Primary care provider (PCP) is not recorded"
-    ],
-    "confidence_level": "review",
-    "action_templates": [
-      "Send electronic discharge summary to patient portal",
-      "Provide routine educational follow-up pamphlet",
-      "Confirm scheduled outpatient follow-up in 30 days"
-    ],
-    "assigned_action_status": "pending",
-    "demo_only": true
-  },
-  {
-    "id": "PT-1036",
-    "name": "Demo Patient PT-1036",
-    "display_name": "Patient PT-1036",
-    "age": 15,
-    "gender": "M",
-    "admission_count": 4,
-    "days_since_last_admission": 136,
-    "primary_diagnosis": "Other",
-    "medical_condition": "Other",
-    "admission_type": "Inpatient",
-    "insurance": "Aetna",
-    "has_pcp": true,
-    "missing_fields": [],
-    "risk_score": 0.1358,
-    "risk_tier": "low",
-    "risk_drivers": [
-      {
-        "factor": "Patient age",
-        "label": "Patient age",
-        "direction": "decreases",
-        "weight": 1.79,
-        "summary": "Patient age decreases the model's predicted risk (demo contribution weight: 1.79)."
-      },
-      {
-        "factor": "Primary Diagnosis Other",
-        "label": "Primary Diagnosis Other",
-        "direction": "increases",
-        "weight": 1.62,
-        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
       },
       {
         "factor": "Has recorded primary care provider",
@@ -1846,66 +1398,17 @@
     "id": "PT-1038",
     "name": "Demo Patient PT-1038",
     "display_name": "Patient PT-1038",
-    "age": 63,
+    "age": 34,
     "gender": "M",
     "admission_count": 0,
     "days_since_last_admission": 90,
-    "primary_diagnosis": "Heart Failure",
-    "medical_condition": "Heart Failure",
-    "admission_type": "Inpatient",
-    "insurance": "Aetna",
-    "has_pcp": true,
-    "missing_fields": [],
-    "risk_score": 0.1163,
-    "risk_tier": "low",
-    "risk_drivers": [
-      {
-        "factor": "Primary Diagnosis Heart Failure",
-        "label": "Primary Diagnosis Heart Failure",
-        "direction": "decreases",
-        "weight": 0.86,
-        "summary": "Primary Diagnosis Heart Failure decreases the model's predicted risk (demo contribution weight: 0.86)."
-      },
-      {
-        "factor": "Patient age",
-        "label": "Patient age",
-        "direction": "increases",
-        "weight": 0.57,
-        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 0.57)."
-      },
-      {
-        "factor": "Has recorded primary care provider",
-        "label": "Has recorded primary care provider",
-        "direction": "decreases",
-        "weight": 0.4,
-        "summary": "Has recorded primary care provider decreases the model's predicted risk (demo contribution weight: 0.40)."
-      }
-    ],
-    "confidence_flags": [],
-    "confidence_level": "high",
-    "action_templates": [
-      "Send electronic discharge summary to patient portal",
-      "Provide routine educational follow-up pamphlet",
-      "Confirm scheduled outpatient follow-up in 30 days"
-    ],
-    "assigned_action_status": "pending",
-    "demo_only": true
-  },
-  {
-    "id": "PT-1030",
-    "name": "Demo Patient PT-1030",
-    "display_name": "Patient PT-1030",
-    "age": 26,
-    "gender": "F",
-    "admission_count": 1,
-    "days_since_last_admission": 136,
     "primary_diagnosis": "Other",
     "medical_condition": "Other",
     "admission_type": "Inpatient",
     "insurance": "NO_INSURANCE",
-    "has_pcp": true,
+    "has_pcp": false,
     "missing_fields": [],
-    "risk_score": 0.093,
+    "risk_score": 0.2306,
     "risk_tier": "low",
     "risk_drivers": [
       {
@@ -1919,15 +1422,66 @@
         "factor": "Patient age",
         "label": "Patient age",
         "direction": "decreases",
-        "weight": 1.25,
-        "summary": "Patient age decreases the model's predicted risk (demo contribution weight: 1.25)."
+        "weight": 0.86,
+        "summary": "Patient age decreases the model's predicted risk (demo contribution weight: 0.86)."
       },
       {
-        "factor": "Demographic gender (Female)",
-        "label": "Demographic gender (Female)",
+        "factor": "No recorded primary care provider",
+        "label": "No recorded primary care provider",
         "direction": "decreases",
-        "weight": 0.72,
-        "summary": "Demographic gender (Female) decreases the model's predicted risk (demo contribution weight: 0.72)."
+        "weight": 0.52,
+        "summary": "No recorded primary care provider decreases the model's predicted risk (demo contribution weight: 0.52)."
+      }
+    ],
+    "confidence_flags": [
+      "Primary care provider (PCP) is not recorded"
+    ],
+    "confidence_level": "review",
+    "action_templates": [
+      "Send electronic discharge summary to patient portal",
+      "Provide routine educational follow-up pamphlet",
+      "Confirm scheduled outpatient follow-up in 30 days"
+    ],
+    "assigned_action_status": "pending",
+    "demo_only": true
+  },
+  {
+    "id": "PT-1028",
+    "name": "Demo Patient PT-1028",
+    "display_name": "Patient PT-1028",
+    "age": 69,
+    "gender": "M",
+    "admission_count": 0,
+    "days_since_last_admission": 90,
+    "primary_diagnosis": "Other",
+    "medical_condition": "Other",
+    "admission_type": "Inpatient",
+    "insurance": "Dual Eligible",
+    "has_pcp": true,
+    "missing_fields": [],
+    "risk_score": 0.2251,
+    "risk_tier": "low",
+    "risk_drivers": [
+      {
+        "factor": "Insurance Dual Eligible",
+        "label": "Insurance Dual Eligible",
+        "direction": "decreases",
+        "weight": 1.67,
+        "summary": "Insurance Dual Eligible decreases the model's predicted risk (demo contribution weight: 1.67)."
+      },
+      {
+        "factor": "Primary Diagnosis Other",
+        "label": "Primary Diagnosis Other",
+        "direction": "increases",
+        "weight": 1.62,
+        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
+      },
+      {
+        "factor": "Patient age",
+        "label": "Patient age",
+        "direction": "increases",
+        "weight": 0.86,
+        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 0.86)."
       }
     ],
     "confidence_flags": [],
@@ -1944,26 +1498,222 @@
     "id": "PT-1049",
     "name": "Demo Patient PT-1049",
     "display_name": "Patient PT-1049",
-    "age": 16,
-    "gender": "F",
-    "admission_count": 5,
-    "days_since_last_admission": 117,
+    "age": 76,
+    "gender": "M",
+    "admission_count": 1,
+    "days_since_last_admission": 365,
     "primary_diagnosis": "Other",
     "medical_condition": "Other",
     "admission_type": "Inpatient",
-    "insurance": "Cigna Health",
-    "has_pcp": false,
+    "insurance": "Medicare",
+    "has_pcp": true,
     "missing_fields": [],
-    "risk_score": 0.0809,
+    "risk_score": 0.1593,
+    "risk_tier": "low",
+    "risk_drivers": [
+      {
+        "factor": "Recency of prior discharge",
+        "label": "Recency of prior discharge",
+        "direction": "decreases",
+        "weight": 2.12,
+        "summary": "Recency of prior discharge decreases the model's predicted risk (demo contribution weight: 2.12)."
+      },
+      {
+        "factor": "Primary Diagnosis Other",
+        "label": "Primary Diagnosis Other",
+        "direction": "increases",
+        "weight": 1.62,
+        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
+      },
+      {
+        "factor": "Patient age",
+        "label": "Patient age",
+        "direction": "increases",
+        "weight": 1.21,
+        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 1.21)."
+      }
+    ],
+    "confidence_flags": [],
+    "confidence_level": "high",
+    "action_templates": [
+      "Send electronic discharge summary to patient portal",
+      "Provide routine educational follow-up pamphlet",
+      "Confirm scheduled outpatient follow-up in 30 days"
+    ],
+    "assigned_action_status": "pending",
+    "demo_only": true
+  },
+  {
+    "id": "PT-1042",
+    "name": "Demo Patient PT-1042",
+    "display_name": "Patient PT-1042",
+    "age": 82,
+    "gender": "M",
+    "admission_count": 0,
+    "days_since_last_admission": 90,
+    "primary_diagnosis": "Heart Failure",
+    "medical_condition": "Heart Failure",
+    "admission_type": "Inpatient",
+    "insurance": "Medicare",
+    "has_pcp": true,
+    "missing_fields": [],
+    "risk_score": 0.1574,
     "risk_tier": "low",
     "risk_drivers": [
       {
         "factor": "Patient age",
         "label": "Patient age",
-        "direction": "decreases",
-        "weight": 1.74,
-        "summary": "Patient age decreases the model's predicted risk (demo contribution weight: 1.74)."
+        "direction": "increases",
+        "weight": 1.5,
+        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 1.50)."
       },
+      {
+        "factor": "Primary Diagnosis Heart Failure",
+        "label": "Primary Diagnosis Heart Failure",
+        "direction": "decreases",
+        "weight": 0.86,
+        "summary": "Primary Diagnosis Heart Failure decreases the model's predicted risk (demo contribution weight: 0.86)."
+      },
+      {
+        "factor": "Has recorded primary care provider",
+        "label": "Has recorded primary care provider",
+        "direction": "decreases",
+        "weight": 0.4,
+        "summary": "Has recorded primary care provider decreases the model's predicted risk (demo contribution weight: 0.40)."
+      }
+    ],
+    "confidence_flags": [
+      "Advanced patient age requires review"
+    ],
+    "confidence_level": "review",
+    "action_templates": [
+      "Send electronic discharge summary to patient portal",
+      "Provide routine educational follow-up pamphlet",
+      "Confirm scheduled outpatient follow-up in 30 days"
+    ],
+    "assigned_action_status": "pending",
+    "demo_only": true
+  },
+  {
+    "id": "PT-1046",
+    "name": "Demo Patient PT-1046",
+    "display_name": "Patient PT-1046",
+    "age": 25,
+    "gender": "F",
+    "admission_count": 0,
+    "days_since_last_admission": 90,
+    "primary_diagnosis": "Other",
+    "medical_condition": "Other",
+    "admission_type": "Inpatient",
+    "insurance": null,
+    "has_pcp": false,
+    "missing_fields": [
+      "insurance"
+    ],
+    "risk_score": 0.1421,
+    "risk_tier": "low",
+    "risk_drivers": [
+      {
+        "factor": "Primary Diagnosis Other",
+        "label": "Primary Diagnosis Other",
+        "direction": "increases",
+        "weight": 1.62,
+        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
+      },
+      {
+        "factor": "Patient age",
+        "label": "Patient age",
+        "direction": "decreases",
+        "weight": 1.3,
+        "summary": "Patient age decreases the model's predicted risk (demo contribution weight: 1.30)."
+      },
+      {
+        "factor": "Demographic gender (Female)",
+        "label": "Demographic gender (Female)",
+        "direction": "decreases",
+        "weight": 0.72,
+        "summary": "Demographic gender (Female) decreases the model's predicted risk (demo contribution weight: 0.72)."
+      }
+    ],
+    "confidence_flags": [
+      "insurance field missing",
+      "Primary care provider (PCP) is not recorded"
+    ],
+    "confidence_level": "review",
+    "action_templates": [
+      "Send electronic discharge summary to patient portal",
+      "Provide routine educational follow-up pamphlet",
+      "Confirm scheduled outpatient follow-up in 30 days"
+    ],
+    "assigned_action_status": "pending",
+    "demo_only": true
+  },
+  {
+    "id": "PT-1036",
+    "name": "Demo Patient PT-1036",
+    "display_name": "Patient PT-1036",
+    "age": 63,
+    "gender": "M",
+    "admission_count": 1,
+    "days_since_last_admission": 365,
+    "primary_diagnosis": "Other",
+    "medical_condition": "Other",
+    "admission_type": "Inpatient",
+    "insurance": "NO_INSURANCE",
+    "has_pcp": true,
+    "missing_fields": [],
+    "risk_score": 0.1374,
+    "risk_tier": "low",
+    "risk_drivers": [
+      {
+        "factor": "Recency of prior discharge",
+        "label": "Recency of prior discharge",
+        "direction": "decreases",
+        "weight": 2.12,
+        "summary": "Recency of prior discharge decreases the model's predicted risk (demo contribution weight: 2.12)."
+      },
+      {
+        "factor": "Primary Diagnosis Other",
+        "label": "Primary Diagnosis Other",
+        "direction": "increases",
+        "weight": 1.62,
+        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
+      },
+      {
+        "factor": "Patient age",
+        "label": "Patient age",
+        "direction": "increases",
+        "weight": 0.57,
+        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 0.57)."
+      }
+    ],
+    "confidence_flags": [],
+    "confidence_level": "high",
+    "action_templates": [
+      "Send electronic discharge summary to patient portal",
+      "Provide routine educational follow-up pamphlet",
+      "Confirm scheduled outpatient follow-up in 30 days"
+    ],
+    "assigned_action_status": "pending",
+    "demo_only": true
+  },
+  {
+    "id": "PT-1043",
+    "name": "Demo Patient PT-1043",
+    "display_name": "Patient PT-1043",
+    "age": 39,
+    "gender": "F",
+    "admission_count": 0,
+    "days_since_last_admission": 90,
+    "primary_diagnosis": "Other",
+    "medical_condition": "Other",
+    "admission_type": "Inpatient",
+    "insurance": "Medicaid",
+    "has_pcp": false,
+    "missing_fields": [],
+    "risk_score": 0.1279,
+    "risk_tier": "low",
+    "risk_drivers": [
       {
         "factor": "Primary Diagnosis Other",
         "label": "Primary Diagnosis Other",
@@ -1977,6 +1727,13 @@
         "direction": "decreases",
         "weight": 0.72,
         "summary": "Demographic gender (Female) decreases the model's predicted risk (demo contribution weight: 0.72)."
+      },
+      {
+        "factor": "Patient age",
+        "label": "Patient age",
+        "direction": "decreases",
+        "weight": 0.61,
+        "summary": "Patient age decreases the model's predicted risk (demo contribution weight: 0.61)."
       }
     ],
     "confidence_flags": [
@@ -1992,20 +1749,322 @@
     "demo_only": true
   },
   {
-    "id": "PT-1040",
-    "name": "Demo Patient PT-1040",
-    "display_name": "Patient PT-1040",
-    "age": 14,
+    "id": "PT-1033",
+    "name": "Demo Patient PT-1033",
+    "display_name": "Patient PT-1033",
+    "age": 61,
     "gender": "F",
     "admission_count": 1,
-    "days_since_last_admission": 78,
+    "days_since_last_admission": 365,
+    "primary_diagnosis": "Cancer",
+    "medical_condition": "Cancer",
+    "admission_type": "Inpatient",
+    "insurance": "Medicaid",
+    "has_pcp": true,
+    "missing_fields": [],
+    "risk_score": 0.1204,
+    "risk_tier": "low",
+    "risk_drivers": [
+      {
+        "factor": "Primary condition: Cancer",
+        "label": "Primary condition: Cancer",
+        "direction": "increases",
+        "weight": 2.53,
+        "summary": "Primary condition: Cancer increases the model's predicted risk (demo contribution weight: 2.53)."
+      },
+      {
+        "factor": "Recency of prior discharge",
+        "label": "Recency of prior discharge",
+        "direction": "decreases",
+        "weight": 2.12,
+        "summary": "Recency of prior discharge decreases the model's predicted risk (demo contribution weight: 2.12)."
+      },
+      {
+        "factor": "Demographic gender (Female)",
+        "label": "Demographic gender (Female)",
+        "direction": "decreases",
+        "weight": 0.72,
+        "summary": "Demographic gender (Female) decreases the model's predicted risk (demo contribution weight: 0.72)."
+      }
+    ],
+    "confidence_flags": [],
+    "confidence_level": "high",
+    "action_templates": [
+      "Send electronic discharge summary to patient portal",
+      "Provide routine educational follow-up pamphlet",
+      "Confirm scheduled outpatient follow-up in 30 days"
+    ],
+    "assigned_action_status": "pending",
+    "demo_only": true
+  },
+  {
+    "id": "PT-1031",
+    "name": "Demo Patient PT-1031",
+    "display_name": "Patient PT-1031",
+    "age": 35,
+    "gender": "F",
+    "admission_count": 0,
+    "days_since_last_admission": 90,
+    "primary_diagnosis": "Other",
+    "medical_condition": "Other",
+    "admission_type": "Inpatient",
+    "insurance": "Medicaid",
+    "has_pcp": true,
+    "missing_fields": [],
+    "risk_score": 0.1197,
+    "risk_tier": "low",
+    "risk_drivers": [
+      {
+        "factor": "Primary Diagnosis Other",
+        "label": "Primary Diagnosis Other",
+        "direction": "increases",
+        "weight": 1.62,
+        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
+      },
+      {
+        "factor": "Patient age",
+        "label": "Patient age",
+        "direction": "decreases",
+        "weight": 0.81,
+        "summary": "Patient age decreases the model's predicted risk (demo contribution weight: 0.81)."
+      },
+      {
+        "factor": "Demographic gender (Female)",
+        "label": "Demographic gender (Female)",
+        "direction": "decreases",
+        "weight": 0.72,
+        "summary": "Demographic gender (Female) decreases the model's predicted risk (demo contribution weight: 0.72)."
+      }
+    ],
+    "confidence_flags": [],
+    "confidence_level": "high",
+    "action_templates": [
+      "Send electronic discharge summary to patient portal",
+      "Provide routine educational follow-up pamphlet",
+      "Confirm scheduled outpatient follow-up in 30 days"
+    ],
+    "assigned_action_status": "pending",
+    "demo_only": true
+  },
+  {
+    "id": "PT-1035",
+    "name": "Demo Patient PT-1035",
+    "display_name": "Patient PT-1035",
+    "age": 15,
+    "gender": "M",
+    "admission_count": 0,
+    "days_since_last_admission": 90,
     "primary_diagnosis": "Other",
     "medical_condition": "Other",
     "admission_type": "Inpatient",
     "insurance": "NO_INSURANCE",
     "has_pcp": false,
     "missing_fields": [],
-    "risk_score": 0.0754,
+    "risk_score": 0.1053,
+    "risk_tier": "low",
+    "risk_drivers": [
+      {
+        "factor": "Patient age",
+        "label": "Patient age",
+        "direction": "decreases",
+        "weight": 1.79,
+        "summary": "Patient age decreases the model's predicted risk (demo contribution weight: 1.79)."
+      },
+      {
+        "factor": "Primary Diagnosis Other",
+        "label": "Primary Diagnosis Other",
+        "direction": "increases",
+        "weight": 1.62,
+        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
+      },
+      {
+        "factor": "No recorded primary care provider",
+        "label": "No recorded primary care provider",
+        "direction": "decreases",
+        "weight": 0.52,
+        "summary": "No recorded primary care provider decreases the model's predicted risk (demo contribution weight: 0.52)."
+      }
+    ],
+    "confidence_flags": [
+      "Primary care provider (PCP) is not recorded"
+    ],
+    "confidence_level": "review",
+    "action_templates": [
+      "Send electronic discharge summary to patient portal",
+      "Provide routine educational follow-up pamphlet",
+      "Confirm scheduled outpatient follow-up in 30 days"
+    ],
+    "assigned_action_status": "pending",
+    "demo_only": true
+  },
+  {
+    "id": "PT-1030",
+    "name": "Demo Patient PT-1030",
+    "display_name": "Patient PT-1030",
+    "age": 15,
+    "gender": "M",
+    "admission_count": 1,
+    "days_since_last_admission": 138,
+    "primary_diagnosis": "Other",
+    "medical_condition": "Other",
+    "admission_type": "Inpatient",
+    "insurance": "NO_INSURANCE",
+    "has_pcp": false,
+    "missing_fields": [],
+    "risk_score": 0.0809,
+    "risk_tier": "low",
+    "risk_drivers": [
+      {
+        "factor": "Patient age",
+        "label": "Patient age",
+        "direction": "decreases",
+        "weight": 1.79,
+        "summary": "Patient age decreases the model's predicted risk (demo contribution weight: 1.79)."
+      },
+      {
+        "factor": "Primary Diagnosis Other",
+        "label": "Primary Diagnosis Other",
+        "direction": "increases",
+        "weight": 1.62,
+        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
+      },
+      {
+        "factor": "No recorded primary care provider",
+        "label": "No recorded primary care provider",
+        "direction": "decreases",
+        "weight": 0.52,
+        "summary": "No recorded primary care provider decreases the model's predicted risk (demo contribution weight: 0.52)."
+      }
+    ],
+    "confidence_flags": [
+      "Primary care provider (PCP) is not recorded"
+    ],
+    "confidence_level": "review",
+    "action_templates": [
+      "Send electronic discharge summary to patient portal",
+      "Provide routine educational follow-up pamphlet",
+      "Confirm scheduled outpatient follow-up in 30 days"
+    ],
+    "assigned_action_status": "pending",
+    "demo_only": true
+  },
+  {
+    "id": "PT-1034",
+    "name": "Demo Patient PT-1034",
+    "display_name": "Patient PT-1034",
+    "age": 106,
+    "gender": "F",
+    "admission_count": 6,
+    "days_since_last_admission": 264,
+    "primary_diagnosis": "COVID-19",
+    "medical_condition": "COVID-19",
+    "admission_type": "Inpatient",
+    "insurance": "Medicare",
+    "has_pcp": true,
+    "missing_fields": [],
+    "risk_score": 0.0809,
+    "risk_tier": "low",
+    "risk_drivers": [
+      {
+        "factor": "Patient age",
+        "label": "Patient age",
+        "direction": "increases",
+        "weight": 2.68,
+        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 2.68)."
+      },
+      {
+        "factor": "Primary Diagnosis Covid-19",
+        "label": "Primary Diagnosis Covid-19",
+        "direction": "decreases",
+        "weight": 1.47,
+        "summary": "Primary Diagnosis Covid-19 decreases the model's predicted risk (demo contribution weight: 1.47)."
+      },
+      {
+        "factor": "Recency of prior discharge",
+        "label": "Recency of prior discharge",
+        "direction": "decreases",
+        "weight": 1.28,
+        "summary": "Recency of prior discharge decreases the model's predicted risk (demo contribution weight: 1.28)."
+      }
+    ],
+    "confidence_flags": [
+      "Advanced patient age requires review"
+    ],
+    "confidence_level": "review",
+    "action_templates": [
+      "Send electronic discharge summary to patient portal",
+      "Provide routine educational follow-up pamphlet",
+      "Confirm scheduled outpatient follow-up in 30 days"
+    ],
+    "assigned_action_status": "pending",
+    "demo_only": true
+  },
+  {
+    "id": "PT-1041",
+    "name": "Demo Patient PT-1041",
+    "display_name": "Patient PT-1041",
+    "age": 6,
+    "gender": "M",
+    "admission_count": 0,
+    "days_since_last_admission": 90,
+    "primary_diagnosis": "Other",
+    "medical_condition": "Other",
+    "admission_type": "Inpatient",
+    "insurance": "Cigna Health",
+    "has_pcp": false,
+    "missing_fields": [],
+    "risk_score": 0.0623,
+    "risk_tier": "low",
+    "risk_drivers": [
+      {
+        "factor": "Patient age",
+        "label": "Patient age",
+        "direction": "decreases",
+        "weight": 2.24,
+        "summary": "Patient age decreases the model's predicted risk (demo contribution weight: 2.24)."
+      },
+      {
+        "factor": "Primary Diagnosis Other",
+        "label": "Primary Diagnosis Other",
+        "direction": "increases",
+        "weight": 1.62,
+        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
+      },
+      {
+        "factor": "No recorded primary care provider",
+        "label": "No recorded primary care provider",
+        "direction": "decreases",
+        "weight": 0.52,
+        "summary": "No recorded primary care provider decreases the model's predicted risk (demo contribution weight: 0.52)."
+      }
+    ],
+    "confidence_flags": [
+      "Primary care provider (PCP) is not recorded"
+    ],
+    "confidence_level": "review",
+    "action_templates": [
+      "Send electronic discharge summary to patient portal",
+      "Provide routine educational follow-up pamphlet",
+      "Confirm scheduled outpatient follow-up in 30 days"
+    ],
+    "assigned_action_status": "pending",
+    "demo_only": true
+  },
+  {
+    "id": "PT-1044",
+    "name": "Demo Patient PT-1044",
+    "display_name": "Patient PT-1044",
+    "age": 14,
+    "gender": "F",
+    "admission_count": 0,
+    "days_since_last_admission": 90,
+    "primary_diagnosis": "Other",
+    "medical_condition": "Other",
+    "admission_type": "Inpatient",
+    "insurance": "NO_INSURANCE",
+    "has_pcp": false,
+    "missing_fields": [],
+    "risk_score": 0.0622,
     "risk_tier": "low",
     "risk_drivers": [
       {
@@ -2043,128 +2102,35 @@
     "demo_only": true
   },
   {
-    "id": "PT-1029",
-    "name": "Demo Patient PT-1029",
-    "display_name": "Patient PT-1029",
-    "age": 41,
-    "gender": "M",
-    "admission_count": 4,
-    "days_since_last_admission": 365,
-    "primary_diagnosis": "Other",
-    "medical_condition": "Other",
-    "admission_type": "Inpatient",
-    "insurance": "Cigna Health",
-    "has_pcp": true,
-    "missing_fields": [],
-    "risk_score": 0.0615,
-    "risk_tier": "low",
-    "risk_drivers": [
-      {
-        "factor": "Recency of prior discharge",
-        "label": "Recency of prior discharge",
-        "direction": "decreases",
-        "weight": 2.12,
-        "summary": "Recency of prior discharge decreases the model's predicted risk (demo contribution weight: 2.12)."
-      },
-      {
-        "factor": "Primary Diagnosis Other",
-        "label": "Primary Diagnosis Other",
-        "direction": "increases",
-        "weight": 1.62,
-        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
-      },
-      {
-        "factor": "Patient age",
-        "label": "Patient age",
-        "direction": "decreases",
-        "weight": 0.51,
-        "summary": "Patient age decreases the model's predicted risk (demo contribution weight: 0.51)."
-      }
-    ],
-    "confidence_flags": [],
-    "confidence_level": "high",
-    "action_templates": [
-      "Send electronic discharge summary to patient portal",
-      "Provide routine educational follow-up pamphlet",
-      "Confirm scheduled outpatient follow-up in 30 days"
-    ],
-    "assigned_action_status": "pending",
-    "demo_only": true
-  },
-  {
-    "id": "PT-1035",
-    "name": "Demo Patient PT-1035",
-    "display_name": "Patient PT-1035",
-    "age": 32,
-    "gender": "M",
-    "admission_count": 3,
-    "days_since_last_admission": 365,
-    "primary_diagnosis": "Other",
-    "medical_condition": "Other",
-    "admission_type": "Inpatient",
-    "insurance": "Humana",
-    "has_pcp": true,
-    "missing_fields": [],
-    "risk_score": 0.0589,
-    "risk_tier": "low",
-    "risk_drivers": [
-      {
-        "factor": "Recency of prior discharge",
-        "label": "Recency of prior discharge",
-        "direction": "decreases",
-        "weight": 2.12,
-        "summary": "Recency of prior discharge decreases the model's predicted risk (demo contribution weight: 2.12)."
-      },
-      {
-        "factor": "Primary Diagnosis Other",
-        "label": "Primary Diagnosis Other",
-        "direction": "increases",
-        "weight": 1.62,
-        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
-      },
-      {
-        "factor": "Patient age",
-        "label": "Patient age",
-        "direction": "decreases",
-        "weight": 0.96,
-        "summary": "Patient age decreases the model's predicted risk (demo contribution weight: 0.96)."
-      }
-    ],
-    "confidence_flags": [],
-    "confidence_level": "high",
-    "action_templates": [
-      "Send electronic discharge summary to patient portal",
-      "Provide routine educational follow-up pamphlet",
-      "Confirm scheduled outpatient follow-up in 30 days"
-    ],
-    "assigned_action_status": "pending",
-    "demo_only": true
-  },
-  {
-    "id": "PT-1046",
-    "name": "Demo Patient PT-1046",
-    "display_name": "Patient PT-1046",
-    "age": 66,
+    "id": "PT-1047",
+    "name": "Demo Patient PT-1047",
+    "display_name": "Patient PT-1047",
+    "age": 14,
     "gender": "F",
     "admission_count": 0,
     "days_since_last_admission": 90,
-    "primary_diagnosis": "Heart Failure",
-    "medical_condition": "Heart Failure",
+    "primary_diagnosis": "Other",
+    "medical_condition": "Other",
     "admission_type": "Inpatient",
-    "insurance": null,
-    "has_pcp": true,
-    "missing_fields": [
-      "insurance"
-    ],
-    "risk_score": 0.0479,
+    "insurance": "NO_INSURANCE",
+    "has_pcp": false,
+    "missing_fields": [],
+    "risk_score": 0.0622,
     "risk_tier": "low",
     "risk_drivers": [
       {
-        "factor": "Primary Diagnosis Heart Failure",
-        "label": "Primary Diagnosis Heart Failure",
+        "factor": "Patient age",
+        "label": "Patient age",
         "direction": "decreases",
-        "weight": 0.86,
-        "summary": "Primary Diagnosis Heart Failure decreases the model's predicted risk (demo contribution weight: 0.86)."
+        "weight": 1.84,
+        "summary": "Patient age decreases the model's predicted risk (demo contribution weight: 1.84)."
+      },
+      {
+        "factor": "Primary Diagnosis Other",
+        "label": "Primary Diagnosis Other",
+        "direction": "increases",
+        "weight": 1.62,
+        "summary": "Primary Diagnosis Other increases the model's predicted risk (demo contribution weight: 1.62)."
       },
       {
         "factor": "Demographic gender (Female)",
@@ -2172,17 +2138,10 @@
         "direction": "decreases",
         "weight": 0.72,
         "summary": "Demographic gender (Female) decreases the model's predicted risk (demo contribution weight: 0.72)."
-      },
-      {
-        "factor": "Patient age",
-        "label": "Patient age",
-        "direction": "increases",
-        "weight": 0.72,
-        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 0.72)."
       }
     ],
     "confidence_flags": [
-      "insurance field missing"
+      "Primary care provider (PCP) is not recorded"
     ],
     "confidence_level": "review",
     "action_templates": [
@@ -2194,22 +2153,20 @@
     "demo_only": true
   },
   {
-    "id": "PT-1039",
-    "name": "Demo Patient PT-1039",
-    "display_name": "Patient PT-1039",
-    "age": 57,
+    "id": "PT-1050",
+    "name": "Demo Patient PT-1050",
+    "display_name": "Patient PT-1050",
+    "age": 63,
     "gender": "F",
     "admission_count": 0,
     "days_since_last_admission": 90,
     "primary_diagnosis": "COVID-19",
     "medical_condition": "COVID-19",
     "admission_type": "Inpatient",
-    "insurance": null,
+    "insurance": "Humana",
     "has_pcp": true,
-    "missing_fields": [
-      "insurance"
-    ],
-    "risk_score": 0.0392,
+    "missing_fields": [],
+    "risk_score": 0.0519,
     "risk_tier": "low",
     "risk_drivers": [
       {
@@ -2234,10 +2191,8 @@
         "summary": "Insurance Humana increases the model's predicted risk (demo contribution weight: 0.57)."
       }
     ],
-    "confidence_flags": [
-      "insurance field missing"
-    ],
-    "confidence_level": "review",
+    "confidence_flags": [],
+    "confidence_level": "high",
     "action_templates": [
       "Send electronic discharge summary to patient portal",
       "Provide routine educational follow-up pamphlet",
@@ -2247,11 +2202,11 @@
     "demo_only": true
   },
   {
-    "id": "PT-1045",
-    "name": "Demo Patient PT-1045",
-    "display_name": "Patient PT-1045",
-    "age": 71,
-    "gender": "F",
+    "id": "PT-1037",
+    "name": "Demo Patient PT-1037",
+    "display_name": "Patient PT-1037",
+    "age": 66,
+    "gender": "M",
     "admission_count": 0,
     "days_since_last_admission": 90,
     "primary_diagnosis": "COVID-19",
@@ -2260,7 +2215,7 @@
     "insurance": "Medicare",
     "has_pcp": true,
     "missing_fields": [],
-    "risk_score": 0.0338,
+    "risk_score": 0.0443,
     "risk_tier": "low",
     "risk_drivers": [
       {
@@ -2274,157 +2229,8 @@
         "factor": "Patient age",
         "label": "Patient age",
         "direction": "increases",
-        "weight": 0.96,
-        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 0.96)."
-      },
-      {
-        "factor": "Demographic gender (Female)",
-        "label": "Demographic gender (Female)",
-        "direction": "decreases",
         "weight": 0.72,
-        "summary": "Demographic gender (Female) decreases the model's predicted risk (demo contribution weight: 0.72)."
-      }
-    ],
-    "confidence_flags": [],
-    "confidence_level": "high",
-    "action_templates": [
-      "Send electronic discharge summary to patient portal",
-      "Provide routine educational follow-up pamphlet",
-      "Confirm scheduled outpatient follow-up in 30 days"
-    ],
-    "assigned_action_status": "pending",
-    "demo_only": true
-  },
-  {
-    "id": "PT-1043",
-    "name": "Demo Patient PT-1043",
-    "display_name": "Patient PT-1043",
-    "age": 70,
-    "gender": "M",
-    "admission_count": 1,
-    "days_since_last_admission": 365,
-    "primary_diagnosis": "Heart Failure",
-    "medical_condition": "Heart Failure",
-    "admission_type": "Inpatient",
-    "insurance": "Medicare",
-    "has_pcp": true,
-    "missing_fields": [],
-    "risk_score": 0.0116,
-    "risk_tier": "low",
-    "risk_drivers": [
-      {
-        "factor": "Recency of prior discharge",
-        "label": "Recency of prior discharge",
-        "direction": "decreases",
-        "weight": 2.12,
-        "summary": "Recency of prior discharge decreases the model's predicted risk (demo contribution weight: 2.12)."
-      },
-      {
-        "factor": "Patient age",
-        "label": "Patient age",
-        "direction": "increases",
-        "weight": 0.91,
-        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 0.91)."
-      },
-      {
-        "factor": "Primary Diagnosis Heart Failure",
-        "label": "Primary Diagnosis Heart Failure",
-        "direction": "decreases",
-        "weight": 0.86,
-        "summary": "Primary Diagnosis Heart Failure decreases the model's predicted risk (demo contribution weight: 0.86)."
-      }
-    ],
-    "confidence_flags": [],
-    "confidence_level": "high",
-    "action_templates": [
-      "Send electronic discharge summary to patient portal",
-      "Provide routine educational follow-up pamphlet",
-      "Confirm scheduled outpatient follow-up in 30 days"
-    ],
-    "assigned_action_status": "pending",
-    "demo_only": true
-  },
-  {
-    "id": "PT-1048",
-    "name": "Demo Patient PT-1048",
-    "display_name": "Patient PT-1048",
-    "age": 69,
-    "gender": "M",
-    "admission_count": 1,
-    "days_since_last_admission": 365,
-    "primary_diagnosis": "Heart Failure",
-    "medical_condition": "Heart Failure",
-    "admission_type": "Inpatient",
-    "insurance": "Medicare",
-    "has_pcp": false,
-    "missing_fields": [],
-    "risk_score": 0.0098,
-    "risk_tier": "low",
-    "risk_drivers": [
-      {
-        "factor": "Recency of prior discharge",
-        "label": "Recency of prior discharge",
-        "direction": "decreases",
-        "weight": 2.12,
-        "summary": "Recency of prior discharge decreases the model's predicted risk (demo contribution weight: 2.12)."
-      },
-      {
-        "factor": "Primary Diagnosis Heart Failure",
-        "label": "Primary Diagnosis Heart Failure",
-        "direction": "decreases",
-        "weight": 0.86,
-        "summary": "Primary Diagnosis Heart Failure decreases the model's predicted risk (demo contribution weight: 0.86)."
-      },
-      {
-        "factor": "Patient age",
-        "label": "Patient age",
-        "direction": "increases",
-        "weight": 0.86,
-        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 0.86)."
-      }
-    ],
-    "confidence_flags": [
-      "Primary care provider (PCP) is not recorded"
-    ],
-    "confidence_level": "review",
-    "action_templates": [
-      "Send electronic discharge summary to patient portal",
-      "Provide routine educational follow-up pamphlet",
-      "Confirm scheduled outpatient follow-up in 30 days"
-    ],
-    "assigned_action_status": "pending",
-    "demo_only": true
-  },
-  {
-    "id": "PT-1041",
-    "name": "Demo Patient PT-1041",
-    "display_name": "Patient PT-1041",
-    "age": 14,
-    "gender": "M",
-    "admission_count": 0,
-    "days_since_last_admission": 90,
-    "primary_diagnosis": "COVID-19",
-    "medical_condition": "COVID-19",
-    "admission_type": "Inpatient",
-    "insurance": "NO_INSURANCE",
-    "has_pcp": true,
-    "missing_fields": [],
-    "risk_score": 0.0057,
-    "risk_tier": "low",
-    "risk_drivers": [
-      {
-        "factor": "Patient age",
-        "label": "Patient age",
-        "direction": "decreases",
-        "weight": 1.84,
-        "summary": "Patient age decreases the model's predicted risk (demo contribution weight: 1.84)."
-      },
-      {
-        "factor": "Primary Diagnosis Covid-19",
-        "label": "Primary Diagnosis Covid-19",
-        "direction": "decreases",
-        "weight": 1.47,
-        "summary": "Primary Diagnosis Covid-19 decreases the model's predicted risk (demo contribution weight: 1.47)."
+        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 0.72)."
       },
       {
         "factor": "Has recorded primary care provider",
@@ -2445,29 +2251,22 @@
     "demo_only": true
   },
   {
-    "id": "PT-1033",
-    "name": "Demo Patient PT-1033",
-    "display_name": "Patient PT-1033",
-    "age": 69,
-    "gender": "F",
-    "admission_count": 3,
-    "days_since_last_admission": 365,
+    "id": "PT-1029",
+    "name": "Demo Patient PT-1029",
+    "display_name": "Patient PT-1029",
+    "age": 53,
+    "gender": "M",
+    "admission_count": 0,
+    "days_since_last_admission": 90,
     "primary_diagnosis": "COVID-19",
     "medical_condition": "COVID-19",
     "admission_type": "Inpatient",
-    "insurance": "Medicare",
+    "insurance": "UnitedHealthcare",
     "has_pcp": true,
     "missing_fields": [],
-    "risk_score": 0.0044,
+    "risk_score": 0.0426,
     "risk_tier": "low",
     "risk_drivers": [
-      {
-        "factor": "Recency of prior discharge",
-        "label": "Recency of prior discharge",
-        "direction": "decreases",
-        "weight": 2.12,
-        "summary": "Recency of prior discharge decreases the model's predicted risk (demo contribution weight: 2.12)."
-      },
       {
         "factor": "Primary Diagnosis Covid-19",
         "label": "Primary Diagnosis Covid-19",
@@ -2476,15 +2275,226 @@
         "summary": "Primary Diagnosis Covid-19 decreases the model's predicted risk (demo contribution weight: 1.47)."
       },
       {
-        "factor": "Patient age",
-        "label": "Patient age",
+        "factor": "Has recorded primary care provider",
+        "label": "Has recorded primary care provider",
+        "direction": "decreases",
+        "weight": 0.4,
+        "summary": "Has recorded primary care provider decreases the model's predicted risk (demo contribution weight: 0.40)."
+      },
+      {
+        "factor": "Payer: UnitedHealthcare",
+        "label": "Payer: UnitedHealthcare",
         "direction": "increases",
-        "weight": 0.86,
-        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 0.86)."
+        "weight": 0.33,
+        "summary": "Payer: UnitedHealthcare increases the model's predicted risk (demo contribution weight: 0.33)."
       }
     ],
     "confidence_flags": [],
     "confidence_level": "high",
+    "action_templates": [
+      "Send electronic discharge summary to patient portal",
+      "Provide routine educational follow-up pamphlet",
+      "Confirm scheduled outpatient follow-up in 30 days"
+    ],
+    "assigned_action_status": "pending",
+    "demo_only": true
+  },
+  {
+    "id": "PT-1039",
+    "name": "Demo Patient PT-1039",
+    "display_name": "Patient PT-1039",
+    "age": 74,
+    "gender": "M",
+    "admission_count": 0,
+    "days_since_last_admission": 90,
+    "primary_diagnosis": "Heart Failure",
+    "medical_condition": "Heart Failure",
+    "admission_type": "Inpatient",
+    "insurance": null,
+    "has_pcp": true,
+    "missing_fields": [
+      "insurance"
+    ],
+    "risk_score": 0.0299,
+    "risk_tier": "low",
+    "risk_drivers": [
+      {
+        "factor": "Insurance Dual Eligible",
+        "label": "Insurance Dual Eligible",
+        "direction": "decreases",
+        "weight": 1.67,
+        "summary": "Insurance Dual Eligible decreases the model's predicted risk (demo contribution weight: 1.67)."
+      },
+      {
+        "factor": "Patient age",
+        "label": "Patient age",
+        "direction": "increases",
+        "weight": 1.11,
+        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 1.11)."
+      },
+      {
+        "factor": "Primary Diagnosis Heart Failure",
+        "label": "Primary Diagnosis Heart Failure",
+        "direction": "decreases",
+        "weight": 0.86,
+        "summary": "Primary Diagnosis Heart Failure decreases the model's predicted risk (demo contribution weight: 0.86)."
+      }
+    ],
+    "confidence_flags": [
+      "insurance field missing"
+    ],
+    "confidence_level": "review",
+    "action_templates": [
+      "Send electronic discharge summary to patient portal",
+      "Provide routine educational follow-up pamphlet",
+      "Confirm scheduled outpatient follow-up in 30 days"
+    ],
+    "assigned_action_status": "pending",
+    "demo_only": true
+  },
+  {
+    "id": "PT-1045",
+    "name": "Demo Patient PT-1045",
+    "display_name": "Patient PT-1045",
+    "age": 54,
+    "gender": "F",
+    "admission_count": 0,
+    "days_since_last_admission": 90,
+    "primary_diagnosis": "COVID-19",
+    "medical_condition": "COVID-19",
+    "admission_type": "Inpatient",
+    "insurance": "NO_INSURANCE",
+    "has_pcp": true,
+    "missing_fields": [],
+    "risk_score": 0.0236,
+    "risk_tier": "low",
+    "risk_drivers": [
+      {
+        "factor": "Primary Diagnosis Covid-19",
+        "label": "Primary Diagnosis Covid-19",
+        "direction": "decreases",
+        "weight": 1.47,
+        "summary": "Primary Diagnosis Covid-19 decreases the model's predicted risk (demo contribution weight: 1.47)."
+      },
+      {
+        "factor": "Demographic gender (Female)",
+        "label": "Demographic gender (Female)",
+        "direction": "decreases",
+        "weight": 0.72,
+        "summary": "Demographic gender (Female) decreases the model's predicted risk (demo contribution weight: 0.72)."
+      },
+      {
+        "factor": "Has recorded primary care provider",
+        "label": "Has recorded primary care provider",
+        "direction": "decreases",
+        "weight": 0.4,
+        "summary": "Has recorded primary care provider decreases the model's predicted risk (demo contribution weight: 0.40)."
+      }
+    ],
+    "confidence_flags": [],
+    "confidence_level": "high",
+    "action_templates": [
+      "Send electronic discharge summary to patient portal",
+      "Provide routine educational follow-up pamphlet",
+      "Confirm scheduled outpatient follow-up in 30 days"
+    ],
+    "assigned_action_status": "pending",
+    "demo_only": true
+  },
+  {
+    "id": "PT-1040",
+    "name": "Demo Patient PT-1040",
+    "display_name": "Patient PT-1040",
+    "age": 50,
+    "gender": "F",
+    "admission_count": 0,
+    "days_since_last_admission": 90,
+    "primary_diagnosis": "COVID-19",
+    "medical_condition": "COVID-19",
+    "admission_type": "Inpatient",
+    "insurance": "NO_INSURANCE",
+    "has_pcp": true,
+    "missing_fields": [],
+    "risk_score": 0.0195,
+    "risk_tier": "low",
+    "risk_drivers": [
+      {
+        "factor": "Primary Diagnosis Covid-19",
+        "label": "Primary Diagnosis Covid-19",
+        "direction": "decreases",
+        "weight": 1.47,
+        "summary": "Primary Diagnosis Covid-19 decreases the model's predicted risk (demo contribution weight: 1.47)."
+      },
+      {
+        "factor": "Demographic gender (Female)",
+        "label": "Demographic gender (Female)",
+        "direction": "decreases",
+        "weight": 0.72,
+        "summary": "Demographic gender (Female) decreases the model's predicted risk (demo contribution weight: 0.72)."
+      },
+      {
+        "factor": "Has recorded primary care provider",
+        "label": "Has recorded primary care provider",
+        "direction": "decreases",
+        "weight": 0.4,
+        "summary": "Has recorded primary care provider decreases the model's predicted risk (demo contribution weight: 0.40)."
+      }
+    ],
+    "confidence_flags": [],
+    "confidence_level": "high",
+    "action_templates": [
+      "Send electronic discharge summary to patient portal",
+      "Provide routine educational follow-up pamphlet",
+      "Confirm scheduled outpatient follow-up in 30 days"
+    ],
+    "assigned_action_status": "pending",
+    "demo_only": true
+  },
+  {
+    "id": "PT-1032",
+    "name": "Demo Patient PT-1032",
+    "display_name": "Patient PT-1032",
+    "age": 73,
+    "gender": "F",
+    "admission_count": 2,
+    "days_since_last_admission": 248,
+    "primary_diagnosis": "COVID-19",
+    "medical_condition": "COVID-19",
+    "admission_type": "Inpatient",
+    "insurance": null,
+    "has_pcp": true,
+    "missing_fields": [
+      "insurance"
+    ],
+    "risk_score": 0.0127,
+    "risk_tier": "low",
+    "risk_drivers": [
+      {
+        "factor": "Primary Diagnosis Covid-19",
+        "label": "Primary Diagnosis Covid-19",
+        "direction": "decreases",
+        "weight": 1.47,
+        "summary": "Primary Diagnosis Covid-19 decreases the model's predicted risk (demo contribution weight: 1.47)."
+      },
+      {
+        "factor": "Recency of prior discharge",
+        "label": "Recency of prior discharge",
+        "direction": "decreases",
+        "weight": 1.15,
+        "summary": "Recency of prior discharge decreases the model's predicted risk (demo contribution weight: 1.15)."
+      },
+      {
+        "factor": "Patient age",
+        "label": "Patient age",
+        "direction": "increases",
+        "weight": 1.06,
+        "summary": "Patient age increases the model's predicted risk (demo contribution weight: 1.06)."
+      }
+    ],
+    "confidence_flags": [
+      "insurance field missing"
+    ],
+    "confidence_level": "review",
     "action_templates": [
       "Send electronic discharge summary to patient portal",
       "Provide routine educational follow-up pamphlet",
