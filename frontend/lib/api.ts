@@ -594,8 +594,59 @@ export const api = {
     const fallback: ModelEvaluationData = MOCK_MODEL_METRICS;
 
     const result = await fetchWithFallback<ModelEvaluationData>(url, fallback);
+
+    // Normalize the backend response shape into what the frontend ModelEvaluationData type expects.
+    // The backend returns a flat object with a differently-structured confusion_matrix.
+    if (!result.isMock) {
+      try {
+        const raw = result.data as unknown as Record<string, unknown>;
+
+        // The backend confusion_matrix can be either:
+        //   - { true_positive, false_positive, true_negative, false_negative } (flat object), OR
+        //   - [[TN, FP], [FN, TP]] (the 2D array the frontend needs)
+        let cm: [[number, number], [number, number]] = MOCK_MODEL_METRICS.metrics.confusion_matrix;
+
+        const rawCm = raw.confusion_matrix;
+        if (Array.isArray(rawCm) && Array.isArray(rawCm[0])) {
+          // Already in the right shape
+          cm = rawCm as [[number, number], [number, number]];
+        } else if (rawCm && typeof rawCm === 'object' && !Array.isArray(rawCm)) {
+          // Backend returns { true_positive, false_positive, true_negative, false_negative }
+          const c = rawCm as Record<string, number>;
+          cm = [
+            [c.true_negative ?? 0, c.false_positive ?? 0],
+            [c.false_negative ?? 0, c.true_positive ?? 0],
+          ];
+        }
+
+        // Pull scalar metrics — they may live flat on the object or in a nested 'metrics' key
+        const nested = (raw.metrics as Record<string, unknown>) ?? {};
+        const roc_auc = (raw.roc_auc ?? nested.roc_auc ?? 0) as number;
+        const precision = (raw.precision ?? nested.precision ?? 0) as number;
+        const recall = (raw.recall ?? nested.recall ?? 0) as number;
+        const f1 = (raw.f1 ?? nested.f1 ?? 0) as number;
+        // pr_auc is not returned by backend — fall back to mock value
+        const pr_auc = (nested.pr_auc ?? MOCK_MODEL_METRICS.metrics.pr_auc) as number;
+        const total_samples = ((raw.test_samples ?? nested.total_samples ?? MOCK_MODEL_METRICS.metrics.total_samples) as number);
+        const positive_class_ratio = (nested.positive_class_ratio ?? MOCK_MODEL_METRICS.metrics.positive_class_ratio) as number;
+
+        const normalized: ModelEvaluationData = {
+          demo_only: true,
+          metrics: { roc_auc, pr_auc, precision, recall, f1, confusion_matrix: cm, total_samples, positive_class_ratio },
+          preprocessing_summary: (raw.preprocessing_summary as string[]) ?? MOCK_MODEL_METRICS.preprocessing_summary,
+          limitations: (raw.limitations as string[]) ?? MOCK_MODEL_METRICS.limitations,
+          dataset_info: MOCK_MODEL_METRICS.dataset_info,
+        };
+        return { response: normalized, isMock: false };
+      } catch {
+        // If normalization fails for any reason, fall back to mock
+        return { response: fallback, isMock: true };
+      }
+    }
+
     return { response: result.data, isMock: result.isMock };
   },
+
 
   async getHealth(): Promise<{ response: HealthResponse; isMock: boolean }> {
     const url = `${BASE_URL}/health`;
