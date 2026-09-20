@@ -1,0 +1,11 @@
+.venv
+node_modules
+.next
+__pycache__
+*.pyc
+.pytest_cache
+.coverage
+.git
+.gitignore
+.env*.local
+dataset/synthea/raw
