@@ -340,3 +340,22 @@ export function resetDemoState(): void {
     console.error('Error resetting demo state in localStorage:', err);
   }
 }
+
+/** Apply capacity after a reset without adding a second capacity audit spam if unchanged. */
+export function applyScenarioCapacity(capacity: CapacitySettings): void {
+  if (!isBrowser()) return;
+  try {
+    localStorage.setItem(
+      CAPACITY_KEY,
+      JSON.stringify({ ...capacity, last_updated: new Date().toISOString() })
+    );
+    addAuditEvent({
+      event_type: 'capacity_allocated',
+      details: `Judge scenario set tight daily limits (Follow-up: ${capacity.follow_up_call_slots}, Specialist: ${capacity.specialist_review_slots}, Outreach: ${capacity.rapid_outreach_slots}, RN: ${capacity.nurse_consult_slots}).`,
+      actor: 'Judge Scenario',
+    });
+    dispatchSync();
+  } catch (err) {
+    console.error('Error applying scenario capacity:', err);
+  }
+}

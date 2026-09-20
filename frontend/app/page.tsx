@@ -3,6 +3,7 @@ import { RiskSummary } from '@/components/command-center/risk-summary';
 import { PatientFilters } from '@/components/command-center/patient-filters';
 import { PatientQueue } from '@/components/command-center/patient-queue';
 import { AddPatientDialog } from '@/components/command-center/add-patient-dialog';
+import { JudgeScenariosDialog } from '@/components/command-center/judge-scenarios';
 
 export default function CommandCenterPage() {
   return (
@@ -17,7 +18,10 @@ export default function CommandCenterPage() {
             Open a row to review drivers and assign an action.
           </p>
         </div>
-        <AddPatientDialog />
+        <div className="flex flex-wrap items-center gap-2">
+          <JudgeScenariosDialog />
+          <AddPatientDialog />
+        </div>
       </header>
 
       <section aria-label="Summary" className="space-y-3">

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ChevronRight, Menu, RotateCcw, X } from 'lucide-react';
 import { Navigation } from './navigation';
+import { ScenarioCoach } from './scenario-coach';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -16,6 +17,7 @@ import {
 } from '@/components/ui/dialog';
 import { useDemoWorkflow } from '@/hooks/use-demo-workflow';
 import { usePatients } from '@/hooks/use-patients';
+import { useJudgeScenario } from '@/hooks/use-judge-scenario';
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -25,6 +27,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   const { resetDemo } = useDemoWorkflow();
   const { isMock, refetch } = usePatients();
+  const { scenario: activeScenario } = useJudgeScenario();
 
   const breadcrumbs = React.useMemo(() => {
     const segments = pathname.split('/').filter(Boolean);
@@ -211,11 +214,17 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </div>
           </header>
 
-          <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6 lg:px-8">
+          <main
+            className={`mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6 lg:px-8 ${
+              activeScenario ? 'pb-40' : ''
+            }`}
+          >
             {children}
           </main>
         </div>
       </div>
+
+      <ScenarioCoach />
     </div>
   );
 }
