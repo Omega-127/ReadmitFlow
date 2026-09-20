@@ -638,7 +638,14 @@ export const api = {
       });
       if (res.ok) {
         const data = await res.json();
-        return { response: data, isMock: false };
+        const tier = String(data.risk_tier || '').toLowerCase();
+        return {
+          response: {
+            ...data,
+            risk_tier: tier === 'high' || tier === 'medium' || tier === 'low' ? tier : 'medium',
+          },
+          isMock: false,
+        };
       }
     } catch {
       // Fallback below

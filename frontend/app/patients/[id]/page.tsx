@@ -6,6 +6,7 @@ import { useParams } from 'next/navigation';
 import { AlertCircle, ArrowLeft, Loader2 } from 'lucide-react';
 import { api } from '@/lib/api';
 import { Patient, RiskTier } from '@/lib/types';
+import { getStoredCustomPatientById } from '@/lib/local-storage';
 import { useDemoWorkflow } from '@/hooks/use-demo-workflow';
 import { usePatients } from '@/hooks/use-patients';
 import { PatientHeader } from '@/components/patient-review/patient-header';
@@ -47,8 +48,16 @@ export default function PatientReviewPage() {
       setIsLoading(true);
       setError(null);
       try {
+        const local = getStoredCustomPatientById(patientId);
+        if (local) {
+          setPatient(local);
+          return;
+        }
+
         const res = await api.getPatientById(patientId);
-        if (res.response.patient) {
+        if (res.response.patient && res.response.patient.id.toLowerCase() === patientId.toLowerCase()) {
+          setPatient(res.response.patient);
+        } else if (res.response.patient && !res.isMock) {
           setPatient(res.response.patient);
         } else {
           setError(`No patient matching "${patientId}".`);

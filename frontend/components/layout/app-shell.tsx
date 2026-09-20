@@ -58,8 +58,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <DialogHeader>
             <DialogTitle>Reset demo?</DialogTitle>
             <DialogDescription className="mt-2">
-              Clears overrides, assigned actions, capacity changes, and audit history.
-              Seed patient data stays the same.
+              Clears overrides, assigned actions, capacity changes, scored custom
+              patients, and audit history. Seed patient data stays the same.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="gap-2 sm:gap-0">

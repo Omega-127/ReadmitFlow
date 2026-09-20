@@ -1,10 +1,11 @@
-import { Action, ActionStatus, AuditEvent, CapacitySettings, Override } from './types';
+import { Action, ActionStatus, AuditEvent, CapacitySettings, Override, Patient } from './types';
 import { DEFAULT_CAPACITY_SETTINGS } from './constants';
 
 const OVERRIDES_KEY = 'readmitflow_overrides';
 const ACTIONS_KEY = 'readmitflow_actions';
 const CAPACITY_KEY = 'readmitflow_capacity';
 const AUDIT_KEY = 'readmitflow_audit';
+const CUSTOM_PATIENTS_KEY = 'readmitflow_custom_patients';
 const INITIALIZED_KEY = 'readmitflow_demo_initialized_v1';
 
 export const STORAGE_SYNC_EVENT = 'readmitflow:state_sync';
@@ -282,6 +283,42 @@ export function addAuditEvent(event: Omit<AuditEvent, 'id' | 'timestamp'>): Audi
   return newEvent;
 }
 
+export function getStoredCustomPatients(): Patient[] {
+  if (!isBrowser()) return [];
+  try {
+    const raw = localStorage.getItem(CUSTOM_PATIENTS_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch (err) {
+    console.error('Error reading custom patients from localStorage:', err);
+    return [];
+  }
+}
+
+export function getStoredCustomPatientById(patientId: string): Patient | undefined {
+  return getStoredCustomPatients().find(
+    (p) => p.id.toLowerCase() === patientId.toLowerCase()
+  );
+}
+
+export function saveCustomPatient(patient: Patient): void {
+  if (!isBrowser()) return;
+  try {
+    const current = getStoredCustomPatients().filter((p) => p.id !== patient.id);
+    localStorage.setItem(CUSTOM_PATIENTS_KEY, JSON.stringify([patient, ...current]));
+
+    addAuditEvent({
+      patient_id: patient.id,
+      event_type: 'triage_reviewed',
+      details: `Scored synthetic patient ${patient.id} (${patient.risk_tier} risk, ${(patient.risk_score * 100).toFixed(1)}%).`,
+      actor: 'Care Coordinator',
+    });
+
+    dispatchSync();
+  } catch (err) {
+    console.error('Error saving custom patient to localStorage:', err);
+  }
+}
+
 export function resetDemoState(): void {
   if (!isBrowser()) return;
   try {
@@ -289,6 +326,7 @@ export function resetDemoState(): void {
     localStorage.setItem(ACTIONS_KEY, JSON.stringify(SEED_ACTIONS));
     localStorage.setItem(CAPACITY_KEY, JSON.stringify(DEFAULT_CAPACITY_SETTINGS));
     localStorage.setItem(AUDIT_KEY, JSON.stringify(SEED_AUDIT));
+    localStorage.setItem(CUSTOM_PATIENTS_KEY, JSON.stringify([]));
     localStorage.setItem(INITIALIZED_KEY, 'true');
 
     addAuditEvent({

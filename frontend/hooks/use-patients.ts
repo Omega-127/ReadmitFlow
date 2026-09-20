@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ActionStatus, Override, Patient, RiskTier } from '@/lib/types';
 import { api } from '@/lib/api';
+import { getStoredCustomPatients, STORAGE_SYNC_EVENT } from '@/lib/local-storage';
 import { useDemoWorkflow } from './use-demo-workflow';
 
 export interface EnrichedPatient extends Patient {
@@ -13,7 +14,8 @@ export interface EnrichedPatient extends Patient {
 }
 
 export function usePatients() {
-  const [rawPatients, setRawPatients] = useState<Patient[]>([]);
+  const [apiPatients, setApiPatients] = useState<Patient[]>([]);
+  const [customPatients, setCustomPatients] = useState<Patient[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isMock, setIsMock] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -27,23 +29,45 @@ export function usePatients() {
 
   const { overrides, actions, isReady } = useDemoWorkflow();
 
+  const loadCustomPatients = useCallback(() => {
+    setCustomPatients(getStoredCustomPatients());
+  }, []);
+
   const fetchPatients = useCallback(async () => {
     setIsLoading(true);
     setError(null);
     try {
       const res = await api.getPatients();
-      setRawPatients(res.response.patients || []);
+      setApiPatients(res.response.patients || []);
       setIsMock(res.isMock);
+      loadCustomPatients();
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Failed to fetch patients');
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [loadCustomPatients]);
 
   useEffect(() => {
     fetchPatients();
   }, [fetchPatients]);
+
+  useEffect(() => {
+    loadCustomPatients();
+    const handleSync = () => loadCustomPatients();
+    window.addEventListener(STORAGE_SYNC_EVENT, handleSync);
+    window.addEventListener('storage', handleSync);
+    return () => {
+      window.removeEventListener(STORAGE_SYNC_EVENT, handleSync);
+      window.removeEventListener('storage', handleSync);
+    };
+  }, [loadCustomPatients]);
+
+  const rawPatients = useMemo(() => {
+    const apiIds = new Set(apiPatients.map((p) => p.id));
+    const extras = customPatients.filter((p) => !apiIds.has(p.id));
+    return [...extras, ...apiPatients];
+  }, [apiPatients, customPatients]);
 
   // Merge raw patients with live localStorage overrides and actions
   const enrichedPatients = useMemo<EnrichedPatient[]>(() => {
