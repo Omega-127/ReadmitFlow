@@ -4,7 +4,9 @@
 
 ReadmitFlow uses **synthetic or organizer-approved de-identified data only**. Do not commit raw real-patient data, credentials, or personally identifying records.
 
-The organizer-specified Healthcare Dataset appears to include patient demographics, admission details, hospital details, billing, medication, and test-result data. It may not include a valid readmission outcome label. The application must therefore separate source fields from any approved model target.
+**Primary training source:** Synthea COVID-19 10K CSV sample (`dataset/synthea/`). The 30-day readmission label is **derived** from inpatient encounter timelines (next inpatient within 30 days of discharge). Outputs remain decision-support / demo-only.
+
+The original organizer Healthcare Dataset may still be referenced for context, but it lacks a verified readmission outcome and is not the default training source.
 
 ## Patient fields
 
@@ -63,6 +65,7 @@ These records are stored in browser local storage for the demo. They are not sen
 | No approved readmission target | Do not train or claim a real readmission model. Mark all scores and metrics as **Demo Only**. |
 | Organizer approves a proxy label | Document the exact rule, limitations, class balance, and why the label is only a proxy. |
 | Organizer approves supplementary labelled data | Document source, schema mapping, split strategy, evaluation metrics, and relationship to the required dataset. |
+| Synthea derived 30-day label (current default) | Train on synthetic EHR with documented inpatient-to-inpatient return window; keep **Demo Only** product framing. |
 | Approved genuine readmission target | Train only after leakage checks and export model metadata with thresholds and limitations. |
 
 ## Data handling checklist

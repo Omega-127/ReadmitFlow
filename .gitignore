@@ -45,3 +45,8 @@ htmlcov/
 dist/
 build/
 *.egg
+
+# Large / regenerable datasets (keep small derived feature tables if needed)
+dataset/synthea/raw/
+dataset/synthea/*.zip
+dataset/healthcare_dataset.csv
