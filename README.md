@@ -8,9 +8,15 @@
 [![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=FFD43B)](https://www.python.org/)
 [![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat-square&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
 [![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Vercel Deployment](https://img.shields.io/badge/Live%20Demo-Vercel-black?style=flat-square&logo=vercel)](https://readmitflow.vercel.app/)
+[![Render API](https://img.shields.io/badge/API%20Docs-Render-46E3B7?style=flat-square&logo=render)](https://readmitflow-backend.onrender.com/docs)
 [![License: MIT](https://img.shields.io/badge/License-MIT-334E68?style=flat-square)](./LICENSE)
 
-**ReadmitFlow** is an explainable discharge decision-support prototype. It helps care teams identify patients at potential readmission risk, understand the reasons behind a score, and assign human-approved follow-up actions — with shift handoff export and guided judge demo scenarios.
+**ReadmitFlow** is an explainable clinical discharge decision-support prototype. It helps care teams identify patients at potential readmission risk, understand the reasons behind a score, and assign human-approved follow-up actions — with shift handoff export and guided judge demo scenarios.
+
+- **Live Web Application:** [https://readmitflow.vercel.app/](https://readmitflow.vercel.app/)
+- **Backend API & Swagger Docs:** [https://readmitflow-backend.onrender.com/docs](https://readmitflow-backend.onrender.com/docs)
+- **GitHub Repository:** [https://github.com/Omega-127/ReadmitFlow](https://github.com/Omega-127/ReadmitFlow)
 
 > Built with synthetic data for a hackathon prototype. ReadmitFlow is not a diagnostic tool and must not be used to make autonomous clinical decisions.
 
@@ -123,9 +129,11 @@ docker compose up --build
 ```
 
 ## Deployment
-
-- **Backend** → Render (Docker). Use the root `render.yaml` for blueprint deployment, or deploy manually. See `docs/DEPLOYMENT.md` for detailed instructions.
-- **Frontend** → Vercel. Set `NEXT_PUBLIC_API_URL` to your Render backend URL.
+ 
+- **Frontend** → [https://readmitflow.vercel.app/](https://readmitflow.vercel.app/) (Vercel)
+- **Backend** → [https://readmitflow-backend.onrender.com](https://readmitflow-backend.onrender.com) (Render Docker Web Service)
+- **API Docs (Swagger)** → [https://readmitflow-backend.onrender.com/docs](https://readmitflow-backend.onrender.com/docs)
+- Use the root `render.yaml` for blueprint deployment, or deploy manually. See `docs/DEPLOYMENT.md` for detailed instructions.
 - Each service has its own `Dockerfile`.
 
 ## Data and responsible use
@@ -148,8 +156,12 @@ docker compose up --build
 - [x] Score Patient dialog scores new synthetic cases via POST /predict.
 - [x] Judge demo scenarios guide structured presentations.
 - [x] Docker Compose orchestration works locally.
-- [ ] Hosted deployment and local fallback are tested before presentation.
+- [x] Hosted deployment and local fallback are tested before presentation.
 
 ## License
 
 This project is intended for educational and hackathon use. See the [LICENSE](./LICENSE) file.
+
+---
+
+*Signed off by Team Runtime Rebels*
